@@ -60,7 +60,7 @@ function MainScreen() {
             keyExtractor={({ id }, index) => id}
             renderItem={({ item }) => (
               <Text>
-                {item.name}, {item.email}
+                {item.note_title}: {item.note_text}
               </Text>
             )}
           />
