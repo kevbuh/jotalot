@@ -1,14 +1,34 @@
 import * as React from "react";
 import {
+  Button,
   ScrollView,
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
 
-export default function CreateNoteScreen() {
+export default function CreateNoteScreen(props) {
   const [currentNote, setCurrentNote] = React.useState("");
   const [currentTitle, setCurrentTitle] = React.useState("");
+
+  const CreateNewNote = () => {
+    fetch("http://127.0.0.1:8000/notes/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        note_title: currentTitle,
+        note_text: currentNote,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Saved note!");
+        console.log(data);
+      })
+      .catch((error) => console.log("error", error));
+  };
 
   return (
     <TouchableWithoutFeedback
@@ -40,16 +60,12 @@ export default function CreateNoteScreen() {
           value={currentNote}
           onChangeText={setCurrentNote}
         />
-        {/* <Button
-        title="Done"
-        onPress={() => {
-          navigation.navigate({
-            name: "Main",
-            params: { note: currentNote },
-            merge: true,
-          });
-        }}
-      /> */}
+        <Button
+          title="Save"
+          onPress={() => {
+            CreateNewNote();
+          }}
+        />
       </ScrollView>
     </TouchableWithoutFeedback>
   );

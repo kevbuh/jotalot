@@ -33,7 +33,7 @@ function MainScreen() {
         }
       })
       .then((json) => {
-        console.log(json);
+        // console.log(json);
         setData(json);
         setLoading(false);
       })

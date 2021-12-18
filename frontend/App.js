@@ -70,6 +70,7 @@ function App() {
     <NativeBaseProvider theme={theme}>
       <NavigationContainer>
         <Tab.Navigator
+          initialRouteName="Notes"
           screenOptions={({ route }) => ({
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {
@@ -85,7 +86,6 @@ function App() {
             tabBarInactiveTintColor: "gray",
           })}
         >
-          <Tab.Screen name="Notes" component={NoteStackScreen} />
           <Tab.Screen
             name="Home"
             component={HomeStackScreen}
@@ -100,6 +100,7 @@ function App() {
               headerLeft: (props) => <LogoTitle {...props} />,
             })}
           />
+          <Tab.Screen name="Notes" component={NoteStackScreen} />
         </Tab.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
