@@ -1,5 +1,12 @@
-import * as React from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+// import * as React from "react";
+import React, { useEffect, useState } from "react";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+} from "react-native";
 
 const styles = StyleSheet.create({
   container: {
@@ -9,19 +16,55 @@ const styles = StyleSheet.create({
   },
 });
 
-function MainScreen({ route }) {
-  // React.useEffect(() => {
-  //   if (route.params?.note) {
-  //     // do something here
-  //   }
-  // }, [route.params?.note]);
+function MainScreen() {
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+
+  const getNotes = () => {
+    console.log("fetching data");
+    fetch("http://localhost:8000/notes", {
+      method: "GET",
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw res.json();
+        }
+      })
+      .then((json) => {
+        console.log(json);
+        setData(json);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getNotes();
+  }, []);
 
   return (
     <View style={styles.container}>
-      {route.params?.note ? (
-        <Text style={{ margin: 10 }}>{route.params?.note}</Text>
+      {isLoading ? (
+        <ActivityIndicator />
       ) : (
-        <Text style={{ margin: 10 }}>No Current Notes</Text>
+        <View>
+          <Text style={{ padding: 40, fontSize: 20, fontWeight: "bold" }}>
+            Your Notes:
+          </Text>
+          <FlatList
+            data={data}
+            keyExtractor={({ id }, index) => id}
+            renderItem={({ item }) => (
+              <Text>
+                {item.name}, {item.email}
+              </Text>
+            )}
+          />
+        </View>
       )}
     </View>
   );
