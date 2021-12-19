@@ -50,7 +50,21 @@ function HomeStackScreen() {
       />
       <HomeStack.Screen name="Welcome" component={WelcomeScreen} />
       <HomeStack.Screen name="Account" component={AccountScreen} />
-      <HomeStack.Screen name="Edit Note" component={EditNoteScreen} />
+      <HomeStack.Screen
+        name="Edit Note"
+        component={EditNoteScreen}
+        options={({ navigation }) => ({
+          headerRight: () => (
+            <Button
+              title="Settings"
+              onPress={() => navigation.navigate("Customize Note")}
+            />
+          ),
+          // headerTitle: "Settings",
+          // headerLeft: (props) => <LogoTitle {...props} />,
+        })}
+      />
+      <HomeStack.Screen name="Customize Note" component={NoteSettingsScreen} />
     </HomeStack.Navigator>
   );
 }
@@ -70,15 +84,9 @@ function NoteStackScreen() {
             backgroundColor: "#f2f2f2",
           },
           headerTintColor: "black",
-          // headerRight: () => (
-          //   <Button
-          //     title="Save"
-          //     onPress={() => navigation.navigate("Account")}
-          //   />
-          // ),
         }}
       />
-      <Drawer.Screen name="Customize Note" component={NoteSettingsScreen} />
+
       <Drawer.Screen name="Add Note" component={CreateNoteScreen} />
 
       <Drawer.Screen name="Trash" component={TrashScreen} />

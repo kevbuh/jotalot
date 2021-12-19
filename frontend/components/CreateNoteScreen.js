@@ -1,4 +1,3 @@
-// import * as React from "react";
 import React, { useEffect } from "react";
 import {
   Button,
@@ -12,6 +11,10 @@ import {
 export default function CreateNoteScreen() {
   const [currentNote, setCurrentNote] = React.useState("");
   const [currentTitle, setCurrentTitle] = React.useState("");
+  const [postCurrentNote, setPostCurrentNote] = React.useState(false);
+  const [didAlreadyCreate, setDidAlreadyCreate] = React.useState(false);
+
+  const [data, setData] = React.useState([]);
 
   const CreateNewNote = () => {
     fetch("http://127.0.0.1:8000/notes/", {
@@ -25,12 +28,51 @@ export default function CreateNoteScreen() {
       }),
     })
       .then((res) => res.json())
+      .then((data) => {
+        // console.log("Saved note!");
+        console.log(data);
+        setData(data);
+        console.log(data.id);
+      })
+      .catch((error) => console.log("error", error));
+  };
+
+  useEffect(() => {
+    if (currentNote.length > 0 && currentTitle.length > 0) {
+      setPostCurrentNote(true);
+    }
+  }, [currentNote, currentTitle]);
+
+  useEffect(() => {
+    if (postCurrentNote == true && didAlreadyCreate == false) {
+      setDidAlreadyCreate(true);
+      CreateNewNote();
+    }
+  }, [postCurrentNote]);
+
+  const UpdateNote = () => {
+    fetch(`http://127.0.0.1:8000/notes/${data.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        note_title: currentTitle,
+        note_text: currentNote,
+      }),
+    })
+      .then((res) => res.json())
       // .then((data) => {
-      //   // console.log("Saved note!");
-      //   console.log(data);
+      //   navigation.navigate("Edit Note", { item: data });
       // })
       .catch((error) => console.log("error", error));
   };
+
+  useEffect(() => {
+    if (didAlreadyCreate == true) {
+      UpdateNote();
+    }
+  }, [currentNote, currentTitle]);
 
   return (
     <TouchableWithoutFeedback
@@ -41,14 +83,25 @@ export default function CreateNoteScreen() {
       <ScrollView>
         <View
           style={{
-            alignSelf: "flex-end",
+            flex: 1,
+            flexDirection: "row",
             marginHorizontal: 8,
             marginTop: 10,
+            justifyContent: "space-between",
           }}
         >
           <Button
             title="Save"
             onPress={() => {
+              CreateNewNote();
+            }}
+            color="black"
+          />
+          <Button
+            title="+"
+            onPress={() => {
+              setCurrentNote("");
+              setCurrentTitle("");
               CreateNewNote();
             }}
             color="black"
@@ -64,6 +117,9 @@ export default function CreateNoteScreen() {
             placeholder="Edit Title"
             value={currentTitle}
             onChangeText={setCurrentTitle}
+            // onChangeText={() => {
+            //   setCurrentTitle, setShouldCreateTitle(true);
+            // }}
           />
           <TextInput
             multiline
@@ -77,6 +133,9 @@ export default function CreateNoteScreen() {
             placeholder="Tap here to edit text"
             value={currentNote}
             onChangeText={setCurrentNote}
+            // onChangeText={() => {
+            //   setCurrentNote, setShouldCreateNote(true);
+            // }}
           />
         </View>
       </ScrollView>

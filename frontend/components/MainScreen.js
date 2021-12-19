@@ -69,7 +69,7 @@ function MainScreen(props) {
           paddingVertical: 20,
           paddingHorizontal: 10,
           // borderWidth: 1,
-          borderTopWidth: 2,
+          borderTopWidth: 1,
           borderRadius: 5,
           borderColor: "#D3D3D3",
         }}

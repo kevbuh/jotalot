@@ -1,5 +1,5 @@
 // import * as React from "react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   ScrollView,
@@ -9,11 +9,8 @@ import {
   View,
   SafeAreaView,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
 export default function EditNoteScreen(props) {
-  const navigation = useNavigation();
-
   const sentData = props.route.params.item;
 
   const [currentTitleUpdate, setCurrentTitleUpdate] = useState(
@@ -36,11 +33,15 @@ export default function EditNoteScreen(props) {
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        navigation.navigate("Main");
-      })
+      // .then((data) => {
+      //   navigation.navigate("Main");
+      // })
       .catch((error) => console.log("error", error));
   };
+
+  useEffect(() => {
+    UpdateNote();
+  }, [currentNoteUpdate, currentTitleUpdate]);
 
   const DeleteNote = (sentData) => {
     fetch(`http://127.0.0.1:8000/notes/${sentData.id}`, {
@@ -66,21 +67,24 @@ export default function EditNoteScreen(props) {
           <View
             style={{
               alignSelf: "flex-end",
+              flex: 1,
               marginHorizontal: 8,
               marginTop: 10,
+              flexDirection: "row",
+              // justifyContent: "space-between",
             }}
           >
+            {/* <Button
+              title="Save"
+              onPress={() => {
+                UpdateNote();
+              }}
+              color="black"
+            /> */}
             <Button
               title="Delete"
               onPress={() => {
                 DeleteNote(sentData);
-              }}
-              color="black"
-            />
-            <Button
-              title="Update"
-              onPress={() => {
-                UpdateNote();
               }}
               color="black"
             />
