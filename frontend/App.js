@@ -14,6 +14,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import TrashScreen from "./components/TrashScreen";
 import FeedbackScreen from "./components/FeedbackScreen";
 import { extendTheme, NativeBaseProvider } from "native-base";
+import EditNoteScreen from "./components/EditNoteScreen";
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -45,11 +46,11 @@ function HomeStackScreen() {
           headerStyle: {
             backgroundColor: "#f2f2f2",
           },
-          // headerTintColor: "#d3d3d3",
         })}
       />
       <HomeStack.Screen name="Welcome" component={WelcomeScreen} />
       <HomeStack.Screen name="Account" component={AccountScreen} />
+      <HomeStack.Screen name="Edit Note" component={EditNoteScreen} />
     </HomeStack.Navigator>
   );
 }
@@ -78,7 +79,8 @@ function NoteStackScreen() {
         }}
       />
       <Drawer.Screen name="Customize Note" component={NoteSettingsScreen} />
-      <Drawer.Screen name="Add a note" component={CreateNoteScreen} />
+      <Drawer.Screen name="Add Note" component={CreateNoteScreen} />
+
       <Drawer.Screen name="Trash" component={TrashScreen} />
       <Drawer.Screen name="Feedback" component={FeedbackScreen} />
     </Drawer.Navigator>

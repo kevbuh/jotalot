@@ -8,11 +8,12 @@ import {
   ScrollView,
   SafeAreaView,
   RefreshControl,
-  TouchableOpacity,
+  Pressable,
+  LogBox,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-function MainScreen() {
+function MainScreen(props) {
   const [refreshing, setRefreshing] = React.useState(false);
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
@@ -42,6 +43,7 @@ function MainScreen() {
   };
 
   useEffect(() => {
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
     getNotes();
   }, []);
 
@@ -59,7 +61,7 @@ function MainScreen() {
 
   const renderNotes = (item) => {
     return (
-      <TouchableOpacity
+      <Pressable
         style={{
           width: "95%",
           marginHorizontal: 10,
@@ -70,13 +72,17 @@ function MainScreen() {
           borderRadius: 5,
           borderColor: "#D3D3D3",
         }}
-        onPress={() => navigation.navigate("Untitled Note")}
+        onPress={() => {
+          navigation.navigate("Edit Note", {
+            item: item,
+          });
+        }}
       >
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>
           {item.note_title}
         </Text>
         <Text>{item.note_text}</Text>
-      </TouchableOpacity>
+      </Pressable>
     );
   };
 
