@@ -9,6 +9,7 @@ import {
   View,
   SafeAreaView,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function EditNoteScreen(props) {
   const sentData = props.route.params.item;
@@ -20,6 +21,8 @@ export default function EditNoteScreen(props) {
   const [currentNoteUpdate, setCurrentNoteUpdate] = useState(
     sentData.note_text
   );
+
+  const navigation = useNavigation();
 
   const UpdateNote = () => {
     fetch(`http://127.0.0.1:8000/notes/${sentData.id}`, {
@@ -33,9 +36,6 @@ export default function EditNoteScreen(props) {
       }),
     })
       .then((res) => res.json())
-      // .then((data) => {
-      //   navigation.navigate("Main");
-      // })
       .catch((error) => console.log("error", error));
   };
 
@@ -49,11 +49,7 @@ export default function EditNoteScreen(props) {
       headers: {
         "Content-Type": "application/json",
       },
-    })
-      .then((data) => {
-        props.navigation.navigate("Main");
-      })
-      .catch((error) => console.log("error", error));
+    }).catch((error) => console.log("error", error));
   };
 
   return (
@@ -66,25 +62,18 @@ export default function EditNoteScreen(props) {
         <ScrollView>
           <View
             style={{
-              alignSelf: "flex-end",
               flex: 1,
+              alignSelf: "flex-end",
+              flexDirection: "row",
               marginHorizontal: 8,
               marginTop: 10,
-              flexDirection: "row",
-              // justifyContent: "space-between",
             }}
           >
-            {/* <Button
-              title="Save"
-              onPress={() => {
-                UpdateNote();
-              }}
-              color="black"
-            /> */}
             <Button
               title="Delete"
               onPress={() => {
                 DeleteNote(sentData);
+                navigation.navigate("Main");
               }}
               color="black"
             />

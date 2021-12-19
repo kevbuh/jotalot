@@ -29,10 +29,7 @@ export default function CreateNoteScreen() {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log("Saved note!");
-        console.log(data);
         setData(data);
-        console.log(data.id);
       })
       .catch((error) => console.log("error", error));
   };
@@ -62,9 +59,6 @@ export default function CreateNoteScreen() {
       }),
     })
       .then((res) => res.json())
-      // .then((data) => {
-      //   navigation.navigate("Edit Note", { item: data });
-      // })
       .catch((error) => console.log("error", error));
   };
 
@@ -83,20 +77,13 @@ export default function CreateNoteScreen() {
       <ScrollView>
         <View
           style={{
+            alignSelf: "flex-end",
             flex: 1,
-            flexDirection: "row",
             marginHorizontal: 8,
             marginTop: 10,
-            justifyContent: "space-between",
+            flexDirection: "row",
           }}
         >
-          <Button
-            title="Save"
-            onPress={() => {
-              CreateNewNote();
-            }}
-            color="black"
-          />
           <Button
             title="+"
             onPress={() => {
@@ -117,9 +104,6 @@ export default function CreateNoteScreen() {
             placeholder="Edit Title"
             value={currentTitle}
             onChangeText={setCurrentTitle}
-            // onChangeText={() => {
-            //   setCurrentTitle, setShouldCreateTitle(true);
-            // }}
           />
           <TextInput
             multiline
@@ -133,9 +117,6 @@ export default function CreateNoteScreen() {
             placeholder="Tap here to edit text"
             value={currentNote}
             onChangeText={setCurrentNote}
-            // onChangeText={() => {
-            //   setCurrentNote, setShouldCreateNote(true);
-            // }}
           />
         </View>
       </ScrollView>

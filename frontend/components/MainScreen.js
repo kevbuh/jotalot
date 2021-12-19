@@ -21,7 +21,6 @@ function MainScreen(props) {
   const navigation = useNavigation();
 
   const getNotes = () => {
-    // console.log("fetching data");
     fetch("http://localhost:8000/notes", {
       method: "GET",
     })
@@ -33,7 +32,6 @@ function MainScreen(props) {
         }
       })
       .then((json) => {
-        // console.log(json);
         setData(json);
         setLoading(false);
       })
@@ -65,10 +63,8 @@ function MainScreen(props) {
         style={{
           width: "95%",
           marginHorizontal: 10,
-          // marginVertical: 8,
           paddingVertical: 20,
           paddingHorizontal: 10,
-          // borderWidth: 1,
           borderTopWidth: 1,
           borderRadius: 5,
           borderColor: "#D3D3D3",

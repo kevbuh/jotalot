@@ -60,8 +60,6 @@ function HomeStackScreen() {
               onPress={() => navigation.navigate("Customize Note")}
             />
           ),
-          // headerTitle: "Settings",
-          // headerLeft: (props) => <LogoTitle {...props} />,
         })}
       />
       <HomeStack.Screen name="Customize Note" component={NoteSettingsScreen} />
@@ -71,11 +69,7 @@ function HomeStackScreen() {
 
 function NoteStackScreen() {
   return (
-    <Drawer.Navigator
-      initialRouteName="Untitled Note"
-
-      // drawerContent={(props) => <DrawerContent {...props} />}
-    >
+    <Drawer.Navigator initialRouteName="Untitled Note">
       <Drawer.Screen
         name="Untitled Note"
         component={CreateNoteScreen}
@@ -114,8 +108,6 @@ function App() {
             },
             tabBarActiveTintColor: "#121212",
             tabBarInactiveTintColor: "gray",
-            // tabBarBackground: "#f2f2f2",
-            // tabBarActiveBackgroundColor: "#f2f2f2",
           })}
         >
           <Tab.Screen
