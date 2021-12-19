@@ -61,7 +61,7 @@ export default function CreateNoteScreen() {
               marginLeft: 20,
               fontSize: 30,
             }}
-            placeholder="Untitled"
+            placeholder="Edit Title"
             value={currentTitle}
             onChangeText={setCurrentTitle}
           />
@@ -74,7 +74,7 @@ export default function CreateNoteScreen() {
               fontSize: 20,
             }}
             borderColor="#D3D3D3"
-            placeholder="Tap here to continue"
+            placeholder="Tap here to edit text"
             value={currentNote}
             onChangeText={setCurrentNote}
           />

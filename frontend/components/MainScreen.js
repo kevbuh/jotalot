@@ -8,12 +8,16 @@ import {
   ScrollView,
   SafeAreaView,
   RefreshControl,
+  TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 function MainScreen() {
   const [refreshing, setRefreshing] = React.useState(false);
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+
+  const navigation = useNavigation();
 
   const getNotes = () => {
     // console.log("fetching data");
@@ -47,7 +51,7 @@ function MainScreen() {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    wait(1000)
+    wait(500)
       .then(getNotes())
       .then(() => setRefreshing(false))
       .catch((error) => console.log("error", error));
@@ -55,7 +59,7 @@ function MainScreen() {
 
   const renderNotes = (item) => {
     return (
-      <View
+      <TouchableOpacity
         style={{
           width: "95%",
           marginHorizontal: 10,
@@ -66,12 +70,13 @@ function MainScreen() {
           borderRadius: 5,
           borderColor: "#D3D3D3",
         }}
+        onPress={() => navigation.navigate("Untitled Note")}
       >
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>
           {item.note_title}
         </Text>
         <Text>{item.note_text}</Text>
-      </View>
+      </TouchableOpacity>
     );
   };
 
