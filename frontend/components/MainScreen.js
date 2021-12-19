@@ -2,23 +2,16 @@
 import React, { useEffect, useState } from "react";
 import {
   FlatList,
-  StyleSheet,
   Text,
   View,
   ActivityIndicator,
   ScrollView,
   SafeAreaView,
+  RefreshControl,
 } from "react-native";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
-
-function MainScreen({ navigation }) {
+function MainScreen() {
+  const [refreshing, setRefreshing] = React.useState(false);
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
@@ -48,52 +41,73 @@ function MainScreen({ navigation }) {
     getNotes();
   }, []);
 
+  const wait = (timeout) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(1000)
+      .then(getNotes())
+      .then(() => setRefreshing(false))
+      .catch((error) => console.log("error", error));
+  }, []);
+
+  const renderNotes = (item) => {
+    return (
+      <View
+        style={{
+          width: "95%",
+          marginHorizontal: 10,
+          marginVertical: 8,
+          paddingVertical: 20,
+          paddingHorizontal: 10,
+          borderWidth: 1,
+          borderRadius: 5,
+          borderColor: "#D3D3D3",
+        }}
+      >
+        <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+          {item.note_title}
+        </Text>
+        <Text>{item.note_text}</Text>
+      </View>
+    );
+  };
+
   return (
-    <ScrollView>
-      {isLoading ? (
-        <ActivityIndicator />
-      ) : (
-        <View>
-          <Text
-            style={{
-              paddingTop: 25,
-              paddingHorizontal: 10,
-              paddingBottom: 5,
-              fontSize: 30,
-              fontWeight: "bold",
-              // justifyContent: "center",
-              // alignContent: "center",
-              // textAlign: "center",
-            }}
-          >
-            Notes:
-          </Text>
-          <FlatList
-            data={data}
-            keyExtractor={({ id }, index) => id}
-            renderItem={({ item }) => (
-              <Text
-                style={{
-                  width: "95%",
-                  marginHorizontal: 10,
-                  marginVertical: 8,
-                  paddingVertical: 20,
-                  paddingHorizontal: 10,
-                  borderWidth: 1,
-                  borderRadius: 5,
-                  borderColor: "#D3D3D3",
-                }}
-                onPress={() => {
-                  navigation.navigate("Add a note");
-                }}
-              >
-                {item.note_title}: {item.note_text}
-              </Text>
-            )}
-          />
-        </View>
-      )}
-    </ScrollView>
+    <SafeAreaView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        {isLoading ? (
+          <ActivityIndicator />
+        ) : (
+          <View>
+            <Text
+              style={{
+                paddingTop: 25,
+                paddingHorizontal: 10,
+                paddingBottom: 5,
+                fontSize: 30,
+                fontWeight: "bold",
+              }}
+            >
+              Notes:
+            </Text>
+            <FlatList
+              data={data}
+              keyExtractor={({ id }, index) => id}
+              renderItem={({ item }) => {
+                return renderNotes(item);
+              }}
+            />
+          </View>
+        )}
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
