@@ -19,7 +19,7 @@ def index(request):
 @api_view(['GET', 'POST'])
 def GetNoteList(request):
     if request.method == 'GET':
-        notes = Note.objects.all()
+        notes = Note.objects.all().order_by('-id')
         serializer = NoteSerializer(notes, many=True)
         return Response(serializer.data)
 

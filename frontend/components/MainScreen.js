@@ -16,7 +16,7 @@ function MainScreen() {
   const [data, setData] = useState([]);
 
   const getNotes = () => {
-    console.log("fetching data");
+    // console.log("fetching data");
     fetch("http://localhost:8000/notes", {
       method: "GET",
     })

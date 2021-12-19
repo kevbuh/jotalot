@@ -25,10 +25,10 @@ export default function CreateNoteScreen() {
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log("Saved note!");
-        console.log(data);
-      })
+      // .then((data) => {
+      //   // console.log("Saved note!");
+      //   console.log(data);
+      // })
       .catch((error) => console.log("error", error));
   };
 
