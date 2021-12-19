@@ -65,10 +65,11 @@ function MainScreen(props) {
         style={{
           width: "95%",
           marginHorizontal: 10,
-          marginVertical: 8,
+          // marginVertical: 8,
           paddingVertical: 20,
           paddingHorizontal: 10,
-          borderWidth: 1,
+          // borderWidth: 1,
+          borderTopWidth: 2,
           borderRadius: 5,
           borderColor: "#D3D3D3",
         }}
@@ -78,10 +79,16 @@ function MainScreen(props) {
           });
         }}
       >
-        <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={{ fontSize: 18, fontWeight: "bold" }}
+        >
           {item.note_title}
         </Text>
-        <Text>{item.note_text}</Text>
+        <Text numberOfLines={1} ellipsizeMode="tail">
+          {item.note_text}
+        </Text>
       </Pressable>
     );
   };
@@ -101,7 +108,7 @@ function MainScreen(props) {
               style={{
                 paddingTop: 25,
                 paddingHorizontal: 10,
-                paddingBottom: 5,
+                paddingBottom: 20,
                 fontSize: 30,
                 fontWeight: "bold",
               }}
