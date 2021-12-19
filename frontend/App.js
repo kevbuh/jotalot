@@ -42,6 +42,10 @@ function HomeStackScreen() {
               onPress={() => navigation.navigate("Account")}
             />
           ),
+          headerStyle: {
+            backgroundColor: "#f2f2f2",
+          },
+          // headerTintColor: "#d3d3d3",
         })}
       />
       <HomeStack.Screen name="Welcome" component={WelcomeScreen} />
@@ -53,10 +57,26 @@ function HomeStackScreen() {
 function NoteStackScreen() {
   return (
     <Drawer.Navigator
-      initialRouteName="Note"
+      initialRouteName="Untitled Note"
+
       // drawerContent={(props) => <DrawerContent {...props} />}
     >
-      <Drawer.Screen name="Note" component={CreateNoteScreen} />
+      <Drawer.Screen
+        name="Untitled Note"
+        component={CreateNoteScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#f2f2f2",
+          },
+          headerTintColor: "black",
+          // headerRight: () => (
+          //   <Button
+          //     title="Save"
+          //     onPress={() => navigation.navigate("Account")}
+          //   />
+          // ),
+        }}
+      />
       <Drawer.Screen name="Customize Note" component={NoteSettingsScreen} />
       <Drawer.Screen name="Add a note" component={CreateNoteScreen} />
       <Drawer.Screen name="Trash" component={TrashScreen} />
@@ -84,6 +104,8 @@ function App() {
             },
             tabBarActiveTintColor: "#121212",
             tabBarInactiveTintColor: "gray",
+            // tabBarBackground: "#f2f2f2",
+            // tabBarActiveBackgroundColor: "#f2f2f2",
           })}
         >
           <Tab.Screen

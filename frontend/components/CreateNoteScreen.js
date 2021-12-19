@@ -1,13 +1,15 @@
-import * as React from "react";
+// import * as React from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   ScrollView,
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
+  View,
 } from "react-native";
 
-export default function CreateNoteScreen(props) {
+export default function CreateNoteScreen() {
   const [currentNote, setCurrentNote] = React.useState("");
   const [currentTitle, setCurrentTitle] = React.useState("");
 
@@ -36,36 +38,47 @@ export default function CreateNoteScreen(props) {
         Keyboard.dismiss();
       }}
     >
-      <ScrollView style={{ height: "100%", width: "100%", marginTop: 40 }}>
-        <TextInput
+      <ScrollView>
+        <View
           style={{
+            alignSelf: "flex-end",
+            marginHorizontal: 8,
             marginTop: 10,
-            marginLeft: 20,
-            fontSize: 30,
           }}
-          placeholder="Untitled"
-          value={currentTitle}
-          onChangeText={setCurrentTitle}
-        />
-        <TextInput
-          multiline
-          KeyboardAvoidingView
-          style={{
-            height: 200,
-            margin: 20,
-            fontSize: 20,
-          }}
-          borderColor="#D3D3D3"
-          placeholder="Tap here to continue"
-          value={currentNote}
-          onChangeText={setCurrentNote}
-        />
-        <Button
-          title="Save"
-          onPress={() => {
-            CreateNewNote();
-          }}
-        />
+        >
+          <Button
+            title="Save"
+            onPress={() => {
+              CreateNewNote();
+            }}
+            color="black"
+          />
+        </View>
+        <View style={{ height: "100%", width: "100%" }}>
+          <TextInput
+            style={{
+              marginTop: 10,
+              marginLeft: 20,
+              fontSize: 30,
+            }}
+            placeholder="Untitled"
+            value={currentTitle}
+            onChangeText={setCurrentTitle}
+          />
+          <TextInput
+            multiline
+            KeyboardAvoidingView
+            style={{
+              height: 200,
+              margin: 20,
+              fontSize: 20,
+            }}
+            borderColor="#D3D3D3"
+            placeholder="Tap here to continue"
+            value={currentNote}
+            onChangeText={setCurrentNote}
+          />
+        </View>
       </ScrollView>
     </TouchableWithoutFeedback>
   );

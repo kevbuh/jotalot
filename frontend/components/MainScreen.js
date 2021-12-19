@@ -6,6 +6,8 @@ import {
   Text,
   View,
   ActivityIndicator,
+  ScrollView,
+  SafeAreaView,
 } from "react-native";
 
 const styles = StyleSheet.create({
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function MainScreen() {
+function MainScreen({ navigation }) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
@@ -47,26 +49,51 @@ function MainScreen() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <ScrollView>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
         <View>
-          <Text style={{ padding: 40, fontSize: 20, fontWeight: "bold" }}>
-            Your Notes:
+          <Text
+            style={{
+              paddingTop: 25,
+              paddingHorizontal: 10,
+              paddingBottom: 5,
+              fontSize: 30,
+              fontWeight: "bold",
+              // justifyContent: "center",
+              // alignContent: "center",
+              // textAlign: "center",
+            }}
+          >
+            Notes:
           </Text>
           <FlatList
             data={data}
             keyExtractor={({ id }, index) => id}
             renderItem={({ item }) => (
-              <Text>
+              <Text
+                style={{
+                  width: "95%",
+                  marginHorizontal: 10,
+                  marginVertical: 8,
+                  paddingVertical: 20,
+                  paddingHorizontal: 10,
+                  borderWidth: 1,
+                  borderRadius: 5,
+                  borderColor: "#D3D3D3",
+                }}
+                onPress={() => {
+                  navigation.navigate("Add a note");
+                }}
+              >
                 {item.note_title}: {item.note_text}
               </Text>
             )}
           />
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 }
 
