@@ -62,7 +62,7 @@ export default function EditNoteScreen(props) {
         <ScrollView>
           <View
             style={{
-              flex: 1,
+              // flex: 1,
               alignSelf: "flex-end",
               flexDirection: "row",
               marginHorizontal: 8,
@@ -78,9 +78,10 @@ export default function EditNoteScreen(props) {
               color="black"
             />
           </View>
-          <View style={{ height: "100%", width: "100%" }}>
+          <View>
             <TextInput
               style={{
+                // height: "100%",
                 marginTop: 10,
                 marginLeft: 20,
                 fontSize: 30,
@@ -92,9 +93,11 @@ export default function EditNoteScreen(props) {
               multiline
               KeyboardAvoidingView
               style={{
-                height: 200,
+                // flex: 1,
+                height: "100%",
                 margin: 20,
                 fontSize: 20,
+                paddingBottom: 100,
               }}
               borderColor="#D3D3D3"
               value={currentNoteUpdate}

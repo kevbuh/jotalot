@@ -109,7 +109,9 @@ export default function CreateNoteScreen() {
             multiline
             KeyboardAvoidingView
             style={{
-              height: 200,
+              // height: 200,
+              height: "100%",
+              paddingBottom: 100,
               margin: 20,
               fontSize: 20,
             }}
