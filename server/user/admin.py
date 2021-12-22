@@ -11,7 +11,7 @@ from .models import User
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     fieldsets = (
-        (None, {'fields': ('email', 'password', )}),
+        (None, {'fields': ('username', 'email', 'password', )}),
         (_('Personal info'), {'fields': ('first_name', 'last_name')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
