@@ -23,6 +23,7 @@ export default function CreateNoteScreen() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        creator: "buhlerkw@gmail.com",
         note_title: currentTitle,
         note_text: currentNote,
       }),

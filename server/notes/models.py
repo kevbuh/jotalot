@@ -1,11 +1,16 @@
 from django.db import models
-
+# from user.models import User
 # Create your models here.
+from nextnoteserver.settings import AUTH_USER_MODEL
 
 
 class Note(models.Model):
-    note_title = models.CharField(max_length=200)
-    note_text = models.TextField()
+    creator = models.ForeignKey(
+        AUTH_USER_MODEL, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    text = models.TextField()
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.note_title
+        return self.title

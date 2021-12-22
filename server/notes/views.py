@@ -1,19 +1,12 @@
-from django.core import serializers
-from .models import Note
-from django.core.serializers import serialize
-from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from .serializers import NoteSerializer
-from rest_framework.parsers import JSONParser
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
+from .models import Note
+from .serializers import NoteSerializer
+
 # Create your views here.
-
-
-def index(request):
-    return HttpResponse("Hello, world!")
 
 
 @api_view(['GET', 'POST'])
@@ -28,7 +21,7 @@ def GetNoteList(request):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -55,24 +48,3 @@ def GetSingleNote(request, pk):
     elif request.method == 'DELETE':
         note.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-# def django_models_json(request):
-#     if request.method == "POST":
-#         return
-
-#     else:
-#         data = list(Note.objects.values())
-#         return JsonResponse(data, safe=False)
-
-
-# views.py
-# def django_models_json(request):
-#     obj = Note.objects.first()
-#     data = serialize("json", [obj], fields=('note_title', 'note_text'))
-#     return HttpResponse(data, content_type="application/json")
-
-# def django_models_json(request):
-#     data = [{'name': 'Peter', 'email': 'peter@example.org'},
-#             {'name': 'Julia', 'email': 'julia@example.org'}]
-
-#     return JsonResponse(data, safe=False)

@@ -31,6 +31,7 @@ export default function EditNoteScreen(props) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        creator: "buhlerkw@gmail.com",
         note_title: currentTitleUpdate,
         note_text: currentNoteUpdate,
       }),
