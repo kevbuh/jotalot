@@ -23,9 +23,9 @@ export default function CreateNoteScreen() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        creator: "buhlerkw@gmail.com",
-        note_title: currentTitle,
-        note_text: currentNote,
+        // creator: "buhlerkw@gmail.com",
+        title: currentTitle,
+        text: currentNote,
       }),
     })
       .then((res) => res.json())
@@ -55,8 +55,8 @@ export default function CreateNoteScreen() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        note_title: currentTitle,
-        note_text: currentNote,
+        title: currentTitle,
+        text: currentNote,
       }),
     })
       .then((res) => res.json())

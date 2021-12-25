@@ -10,6 +10,12 @@ const styles = StyleSheet.create({
 });
 
 export default function AccountScreen() {
+  //  useEffect(() => {
+  //    if (currentNote.length > 0 && currentTitle.length > 0) {
+  //      setPostCurrentNote(true);
+  //    }
+  //  }, [currentNote, currentTitle]);
+
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 20, marginBottom: 10 }}>Account</Text>

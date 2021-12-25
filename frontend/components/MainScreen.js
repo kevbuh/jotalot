@@ -21,7 +21,7 @@ function MainScreen(props) {
   const navigation = useNavigation();
 
   const getNotes = () => {
-    fetch("http://localhost:8000/notes", {
+    fetch("http://localhost:8000/notes/", {
       method: "GET",
     })
       .then((res) => {
@@ -80,10 +80,10 @@ function MainScreen(props) {
           ellipsizeMode="tail"
           style={{ fontSize: 18, fontWeight: "bold" }}
         >
-          {item.note_title}
+          {item.title}
         </Text>
         <Text numberOfLines={1} ellipsizeMode="tail">
-          {item.note_text}
+          {item.text}
         </Text>
       </Pressable>
     );

@@ -15,6 +15,8 @@ import TrashScreen from "./components/TrashScreen";
 import FeedbackScreen from "./components/FeedbackScreen";
 import { extendTheme, NativeBaseProvider } from "native-base";
 import EditNoteScreen from "./components/EditNoteScreen";
+import LoginScreen from "./components/LoginScreen";
+import RegisterScreen from "./components/RegisterScreen";
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -69,7 +71,7 @@ function HomeStackScreen() {
 
 function NoteStackScreen() {
   return (
-    <Drawer.Navigator initialRouteName="Untitled Note">
+    <Drawer.Navigator initialRouteName="Register">
       <Drawer.Screen
         name="Untitled Note"
         component={CreateNoteScreen}
@@ -80,21 +82,44 @@ function NoteStackScreen() {
           headerTintColor: "black",
         }}
       />
-
       <Drawer.Screen name="Add Note" component={CreateNoteScreen} />
-
+      <Drawer.Screen name="Login" component={LoginScreen} />
       <Drawer.Screen name="Trash" component={TrashScreen} />
       <Drawer.Screen name="Feedback" component={FeedbackScreen} />
+      <Drawer.Screen name="Register" component={RegisterScreen} />
     </Drawer.Navigator>
   );
 }
 
 function App() {
+  const GetUser = () => {
+    const [data, setData] = useState([]);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    fetch("http://127.0.0.1:8000/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: currentEmail,
+        password: currentPassword,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setData("Got data: ", data);
+        setIsAuthenticated(True);
+        // console.log(data);
+      })
+      .catch((error) => console.log("error", error));
+  };
+
   return (
     <NativeBaseProvider theme={theme}>
       <NavigationContainer>
         <Tab.Navigator
-          initialRouteName="Notes"
+          initialRouteName="Register"
           screenOptions={({ route }) => ({
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {

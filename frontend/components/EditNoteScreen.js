@@ -14,13 +14,9 @@ import { useNavigation } from "@react-navigation/native";
 export default function EditNoteScreen(props) {
   const sentData = props.route.params.item;
 
-  const [currentTitleUpdate, setCurrentTitleUpdate] = useState(
-    sentData.note_title
-  );
+  const [currentTitleUpdate, setCurrentTitleUpdate] = useState(sentData.title);
 
-  const [currentNoteUpdate, setCurrentNoteUpdate] = useState(
-    sentData.note_text
-  );
+  const [currentNoteUpdate, setCurrentNoteUpdate] = useState(sentData.text);
 
   const navigation = useNavigation();
 
@@ -31,9 +27,9 @@ export default function EditNoteScreen(props) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        creator: "buhlerkw@gmail.com",
-        note_title: currentTitleUpdate,
-        note_text: currentNoteUpdate,
+        creator: "bob@bob.com",
+        title: currentTitleUpdate,
+        text: currentNoteUpdate,
       }),
     })
       .then((res) => res.json())
