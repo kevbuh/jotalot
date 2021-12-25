@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+
 import { Button, StyleSheet, Text, View, Switch } from "react-native";
 
 const styles = StyleSheet.create({
@@ -9,16 +10,50 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function AccountScreen() {
+export default function AccountScreen({ route, navigation }) {
   //  useEffect(() => {
   //    if (currentNote.length > 0 && currentTitle.length > 0) {
   //      setPostCurrentNote(true);
   //    }
   //  }, [currentNote, currentTitle]);
+  // const { user } = route.params;
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userData, setUserData] = useState([]);
+  const GetUser = () => {
+    fetch("http://127.0.0.1:8000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: "titi@titi.com",
+        password: "titipassword54",
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setUserData(data);
+        setIsAuthenticated(true);
+        console.log(data);
+      })
+      .catch((error) => console.log("error", error));
+  };
+
+  useEffect(() => {
+    console.log("Going to get user!");
+    GetUser();
+    console.log("Got user!");
+  }, []);
 
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 20, marginBottom: 10 }}>Account</Text>
+      {isAuthenticated ? (
+        <Text>{userData.email}</Text>
+      ) : (
+        <Text>Not authenticated</Text>
+      )}
+      {/* <Text>Email: {JSON.stringify(user)}</Text> */}
       <Text style={{ marginVertical: 10 }}>Mobile push notifications</Text>
       <Switch />
       <Text style={{ marginVertical: 10 }}>Email notifications</Text>

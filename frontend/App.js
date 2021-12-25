@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-native";
 import AccountScreen from "./components/AccountScreen";
 import CreateNoteScreen from "./components/CreateNoteScreen";
@@ -29,6 +29,7 @@ const newColorTheme = {
     700: "#b3bef6",
   },
 };
+
 const theme = extendTheme({ colors: newColorTheme });
 
 function HomeStackScreen() {
@@ -92,28 +93,33 @@ function NoteStackScreen() {
 }
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userData, setUserData] = useState([]);
   const GetUser = () => {
-    const [data, setData] = useState([]);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-    fetch("http://127.0.0.1:8000/login/", {
+    fetch("http://127.0.0.1:8000/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: currentEmail,
-        password: currentPassword,
+        email: "bob@bob.com",
+        password: "bobspassword54",
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        setData("Got data: ", data);
-        setIsAuthenticated(True);
-        // console.log(data);
+        setUserData(data);
+        setIsAuthenticated(true);
+        console.log(data);
       })
       .catch((error) => console.log("error", error));
   };
+
+  useEffect(() => {
+    console.log("Going to get user!");
+    GetUser();
+    console.log("Got user!");
+  }, []);
 
   return (
     <NativeBaseProvider theme={theme}>
@@ -135,6 +141,7 @@ function App() {
             tabBarInactiveTintColor: "gray",
           })}
         >
+          {/* {isAuthenticated ? ( */}
           <Tab.Screen
             name="Home"
             component={HomeStackScreen}
@@ -142,14 +149,20 @@ function App() {
               headerRight: () => (
                 <Button
                   title="Account"
-                  onPress={() => navigation.navigate("Account")}
+                  onPress={() =>
+                    navigation.navigate("Account", {
+                      user: userData,
+                    })
+                  }
                 />
               ),
               headerTitle: "Settings",
               headerLeft: (props) => <LogoTitle {...props} />,
             })}
           />
+          {/* ) : ( */}
           <Tab.Screen name="Notes" component={NoteStackScreen} />
+          {/* )} */}
         </Tab.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>

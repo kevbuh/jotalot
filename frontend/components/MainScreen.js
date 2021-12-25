@@ -20,9 +20,45 @@ function MainScreen(props) {
 
   const navigation = useNavigation();
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userData, setUserData] = useState([]);
+  const GetUser = () => {
+    fetch("http://127.0.0.1:8000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: "titi@titi.com",
+        password: "titipassword54",
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setUserData(data);
+        setIsAuthenticated(true);
+        console.log(data);
+      })
+      .catch((error) => console.log("error", error));
+  };
+
+  // useEffect(() => {
+  //   console.log("Going to get user!");
+  //   GetUser();
+  //   console.log("Got user!");
+  // }, []);
+
   const getNotes = () => {
     fetch("http://localhost:8000/notes/", {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Token " + userData.auth_token,
+      },
+      // body: JSON.stringify({
+      //   email: "titi@titi.com",
+      //   password: "titipassword54",
+      // }),
     })
       .then((res) => {
         if (res.ok) {
@@ -41,7 +77,7 @@ function MainScreen(props) {
   };
 
   useEffect(() => {
-    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
+    GetUser();
     getNotes();
   }, []);
 
