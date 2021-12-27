@@ -18,7 +18,7 @@ export default function RegisterScreen() {
   const navigation = useNavigation();
 
   const RegisterUser = () => {
-    fetch("http://127.0.0.1:8000/auth/register", {
+    fetch("http://192.168.0.253:8000/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

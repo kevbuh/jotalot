@@ -20,7 +20,7 @@ export default function AccountScreen({ route, navigation }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState([]);
   const GetUser = () => {
-    fetch("http://127.0.0.1:8000/auth/login", {
+    fetch("http://192.168.0.253:8000/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
