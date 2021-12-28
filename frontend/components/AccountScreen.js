@@ -1,14 +1,9 @@
 import React from "react";
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  Switch,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Switch, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
 import { userEmail, userToken } from "../redux/userSlice";
+import { useDispatch } from "react-redux";
+import { LogUserOut } from "../redux/userSlice";
 
 const styles = StyleSheet.create({
   container: {
@@ -22,7 +17,37 @@ const styles = StyleSheet.create({
 
 export default function AccountScreen() {
   const user_email = useSelector(userEmail);
-  // const user_token = useSelector(userToken);
+  const user_token = useSelector(userToken);
+  const dispatch = useDispatch();
+
+  const UserLogout = () => {
+    fetch("http://localhost:8000/auth/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Token " + user_token,
+      },
+      // body: JSON.stringify({
+      //   title: currentTitle,
+      //   text: currentNote,
+      // }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw res.json();
+        }
+      })
+      .then((json) => {
+        console.log("********---->", json);
+        console.log("Logging User Out....");
+        dispatch(LogUserOut());
+        console.log("Success, navigating to login....");
+        navigation.navigate("Login");
+      })
+      .catch((error) => console.log("error", error));
+  };
 
   return (
     <View style={styles.container}>
@@ -67,7 +92,6 @@ export default function AccountScreen() {
             alignItems: "center",
             paddingVertical: 10,
             backgroundColor: "#DDDDDD",
-
             width: "30%",
             borderRadius: 10,
             marginVertical: 7,
@@ -94,7 +118,8 @@ export default function AccountScreen() {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            alert("Logout coming soon!");
+            console.log("User pressed to logout!");
+            UserLogout();
           }}
           style={{
             paddingHorizontal: 5,

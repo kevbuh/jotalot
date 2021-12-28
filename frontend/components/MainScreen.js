@@ -105,7 +105,9 @@ function MainScreen() {
         }
       >
         {isLoading ? (
-          <ActivityIndicator />
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <ActivityIndicator />
+          </View>
         ) : (
           <View>
             <Text

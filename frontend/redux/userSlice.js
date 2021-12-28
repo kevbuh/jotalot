@@ -17,7 +17,7 @@ export const slice = createSlice({
       // immutable state based off those changes
       state.currentUser = action.payload;
     },
-    UserLoggedOut: (state) => {
+    LogUserOut: (state) => {
       state.currentUser.email = "";
       state.currentUser.authToken = "";
     },
@@ -25,7 +25,7 @@ export const slice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { LogUserIn, UserLoggedOut } = slice.actions;
+export const { LogUserIn, LogUserOut } = slice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

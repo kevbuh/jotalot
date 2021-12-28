@@ -39,7 +39,7 @@ class AuthViewSet(viewsets.GenericViewSet):
         data = serializers.AuthUserSerializer(user).data
         return Response(data=data, status=status.HTTP_201_CREATED)
 
-    @action(methods=['POST', ], detail=False)
+    @action(methods=['POST', ], detail=False, permission_classes=[IsAuthenticated, ])
     def logout(self, request):
         logout(request)
         data = {'success': 'Successfully logged out'}

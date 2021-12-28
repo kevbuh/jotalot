@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
-import { Button } from "react-native";
+import { Button, TouchableOpacity, Text } from "react-native";
 import AccountScreen from "./components/AccountScreen";
 import CreateNoteScreen from "./components/CreateNoteScreen";
 import LogoTitle from "./components/LogoTitle";
@@ -46,10 +46,24 @@ function HomeStackScreen() {
         options={({ navigation }) => ({
           headerTitle: (props) => <LogoTitle {...props} />,
           headerRight: () => (
-            <Button
-              title="Account"
-              onPress={() => navigation.navigate("Account")}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Account");
+              }}
+              style={
+                {
+                  // paddingHorizontal: 5,
+                  // alignItems: "center",
+                  // paddingVertical: 10,
+                  // backgroundColor: "#DDDDDD",
+                  // width: "30%",
+                  // borderRadius: 10,
+                  // marginVertical: 7,
+                }
+              }
+            >
+              <Text style={{ fontWeight: "bold" }}>Account</Text>
+            </TouchableOpacity>
           ),
           headerStyle: {
             backgroundColor: "#f2f2f2",
@@ -178,12 +192,13 @@ function MainAppContent() {
                 if (route.name === "Home") {
                   iconName = focused ? "home" : "home-outline";
                 } else if (route.name === "Notes") {
-                  iconName = "add";
+                  iconName = "create-outline";
                 }
                 return <Ionicons name={iconName} size={size} color={color} />;
               },
               tabBarActiveTintColor: "#121212",
               tabBarInactiveTintColor: "gray",
+              tabBarShowLabel: false,
             })}
           >
             <Tab.Screen
