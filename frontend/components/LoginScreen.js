@@ -8,6 +8,8 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { LogUserIn } from "../redux/userSlice";
 
 export default function LoginScreen() {
   const [currentUsername, setCurrentUsername] = React.useState("");
@@ -15,22 +17,31 @@ export default function LoginScreen() {
   const [currentEmail, setCurrentEmail] = React.useState("");
 
   const navigation = useNavigation();
-
+  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const [currentPassword2, setCurrentPassword2] = React.useState("");
+  // Authorization: "Token " + "4bd97c6a3da72d83cee684617f43718811db4d88",
 
   const LoginUser = () => {
-    fetch("http://localhost:8000/user/login/", {
+    fetch("http://localhost:8000/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token " + "4bd97c6a3da72d83cee684617f43718811db4d88",
       },
       body: JSON.stringify({
-        username: currentEmail,
+        email: currentEmail,
         password: currentPassword,
-        // email: currentEmail,
       }),
     })
+      // .then((response) => {
+      //   response.json();
+      // })
+      // .then((json) => {
+      //   if (json.msg === "success") {
+      //     // dispatch(LogUserIn(email: currentEmail, ))
+      //     console.log("*******--->", json);
+      //   }
+      // })
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -39,8 +50,10 @@ export default function LoginScreen() {
         }
       })
       .then((json) => {
-        console.log(json);
-        console.log("LOGGED IN");
+        console.log("********---->", json);
+        dispatch(LogUserIn({ email: json.email, authToken: json.auth_token }));
+        console.log("Navigating to account....");
+        navigation.navigate("Account");
       })
       .catch((error) => console.log("error", error));
   };

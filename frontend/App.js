@@ -17,6 +17,8 @@ import { extendTheme, NativeBaseProvider } from "native-base";
 import EditNoteScreen from "./components/EditNoteScreen";
 import LoginScreen from "./components/LoginScreen";
 import RegisterScreen from "./components/RegisterScreen";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -122,50 +124,52 @@ function App() {
   }, []);
 
   return (
-    <NativeBaseProvider theme={theme}>
-      <NavigationContainer>
-        <Tab.Navigator
-          initialRouteName="Register"
-          screenOptions={({ route }) => ({
-            headerShown: false,
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
-              if (route.name === "Home") {
-                iconName = focused ? "home" : "home-outline";
-              } else if (route.name === "Notes") {
-                iconName = "add";
-              }
-              return <Ionicons name={iconName} size={size} color={color} />;
-            },
-            tabBarActiveTintColor: "#121212",
-            tabBarInactiveTintColor: "gray",
-          })}
-        >
-          {/* {isAuthenticated ? ( */}
-          <Tab.Screen
-            name="Home"
-            component={HomeStackScreen}
-            options={({ navigation }) => ({
-              headerRight: () => (
-                <Button
-                  title="Account"
-                  onPress={() =>
-                    navigation.navigate("Account", {
-                      user: userData,
-                    })
-                  }
-                />
-              ),
-              headerTitle: "Settings",
-              headerLeft: (props) => <LogoTitle {...props} />,
+    <Provider store={store}>
+      <NativeBaseProvider theme={theme}>
+        <NavigationContainer>
+          <Tab.Navigator
+            initialRouteName="Register"
+            screenOptions={({ route }) => ({
+              headerShown: false,
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName;
+                if (route.name === "Home") {
+                  iconName = focused ? "home" : "home-outline";
+                } else if (route.name === "Notes") {
+                  iconName = "add";
+                }
+                return <Ionicons name={iconName} size={size} color={color} />;
+              },
+              tabBarActiveTintColor: "#121212",
+              tabBarInactiveTintColor: "gray",
             })}
-          />
-          {/* ) : ( */}
-          <Tab.Screen name="Notes" component={NoteStackScreen} />
-          {/* )} */}
-        </Tab.Navigator>
-      </NavigationContainer>
-    </NativeBaseProvider>
+          >
+            {/* {isAuthenticated ? ( */}
+            <Tab.Screen
+              name="Home"
+              component={HomeStackScreen}
+              options={({ navigation }) => ({
+                headerRight: () => (
+                  <Button
+                    title="Account"
+                    onPress={() =>
+                      navigation.navigate("Account", {
+                        user: userData,
+                      })
+                    }
+                  />
+                ),
+                headerTitle: "Settings",
+                headerLeft: (props) => <LogoTitle {...props} />,
+              })}
+            />
+            {/* ) : ( */}
+            <Tab.Screen name="Notes" component={NoteStackScreen} />
+            {/* )} */}
+          </Tab.Navigator>
+        </NavigationContainer>
+      </NativeBaseProvider>
+    </Provider>
   );
 }
 
