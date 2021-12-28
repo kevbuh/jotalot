@@ -20,11 +20,12 @@ import RegisterScreen from "./components/RegisterScreen";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import { useSelector } from "react-redux";
-import { userToken } from "./redux/userSlice";
+import { userToken, userEmail } from "./redux/userSlice";
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
+const AuthStack = createNativeStackNavigator();
 
 const newColorTheme = {
   brand: {
@@ -53,6 +54,7 @@ function HomeStackScreen() {
           headerStyle: {
             backgroundColor: "#f2f2f2",
           },
+          headerTintColor: "black",
         })}
       />
       <HomeStack.Screen name="Welcome" component={WelcomeScreen} />
@@ -87,12 +89,36 @@ function NoteStackScreen() {
           headerTintColor: "black",
         }}
       />
-      <Drawer.Screen name="Add Note" component={CreateNoteScreen} />
-      <Drawer.Screen name="Login" component={LoginScreen} />
-      <Drawer.Screen name="Trash" component={TrashScreen} />
-      <Drawer.Screen name="Feedback" component={FeedbackScreen} />
-      <Drawer.Screen name="Register" component={RegisterScreen} />
+      <Drawer.Screen
+        name="Trash"
+        component={TrashScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#f2f2f2",
+          },
+          headerTintColor: "black",
+        }}
+      />
+      <Drawer.Screen
+        name="Feedback"
+        component={FeedbackScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#f2f2f2",
+          },
+          headerTintColor: "black",
+        }}
+      />
     </Drawer.Navigator>
+  );
+}
+
+function AuthScreen() {
+  return (
+    <AuthStack.Navigator>
+      <AuthStack.Screen name="Login" component={LoginScreen} />
+      <AuthStack.Screen name="Register" component={RegisterScreen} />
+    </AuthStack.Navigator>
   );
 }
 
@@ -100,6 +126,7 @@ function MainAppContent() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState([]);
   const user_token = useSelector(userToken);
+  const user_email = useSelector(userEmail);
 
   const GetUser = () => {
     fetch("http://localhost:8000/auth/login", {
@@ -124,49 +151,70 @@ function MainAppContent() {
     console.log("Got user!");
   }, []);
 
+  // {
+  //   user_email.length > 0
+  //     ? (
+  //       return (
+  //       <NavigationContainer>
+  //         <AuthStack.Navigator>
+  //           <AuthStack.Screen name="Auth" component={AuthScreen} />
+  //         </AuthStack.Navigator>
+  //       </NavigationContainer>
+  //     )
+  //     )
+  //     : null;
+  // }
+
   return (
     <NativeBaseProvider theme={theme}>
       <NavigationContainer>
-        <Tab.Navigator
-          initialRouteName="Register"
-          screenOptions={({ route }) => ({
-            headerShown: false,
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
-              if (route.name === "Home") {
-                iconName = focused ? "home" : "home-outline";
-              } else if (route.name === "Notes") {
-                iconName = "add";
-              }
-              return <Ionicons name={iconName} size={size} color={color} />;
-            },
-            tabBarActiveTintColor: "#121212",
-            tabBarInactiveTintColor: "gray",
-          })}
-        >
-          {/* {isAuthenticated ? ( */}
-          <Tab.Screen
-            name="Home"
-            component={HomeStackScreen}
-            options={({ navigation }) => ({
-              headerRight: () => (
-                <Button
-                  title="Account"
-                  onPress={() =>
-                    navigation.navigate("Account", {
-                      user: userData,
-                    })
-                  }
-                />
-              ),
-              headerTitle: "Settings",
-              headerLeft: (props) => <LogoTitle {...props} />,
+        {user_email.length > 0 ? (
+          <Tab.Navigator
+            initialRouteName="Untitled Note"
+            screenOptions={({ route }) => ({
+              headerShown: false,
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName;
+                if (route.name === "Home") {
+                  iconName = focused ? "home" : "home-outline";
+                } else if (route.name === "Notes") {
+                  iconName = "add";
+                }
+                return <Ionicons name={iconName} size={size} color={color} />;
+              },
+              tabBarActiveTintColor: "#121212",
+              tabBarInactiveTintColor: "gray",
             })}
-          />
-          {/* ) : ( */}
-          <Tab.Screen name="Notes" component={NoteStackScreen} />
-          {/* )} */}
-        </Tab.Navigator>
+          >
+            <Tab.Screen
+              name="Home"
+              component={HomeStackScreen}
+              options={({ navigation }) => ({
+                headerRight: () => (
+                  <Button
+                    title="Account"
+                    onPress={() =>
+                      navigation.navigate("Account", {
+                        user: userData,
+                      })
+                    }
+                  />
+                ),
+                headerTitle: "Settings",
+                headerLeft: (props) => <LogoTitle {...props} />,
+              })}
+            />
+            <Tab.Screen name="Notes" component={NoteStackScreen} />
+          </Tab.Navigator>
+        ) : (
+          <AuthStack.Navigator
+            initialRouteName="Login"
+            screenOptions={{ headerShown: false }}
+          >
+            <AuthStack.Screen name="Login" component={LoginScreen} />
+            <AuthStack.Screen name="Register" component={RegisterScreen} />
+          </AuthStack.Navigator>
+        )}
       </NavigationContainer>
     </NativeBaseProvider>
   );

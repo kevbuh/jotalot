@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   ScrollView,
@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   View,
+  Text,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
@@ -52,7 +53,32 @@ export default function LoginScreen() {
       }}
     >
       <ScrollView>
-        <View style={{ height: "100%", width: "100%", alignItems: "center" }}>
+        <View
+          style={{
+            height: "100%",
+            width: "100%",
+            alignItems: "center",
+            // flex: 1,
+            justifyContent: "center",
+            paddingVertical: 100,
+          }}
+        >
+          <Text
+            style={{
+              margin: 20,
+              fontSize: 20,
+              fontWeight: "bold",
+              borderBottomWidth: 2,
+            }}
+          >
+            Login{" "}
+          </Text>
+          <Button
+            title="Need to register? Click here"
+            onPress={() => {
+              navigation.replace("Register");
+            }}
+          />
           <TextInput
             KeyboardAvoidingView
             style={{

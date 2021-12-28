@@ -43,7 +43,7 @@ export default function RegisterScreen() {
         console.log(json);
         dispatch(LogUserIn({ email: json.email, authToken: json.auth_token }));
         console.log("REGISTERED USER");
-        navigation.navigate("Account");
+        navigation.navigate("Notes");
       })
       .catch((error) => console.log("error", error));
   };
@@ -55,7 +55,16 @@ export default function RegisterScreen() {
       }}
     >
       <ScrollView>
-        <View style={{ height: "100%", width: "100%", alignItems: "center" }}>
+        <View
+          style={{
+            height: "100%",
+            width: "100%",
+            alignItems: "center",
+            flex: 1,
+            justifyContent: "center",
+            paddingVertical: 100,
+          }}
+        >
           <Text
             style={{
               margin: 20,
@@ -66,6 +75,12 @@ export default function RegisterScreen() {
           >
             Register{" "}
           </Text>
+          <Button
+            title="Need to login? Click here"
+            onPress={() => {
+              navigation.replace("Login");
+            }}
+          />
           <TextInput
             KeyboardAvoidingView
             style={{
@@ -79,6 +94,7 @@ export default function RegisterScreen() {
             keyboardType="email-address"
             autoCompleteType="email"
             placeholder="Email"
+            blurOnSubmit={false}
             value={currentEmail}
             onChangeText={setCurrentEmail}
           />
@@ -96,6 +112,7 @@ export default function RegisterScreen() {
             value={currentPassword}
             onChangeText={setCurrentPassword}
           />
+
           <Button
             title="Register"
             onPress={() => {
