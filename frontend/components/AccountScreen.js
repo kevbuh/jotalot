@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { userEmail, userToken } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { LogUserOut } from "../redux/userSlice";
+import { useNavigation } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
   container: {
@@ -19,6 +20,8 @@ export default function AccountScreen() {
   const user_email = useSelector(userEmail);
   const user_token = useSelector(userToken);
   const dispatch = useDispatch();
+
+  const navigation = useNavigation();
 
   const UserLogout = () => {
     fetch("http://localhost:8000/auth/logout", {
@@ -101,7 +104,7 @@ export default function AccountScreen() {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            alert("You pressed change password!");
+            navigation.navigate("ChangePassword");
           }}
           style={{
             paddingHorizontal: 5,

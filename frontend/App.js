@@ -17,6 +17,7 @@ import { extendTheme, NativeBaseProvider } from "native-base";
 import EditNoteScreen from "./components/EditNoteScreen";
 import LoginScreen from "./components/LoginScreen";
 import RegisterScreen from "./components/RegisterScreen";
+import ChangePasswordScreen from "./components/ChangePasswordScreen";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import { useSelector } from "react-redux";
@@ -73,6 +74,11 @@ function HomeStackScreen() {
       />
       <HomeStack.Screen name="Welcome" component={WelcomeScreen} />
       <HomeStack.Screen name="Account" component={AccountScreen} />
+      <HomeStack.Screen
+        name="ChangePassword"
+        component={ChangePasswordScreen}
+      />
+
       <HomeStack.Screen
         name="Edit Note"
         component={EditNoteScreen}
