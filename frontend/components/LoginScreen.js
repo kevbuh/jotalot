@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Button,
   ScrollView,
@@ -12,15 +12,11 @@ import { useDispatch } from "react-redux";
 import { LogUserIn } from "../redux/userSlice";
 
 export default function LoginScreen() {
-  const [currentUsername, setCurrentUsername] = React.useState("");
-  const [currentPassword, setCurrentPassword] = React.useState("");
-  const [currentEmail, setCurrentEmail] = React.useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [currentEmail, setCurrentEmail] = useState("");
 
   const navigation = useNavigation();
-  // const dispatch = useDispatch();
   const dispatch = useDispatch();
-  // const [currentPassword2, setCurrentPassword2] = React.useState("");
-  // Authorization: "Token " + "4bd97c6a3da72d83cee684617f43718811db4d88",
 
   const LoginUser = () => {
     fetch("http://localhost:8000/auth/login", {
@@ -33,15 +29,6 @@ export default function LoginScreen() {
         password: currentPassword,
       }),
     })
-      // .then((response) => {
-      //   response.json();
-      // })
-      // .then((json) => {
-      //   if (json.msg === "success") {
-      //     // dispatch(LogUserIn(email: currentEmail, ))
-      //     console.log("*******--->", json);
-      //   }
-      // })
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -66,16 +53,6 @@ export default function LoginScreen() {
     >
       <ScrollView>
         <View style={{ height: "100%", width: "100%", alignItems: "center" }}>
-          {/* <TextInput
-            style={{
-              margin: 20,
-              fontSize: 20,
-            }}
-            placeholder="Username"
-            autoCapitalize="none"
-            value={currentPassword}
-            onChangeText={setCurrentPassword}
-          /> */}
           <TextInput
             KeyboardAvoidingView
             style={{
@@ -104,10 +81,9 @@ export default function LoginScreen() {
             onChangeText={setCurrentPassword}
           />
           <Button
-            title="Submit"
+            title="Log In"
             onPress={() => {
               LoginUser();
-              // navigation.navigate("Untitled Note");
             }}
           />
         </View>

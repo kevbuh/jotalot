@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Button,
   ScrollView,
@@ -15,7 +15,6 @@ import { LogUserIn } from "../redux/userSlice";
 export default function RegisterScreen() {
   const [currentEmail, setCurrentEmail] = React.useState("");
   const [currentPassword, setCurrentPassword] = React.useState("");
-  const [currentPassword2, setCurrentPassword2] = React.useState("");
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -40,24 +39,12 @@ export default function RegisterScreen() {
           throw res.json();
         }
       })
-      // .then((response) => console.log(response));
       .then((json) => {
         console.log(json);
         dispatch(LogUserIn({ email: json.email, authToken: json.auth_token }));
         console.log("REGISTERED USER");
         navigation.navigate("Account");
       })
-      // .then((json) => {
-      //   //alert(res.message);
-      //   if (json.auth_token) {
-      //     // AsyncStorage.setItem("user", res.user);
-      //     navigation.navigate("Account");
-      //   }
-      //   // else {
-      //   //   alert(res.message);
-      //   // }
-      // })
-      // .done();
       .catch((error) => console.log("error", error));
   };
 
@@ -69,16 +56,6 @@ export default function RegisterScreen() {
     >
       <ScrollView>
         <View style={{ height: "100%", width: "100%", alignItems: "center" }}>
-          {/* <TextInput
-            style={{
-              margin: 20,
-              fontSize: 20,
-            }}
-            placeholder="Username"
-            autoCapitalize="none"
-            value={currentPassword}
-            onChangeText={setCurrentPassword}
-          /> */}
           <Text
             style={{
               margin: 20,
@@ -119,25 +96,10 @@ export default function RegisterScreen() {
             value={currentPassword}
             onChangeText={setCurrentPassword}
           />
-          {/* <TextInput
-            KeyboardAvoidingView
-            style={{
-              margin: 20,
-              fontSize: 20,
-              borderBottomWidth: 2,
-            }}
-            borderColor="#D3D3D3"
-            placeholder="Re-enter password"
-            autoCapitalize="none"
-            secureTextEntry={true}
-            value={currentPassword2}
-            onChangeText={setCurrentPassword2}
-          /> */}
           <Button
-            title="Submit"
+            title="Register"
             onPress={() => {
               RegisterUser();
-              // navigation.navigate("Untitled Note");
             }}
           />
         </View>

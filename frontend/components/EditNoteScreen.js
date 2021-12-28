@@ -1,4 +1,3 @@
-// import * as React from "react";
 import React, { useState, useEffect } from "react";
 import {
   Button,
@@ -10,30 +9,33 @@ import {
   SafeAreaView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { userToken } from "../redux/userSlice";
 
 export default function EditNoteScreen(props) {
   const sentData = props.route.params.item;
-
-  const [currentTitleUpdate, setCurrentTitleUpdate] = useState(sentData.title);
-
-  const [currentNoteUpdate, setCurrentNoteUpdate] = useState(sentData.text);
+  console.log("sentData ---->", sentData);
 
   const navigation = useNavigation();
+  const user_token = useSelector(userToken);
+
+  const [currentTitleUpdate, setCurrentTitleUpdate] = useState(sentData.title);
+  const [currentNoteUpdate, setCurrentNoteUpdate] = useState(sentData.text);
 
   const UpdateNote = () => {
-    fetch(`http://127.0.0.1:8000/notes/${sentData.id}`, {
+    fetch(`http://localhost:8000/notes/${sentData.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Token " + user_token,
       },
       body: JSON.stringify({
-        creator: "bob@bob.com",
         title: currentTitleUpdate,
         text: currentNoteUpdate,
       }),
     })
       .then((res) => res.json())
-      .catch((error) => console.log("error", error));
+      .catch((error) => console.log("UpdateNote() failed: ", error));
   };
 
   useEffect(() => {
@@ -41,10 +43,11 @@ export default function EditNoteScreen(props) {
   }, [currentNoteUpdate, currentTitleUpdate]);
 
   const DeleteNote = (sentData) => {
-    fetch(`http://127.0.0.1:8000/notes/${sentData.id}`, {
+    fetch(`http://localhost:8000/notes/${sentData.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Token " + user_token,
       },
     }).catch((error) => console.log("error", error));
   };
@@ -59,7 +62,6 @@ export default function EditNoteScreen(props) {
         <ScrollView>
           <View
             style={{
-              // flex: 1,
               alignSelf: "flex-end",
               flexDirection: "row",
               marginHorizontal: 8,
@@ -78,7 +80,6 @@ export default function EditNoteScreen(props) {
           <View>
             <TextInput
               style={{
-                // height: "100%",
                 marginTop: 10,
                 marginLeft: 20,
                 fontSize: 30,
@@ -90,7 +91,6 @@ export default function EditNoteScreen(props) {
               multiline
               KeyboardAvoidingView
               style={{
-                // flex: 1,
                 height: "100%",
                 margin: 20,
                 fontSize: 20,

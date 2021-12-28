@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   ScrollView,
@@ -7,23 +7,26 @@ import {
   Keyboard,
   View,
 } from "react-native";
+import { useSelector } from "react-redux";
+import { userToken } from "../redux/userSlice";
 
 export default function CreateNoteScreen() {
-  const [currentNote, setCurrentNote] = React.useState("");
-  const [currentTitle, setCurrentTitle] = React.useState("");
-  const [postCurrentNote, setPostCurrentNote] = React.useState(false);
-  const [didAlreadyCreate, setDidAlreadyCreate] = React.useState(false);
+  const [didAlreadyCreate, setDidAlreadyCreate] = useState(false);
+  const [postCurrentNote, setPostCurrentNote] = useState(false);
+  const [currentTitle, setCurrentTitle] = useState("");
+  const [currentNote, setCurrentNote] = useState("");
+  const [data, setData] = useState([]);
 
-  const [data, setData] = React.useState([]);
+  const user_token = useSelector(userToken);
 
   const CreateNewNote = () => {
-    fetch("http://127.0.0.1:8000/notes/", {
+    fetch("http://localhost:8000/notes/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Token " + user_token,
       },
       body: JSON.stringify({
-        // creator: "buhlerkw@gmail.com",
         title: currentTitle,
         text: currentNote,
       }),
@@ -49,10 +52,11 @@ export default function CreateNoteScreen() {
   }, [postCurrentNote]);
 
   const UpdateNote = () => {
-    fetch(`http://127.0.0.1:8000/notes/${data.id}`, {
+    fetch(`http://localhost:8000/notes/${data.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Token " + user_token,
       },
       body: JSON.stringify({
         title: currentTitle,
@@ -110,7 +114,6 @@ export default function CreateNoteScreen() {
             multiline
             KeyboardAvoidingView
             style={{
-              // height: 200,
               height: "100%",
               paddingBottom: 100,
               margin: 20,

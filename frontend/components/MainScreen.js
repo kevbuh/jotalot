@@ -1,4 +1,3 @@
-// import * as React from "react";
 import React, { useEffect, useState } from "react";
 import {
   FlatList,
@@ -9,52 +8,18 @@ import {
   SafeAreaView,
   RefreshControl,
   Pressable,
-  LogBox,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
-import { userEmail, userToken } from "../redux/userSlice";
+import { userToken } from "../redux/userSlice";
 
-function MainScreen(props) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [refreshing, setRefreshing] = React.useState(false);
+function MainScreen() {
+  const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setLoading] = useState(true);
-  const [userData, setUserData] = useState([]);
   const [data, setData] = useState([]);
 
   const navigation = useNavigation();
-
   const user_token = useSelector(userToken);
-
-  // const user_token = useSelector((state) => {
-  //   state.user.currentUser.authToken;
-  // });
-
-  const GetUser = () => {
-    fetch("http://127.0.0.1:8000/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: "titi@titi.com",
-        password: "titipassword54",
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setUserData(data);
-        setIsAuthenticated(true);
-        console.log(data);
-      })
-      .catch((error) => console.log("error", error));
-  };
-
-  // useEffect(() => {
-  //   console.log("Going to get user!");
-  //   GetUser();
-  //   console.log("Got user!");
-  // }, []);
 
   const getNotes = () => {
     fetch("http://localhost:8000/notes/", {
@@ -63,10 +28,6 @@ function MainScreen(props) {
         "Content-Type": "application/json",
         Authorization: "Token " + user_token,
       },
-      // body: JSON.stringify({
-      //   email: "titi@titi.com",
-      //   password: "titipassword54",
-      // }),
     })
       .then((res) => {
         if (res.ok) {
@@ -76,7 +37,7 @@ function MainScreen(props) {
         }
       })
       .then((json) => {
-        console.log("MAIN SCREEN TRYING TO GETNOTES: ", json);
+        console.log("MAIN SCREEN TRYING TO getNotes(): ******* ", json);
         setData(json);
         setLoading(false);
       })
@@ -86,7 +47,6 @@ function MainScreen(props) {
   };
 
   useEffect(() => {
-    // GetUser();
     getNotes();
   }, []);
 
@@ -98,7 +58,10 @@ function MainScreen(props) {
     setRefreshing(true);
     wait(500)
       .then(getNotes())
-      .then(() => setRefreshing(false))
+      .then(() => {
+        setRefreshing(false);
+        console.log("MAIN SCREEN STOPPED LOADING");
+      })
       .catch((error) => console.log("error", error));
   }, []);
 
