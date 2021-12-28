@@ -9,6 +9,8 @@ import {
   Text,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { LogUserIn } from "../redux/userSlice";
 
 export default function RegisterScreen() {
   const [currentEmail, setCurrentEmail] = React.useState("");
@@ -16,9 +18,10 @@ export default function RegisterScreen() {
   const [currentPassword2, setCurrentPassword2] = React.useState("");
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const RegisterUser = () => {
-    fetch("http://192.168.0.253:8000/auth/register", {
+    fetch("http://localhost:8000/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,6 +43,7 @@ export default function RegisterScreen() {
       // .then((response) => console.log(response));
       .then((json) => {
         console.log(json);
+        dispatch(LogUserIn({ email: json.email, authToken: json.auth_token }));
         console.log("REGISTERED USER");
         navigation.navigate("Account");
       })

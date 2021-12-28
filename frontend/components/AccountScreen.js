@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Button, StyleSheet, Text, View, Switch } from "react-native";
 import { useSelector } from "react-redux";
-import { userEmail } from "../redux/userSlice";
+import { userEmail, userToken } from "../redux/userSlice";
 
 const styles = StyleSheet.create({
   container: {
@@ -14,6 +14,11 @@ const styles = StyleSheet.create({
 
 export default function AccountScreen() {
   const user_email = useSelector(userEmail);
+  const user_token = useSelector(userToken);
+
+  // const user_token = useSelector((state) => {
+  //   state.user.currentUser.authToken;
+  // });
 
   //  useEffect(() => {
   //    if (currentNote.length > 0 && currentTitle.length > 0) {
@@ -58,7 +63,10 @@ export default function AccountScreen() {
       ) : (
         <Text>Not authenticated</Text>
       )} */}
+
       <Text>{user_email}</Text>
+      <Text>{user_token}</Text>
+
       <Text style={{ marginVertical: 10 }}>Mobile push notifications</Text>
       <Switch />
       <Text style={{ marginVertical: 10 }}>Email notifications</Text>

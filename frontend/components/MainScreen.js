@@ -12,16 +12,24 @@ import {
   LogBox,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { userEmail, userToken } from "../redux/userSlice";
 
 function MainScreen(props) {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
   const [isLoading, setLoading] = useState(true);
+  const [userData, setUserData] = useState([]);
   const [data, setData] = useState([]);
 
   const navigation = useNavigation();
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userData, setUserData] = useState([]);
+  const user_token = useSelector(userToken);
+
+  // const user_token = useSelector((state) => {
+  //   state.user.currentUser.authToken;
+  // });
+
   const GetUser = () => {
     fetch("http://127.0.0.1:8000/auth/login", {
       method: "POST",
@@ -53,7 +61,7 @@ function MainScreen(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token " + userData.auth_token,
+        Authorization: "Token " + user_token,
       },
       // body: JSON.stringify({
       //   email: "titi@titi.com",
@@ -68,6 +76,7 @@ function MainScreen(props) {
         }
       })
       .then((json) => {
+        console.log("MAIN SCREEN TRYING TO GETNOTES: ", json);
         setData(json);
         setLoading(false);
       })
@@ -77,7 +86,7 @@ function MainScreen(props) {
   };
 
   useEffect(() => {
-    GetUser();
+    // GetUser();
     getNotes();
   }, []);
 

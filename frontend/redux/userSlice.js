@@ -32,5 +32,6 @@ export const { LogUserIn, UserLoggedOut } = slice.actions;
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
 // export const selectValue = (state) => state.slice.currentUser.email;
 export const userEmail = (state) => state.user.currentUser.email;
+export const userToken = (state) => state.user.currentUser.authToken;
 
 export default slice.reducer;
