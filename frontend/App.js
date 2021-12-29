@@ -178,7 +178,7 @@ function MainAppContent() {
             tabBarShowLabel: false,
           })}
         >
-          <Tab.Screen name="Notes" component={NoteStackScreen} />
+          {/* <Tab.Screen name="Notes" component={NoteStackScreen} /> */}
           <Tab.Screen
             name="Home"
             component={HomeStackScreen}

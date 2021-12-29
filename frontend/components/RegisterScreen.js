@@ -15,6 +15,8 @@ import { LogUserIn } from "../redux/userSlice";
 export default function RegisterScreen() {
   const [currentEmail, setCurrentEmail] = React.useState("");
   const [currentPassword, setCurrentPassword] = React.useState("");
+  const [currentFirstName, setCurrentFirstName] = React.useState("");
+  const [currentLastName, setCurrentLastName] = React.useState("");
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -28,6 +30,8 @@ export default function RegisterScreen() {
       body: JSON.stringify({
         email: currentEmail,
         password: currentPassword,
+        first_name: currentFirstName,
+        last_name: currentLastName,
       }),
     })
       .then((res) => {
@@ -40,9 +44,16 @@ export default function RegisterScreen() {
         }
       })
       .then((json) => {
-        // console.log(json);
-        dispatch(LogUserIn({ email: json.email, authToken: json.auth_token }));
-        // console.log("REGISTERED USER");
+        console.log(json);
+        dispatch(
+          LogUserIn({
+            email: json.email,
+            authToken: json.auth_token,
+            firstName: json.first_name,
+            lastName: json.last_name,
+          })
+        );
+        console.log("REGISTERED USER");
         // navigation.navigate("Untitled Notes");
       })
       .catch((error) => console.log("error", error));
@@ -76,7 +87,36 @@ export default function RegisterScreen() {
           >
             Sign Up{" "}
           </Text>
-
+          <TextInput
+            KeyboardAvoidingView
+            style={{
+              margin: 20,
+              fontSize: 20,
+              paddingBottom: 10,
+              borderBottomWidth: 1,
+              borderBottomColor: "#dddddd",
+              width: "80%",
+            }}
+            placeholder="First Name"
+            autoCapitalize="none"
+            value={currentFirstName}
+            onChangeText={setCurrentFirstName}
+          />
+          <TextInput
+            KeyboardAvoidingView
+            style={{
+              margin: 20,
+              fontSize: 20,
+              paddingBottom: 10,
+              borderBottomWidth: 1,
+              borderBottomColor: "#dddddd",
+              width: "80%",
+            }}
+            placeholder="Last Name"
+            autoCapitalize="none"
+            value={currentLastName}
+            onChangeText={setCurrentLastName}
+          />
           <TextInput
             KeyboardAvoidingView
             style={{

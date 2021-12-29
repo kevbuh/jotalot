@@ -12,8 +12,9 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
-import { userToken } from "../redux/userSlice";
+import { userToken, userFirstName } from "../redux/userSlice";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useIsFocused } from "@react-navigation/native";
 
 function MainScreen() {
   const [refreshing, setRefreshing] = useState(false);
@@ -23,6 +24,9 @@ function MainScreen() {
 
   const navigation = useNavigation();
   const user_token = useSelector(userToken);
+  const user_first_name = useSelector(userFirstName);
+
+  const isFocused = useIsFocused();
 
   const getNotes = () => {
     fetch("http://localhost:8000/notes/", {
@@ -52,7 +56,7 @@ function MainScreen() {
 
   useEffect(() => {
     getNotes();
-  }, []);
+  }, [isFocused]);
 
   const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -130,7 +134,7 @@ function MainScreen() {
                   fontWeight: "bold",
                 }}
               >
-                Notes:
+                {user_first_name}'s Notes:
               </Text>
               {/* <TouchableOpacity
                 onPress={() => {
@@ -188,10 +192,12 @@ function MainScreen() {
                   You currently have 0 notes.
                 </Text>
                 <View style={{ marginTop: 10 }}>
-                  <Text style={{ marginTop: 20, fontSize: 20 }}>
-                    Click the pink 'Create Note' button at the top right
+                  <Text style={{ fontSize: 20 }}>
+                    Click the pink 'Create Note' button
                   </Text>
-                  <Text style={{ fontSize: 20 }}>to make a note!</Text>
+                  <Text style={{ fontSize: 20 }}>
+                    at the top right to make a note!
+                  </Text>
                 </View>
               </View>
             )}

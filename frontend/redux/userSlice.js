@@ -7,6 +7,8 @@ export const slice = createSlice({
     currentUser: {
       email: "",
       authToken: "",
+      firstName: "",
+      lastName: "",
     },
   },
   reducers: {
@@ -20,6 +22,8 @@ export const slice = createSlice({
     LogUserOut: (state) => {
       state.currentUser.email = "";
       state.currentUser.authToken = "";
+      state.currentUser.firstName = "";
+      state.currentUser.lastName = "";
     },
   },
 });
@@ -33,5 +37,7 @@ export const { LogUserIn, LogUserOut } = slice.actions;
 // export const selectValue = (state) => state.slice.currentUser.email;
 export const userEmail = (state) => state.user.currentUser.email;
 export const userToken = (state) => state.user.currentUser.authToken;
+export const userFirstName = (state) => state.user.currentUser.firstName;
+export const userLastName = (state) => state.user.currentUser.lastName;
 
 export default slice.reducer;

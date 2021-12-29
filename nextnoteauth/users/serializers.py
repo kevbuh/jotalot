@@ -7,8 +7,10 @@ User = get_user_model()
 
 
 class UserLoginSerializer(serializers.Serializer):
-    email = serializers.CharField(max_length=300, required=True)
+    email = serializers.CharField(max_length=62, required=True)
     password = serializers.CharField(required=True, write_only=True)
+    # first_name = serializers.CharField(max_length=46, required=Tru)
+    # last_name = serializers.CharField(max_length=46, required=True)
 
 
 class AuthUserSerializer(serializers.ModelSerializer):

@@ -8,7 +8,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useSelector } from "react-redux";
-import { userEmail, userToken } from "../redux/userSlice";
+import {
+  userEmail,
+  userToken,
+  userFirstName,
+  userLastName,
+} from "../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { LogUserOut } from "../redux/userSlice";
 import { useNavigation } from "@react-navigation/native";
@@ -26,6 +31,9 @@ const styles = StyleSheet.create({
 export default function AccountScreen() {
   const user_email = useSelector(userEmail);
   const user_token = useSelector(userToken);
+  const user_first_name = useSelector(userFirstName);
+  const user_last_name = useSelector(userLastName);
+
   const dispatch = useDispatch();
 
   const navigation = useNavigation();
@@ -62,11 +70,30 @@ export default function AccountScreen() {
   return (
     <ScrollView style={styles.container}>
       <View>
-        <Text style={{ fontSize: 35, fontWeight: "bold" }}>Account</Text>
-        <Text style={{ fontSize: 20, marginBottom: 20 }}>{user_email}</Text>
+        {/* <Text
+          style={{
+            fontSize: 35,
+            fontWeight: "bold",
+            marginBottom: 5,
+            borderBottomWidth: 2,
+            width: "90%",
+            borderColor: "#dddddd",
+          }}
+        >
+          Account
+        </Text> */}
+        <View style={{ flexDirection: "row" }}>
+          <Text style={{ fontSize: 35, marginRight: 6, fontWeight: "bold" }}>
+            {user_first_name}
+          </Text>
+          <Text style={{ fontSize: 35, fontWeight: "bold" }}>
+            {user_last_name}
+          </Text>
+        </View>
+        <Text style={{ fontSize: 20, marginBottom: 10 }}>{user_email}</Text>
       </View>
       {/* <Text>{user_token}</Text> */}
-      <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 20 }}>
+      <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 10 }}>
         Notifications
       </Text>
       <Text style={{ marginVertical: 10 }}>Mobile push notifications</Text>
