@@ -19,10 +19,14 @@ import LoginScreen from "./components/LoginScreen";
 import RegisterScreen from "./components/RegisterScreen";
 import ChangePasswordScreen from "./components/ChangePasswordScreen";
 import NewAccountScreen from "./components/NewAccountScreen";
-import { store } from "./redux/store";
-import { Provider } from "react-redux";
+// import { store } from "./redux/store";
+
 import { useSelector } from "react-redux";
 import { userToken, userEmail } from "./redux/userSlice";
+
+import store, { persistor } from "./redux/store";
+import { Provider as ReduxProvider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -245,9 +249,11 @@ function MainAppContent() {
 
 function App() {
   return (
-    <Provider store={store}>
-      <MainAppContent />
-    </Provider>
+    <ReduxProvider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <MainAppContent />
+      </PersistGate>
+    </ReduxProvider>
   );
 }
 
