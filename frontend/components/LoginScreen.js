@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
   Button,
-  ScrollView,
+  TouchableOpacity,
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
@@ -52,40 +52,39 @@ export default function LoginScreen() {
         Keyboard.dismiss();
       }}
     >
-      <ScrollView>
-        <View
-          style={{
-            height: "100%",
-            width: "100%",
-            alignItems: "center",
-            // flex: 1,
-            justifyContent: "center",
-            paddingVertical: 100,
-          }}
-        >
+      {/* <ScrollView> */}
+      <View
+        style={{
+          height: "85%",
+          // width: "100%",
+          // alignItems: "center",
+          // flex: 1,
+          justifyContent: "center",
+          // paddingVertical: 100,
+        }}
+      >
+        <View style={{ marginLeft: 20 }}>
           <Text
             style={{
               margin: 20,
-              fontSize: 20,
+              fontSize: 40,
               fontWeight: "bold",
               borderBottomWidth: 2,
             }}
           >
-            Login{" "}
+            Sign In{" "}
           </Text>
-          <Button
-            title="Need to register? Click here"
-            onPress={() => {
-              navigation.replace("Register");
-            }}
-          />
+
           <TextInput
             KeyboardAvoidingView
             style={{
               margin: 20,
               fontSize: 20,
+              paddingBottom: 10,
+              borderBottomWidth: 1,
+              borderBottomColor: "#dddddd",
+              width: "80%",
             }}
-            borderColor="#D3D3D3"
             autoCapitalize="none"
             textContentType="emailAddress"
             keyboardType="email-address"
@@ -99,21 +98,55 @@ export default function LoginScreen() {
             style={{
               margin: 20,
               fontSize: 20,
+              paddingBottom: 10,
+              borderBottomWidth: 1,
+              borderBottomColor: "#dddddd",
+              width: "80%",
             }}
-            borderColor="#D3D3D3"
             placeholder="Password"
             autoCapitalize="none"
             value={currentPassword}
             onChangeText={setCurrentPassword}
           />
-          <Button
-            title="Log In"
-            onPress={() => {
-              LoginUser();
-            }}
-          />
         </View>
-      </ScrollView>
+        <TouchableOpacity
+          onPress={() => {
+            LoginUser();
+          }}
+          style={{
+            paddingHorizontal: 5,
+            alignSelf: "center",
+            alignItems: "center",
+            paddingVertical: 15,
+            backgroundColor: "#DDDDDD",
+            width: "80%",
+            borderRadius: 10,
+            marginVertical: 10,
+          }}
+        >
+          <Text style={{ fontWeight: "bold" }}>Sign In</Text>
+        </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: "row",
+            alignSelf: "center",
+            marginTop: 20,
+            // marginRight: 40,
+          }}
+        >
+          <Text>Don't have an account? </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.replace("Register");
+            }}
+          >
+            <Text style={{ fontWeight: "bold", color: "#E4007C" }}>
+              Sign Up
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      {/* </ScrollView> */}
     </TouchableWithoutFeedback>
   );
 }

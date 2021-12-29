@@ -1,7 +1,7 @@
 import React from "react";
 import {
   Button,
-  ScrollView,
+  TouchableOpacity,
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
@@ -54,47 +54,44 @@ export default function RegisterScreen() {
         Keyboard.dismiss();
       }}
     >
-      <ScrollView>
-        <View
-          style={{
-            height: "100%",
-            width: "100%",
-            alignItems: "center",
-            flex: 1,
-            justifyContent: "center",
-            paddingVertical: 100,
-          }}
-        >
+      {/* <ScrollView> */}
+      <View
+        style={{
+          height: "85%",
+          // width: "100%",
+          // alignItems: "center",
+          // flex: 1,
+          justifyContent: "center",
+          // paddingVertical: 100,
+        }}
+      >
+        <View style={{ marginLeft: 20 }}>
           <Text
             style={{
               margin: 20,
-              fontSize: 20,
+              fontSize: 40,
               fontWeight: "bold",
               borderBottomWidth: 2,
             }}
           >
-            Register{" "}
+            Sign Up{" "}
           </Text>
-          <Button
-            title="Need to login? Click here"
-            onPress={() => {
-              navigation.replace("Login");
-            }}
-          />
+
           <TextInput
             KeyboardAvoidingView
             style={{
               margin: 20,
               fontSize: 20,
-              borderBottomWidth: 2,
+              paddingBottom: 10,
+              borderBottomWidth: 1,
+              borderBottomColor: "#dddddd",
+              width: "80%",
             }}
-            borderColor="#D3D3D3"
             autoCapitalize="none"
             textContentType="emailAddress"
             keyboardType="email-address"
             autoCompleteType="email"
             placeholder="Email"
-            blurOnSubmit={false}
             value={currentEmail}
             onChangeText={setCurrentEmail}
           />
@@ -103,24 +100,128 @@ export default function RegisterScreen() {
             style={{
               margin: 20,
               fontSize: 20,
-              borderBottomWidth: 2,
+              paddingBottom: 10,
+              borderBottomWidth: 1,
+              borderBottomColor: "#dddddd",
+              width: "80%",
             }}
-            borderColor="#D3D3D3"
             placeholder="Password"
-            secureTextEntry={true}
             autoCapitalize="none"
             value={currentPassword}
             onChangeText={setCurrentPassword}
           />
-
-          <Button
-            title="Register"
-            onPress={() => {
-              RegisterUser();
-            }}
-          />
         </View>
-      </ScrollView>
+        <TouchableOpacity
+          onPress={() => {
+            LoginUser();
+          }}
+          style={{
+            paddingHorizontal: 5,
+            alignSelf: "center",
+            alignItems: "center",
+            paddingVertical: 15,
+            backgroundColor: "#DDDDDD",
+            width: "80%",
+            borderRadius: 10,
+            marginVertical: 10,
+          }}
+        >
+          <Text style={{ fontWeight: "bold" }}>Sign Up</Text>
+        </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: "row",
+            alignSelf: "center",
+            marginTop: 20,
+            // marginRight: 40,
+          }}
+        >
+          <Text>Already have an account? </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.replace("Register");
+            }}
+          >
+            <Text style={{ fontWeight: "bold", color: "#E4007C" }}>
+              Sign In
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      {/* </ScrollView> */}
     </TouchableWithoutFeedback>
+    // <TouchableWithoutFeedback
+    //   onPress={() => {
+    //     Keyboard.dismiss();
+    //   }}
+    // >
+    //   <ScrollView>
+    //     <View
+    //       style={{
+    //         height: "100%",
+    //         width: "100%",
+    //         alignItems: "center",
+    //         flex: 1,
+    //         justifyContent: "center",
+    //         paddingVertical: 100,
+    //       }}
+    //     >
+    //       <Text
+    //         style={{
+    //           margin: 20,
+    //           fontSize: 20,
+    //           fontWeight: "bold",
+    //           borderBottomWidth: 2,
+    //         }}
+    //       >
+    //         Register{" "}
+    //       </Text>
+    //       <Button
+    //         title="I have an account/ Sign In"
+    //         onPress={() => {
+    //           navigation.replace("Login");
+    //         }}
+    //       />
+    //       <TextInput
+    //         KeyboardAvoidingView
+    //         style={{
+    //           margin: 20,
+    //           fontSize: 20,
+    //           borderBottomWidth: 2,
+    //         }}
+    //         borderColor="#D3D3D3"
+    //         autoCapitalize="none"
+    //         textContentType="emailAddress"
+    //         keyboardType="email-address"
+    //         autoCompleteType="email"
+    //         placeholder="Email"
+    //         blurOnSubmit={false}
+    //         value={currentEmail}
+    //         onChangeText={setCurrentEmail}
+    //       />
+    //       <TextInput
+    //         KeyboardAvoidingView
+    //         style={{
+    //           margin: 20,
+    //           fontSize: 20,
+    //           borderBottomWidth: 2,
+    //         }}
+    //         borderColor="#D3D3D3"
+    //         placeholder="Password"
+    //         secureTextEntry={true}
+    //         autoCapitalize="none"
+    //         value={currentPassword}
+    //         onChangeText={setCurrentPassword}
+    //       />
+
+    //       <Button
+    //         title="Register"
+    //         onPress={() => {
+    //           RegisterUser();
+    //         }}
+    //       />
+    //     </View>
+    //   </ScrollView>
+    // </TouchableWithoutFeedback>
   );
 }

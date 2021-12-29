@@ -72,7 +72,6 @@ function HomeStackScreen() {
           headerTintColor: "black",
         })}
       />
-      <HomeStack.Screen name="Welcome" component={WelcomeScreen} />
       <HomeStack.Screen name="Account" component={AccountScreen} />
       <HomeStack.Screen
         name="ChangePassword"
@@ -98,7 +97,7 @@ function HomeStackScreen() {
 
 function NoteStackScreen() {
   return (
-    <Drawer.Navigator initialRouteName="Register">
+    <Drawer.Navigator initialRouteName="Untitled Note">
       <Drawer.Screen
         name="Untitled Note"
         component={CreateNoteScreen}
@@ -229,9 +228,10 @@ function MainAppContent() {
           </Tab.Navigator>
         ) : (
           <AuthStack.Navigator
-            initialRouteName="Login"
+            initialRouteName="Welcome"
             screenOptions={{ headerShown: false }}
           >
+            <AuthStack.Screen name="Welcome" component={WelcomeScreen} />
             <AuthStack.Screen name="Login" component={LoginScreen} />
             <AuthStack.Screen name="Register" component={RegisterScreen} />
           </AuthStack.Navigator>
