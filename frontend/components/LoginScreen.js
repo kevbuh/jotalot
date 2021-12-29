@@ -38,9 +38,9 @@ export default function LoginScreen() {
         }
       })
       .then((json) => {
-        console.log("********---->", json);
+        // console.log("********---->", json);
         dispatch(LogUserIn({ email: json.email, authToken: json.auth_token }));
-        console.log("Navigating to account....");
+        // console.log("Navigating to account....");
         navigation.navigate("Untitled Notes");
       })
       .catch((error) => console.log("error", error));

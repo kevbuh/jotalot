@@ -50,10 +50,10 @@ export default function AccountScreen() {
         }
       })
       .then((json) => {
-        console.log("********---->", json);
-        console.log("Logging User Out....");
+        // console.log("********---->", json);
+        // console.log("Logging User Out....");
         dispatch(LogUserOut());
-        console.log("Success, navigating to login....");
+        // console.log("Success, navigating to login....");
         navigation.navigate("Login");
       })
       .catch((error) => console.log("error", error));

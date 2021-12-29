@@ -32,17 +32,17 @@ export default function RegisterScreen() {
     })
       .then((res) => {
         if (res.ok) {
-          console.log("res.json() was ok -> returned json");
+          // console.log("res.json() was ok -> returned json");
           return res.json();
         } else {
-          console.log("res.json() wasn't ok");
+          // console.log("res.json() wasn't ok");
           throw res.json();
         }
       })
       .then((json) => {
-        console.log(json);
+        // console.log(json);
         dispatch(LogUserIn({ email: json.email, authToken: json.auth_token }));
-        console.log("REGISTERED USER");
+        // console.log("REGISTERED USER");
         navigation.navigate("Untitled Notes");
       })
       .catch((error) => console.log("error", error));

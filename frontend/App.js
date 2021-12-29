@@ -19,7 +19,6 @@ import LoginScreen from "./components/LoginScreen";
 import RegisterScreen from "./components/RegisterScreen";
 import ChangePasswordScreen from "./components/ChangePasswordScreen";
 import NewAccountScreen from "./components/NewAccountScreen";
-// import { store } from "./redux/store";
 
 import { useSelector } from "react-redux";
 import { userToken, userEmail } from "./redux/userSlice";
@@ -52,24 +51,32 @@ function HomeStackScreen() {
         options={({ navigation }) => ({
           headerTitle: (props) => <LogoTitle {...props} />,
           headerRight: () => (
-            <TouchableOpacity
+            <Ionicons
+              name={"person-circle"}
+              size={30}
+              color={"black"}
               onPress={() => {
                 navigation.navigate("Account");
               }}
-              style={
-                {
-                  // paddingHorizontal: 5,
-                  // alignItems: "center",
-                  // paddingVertical: 10,
-                  // backgroundColor: "#DDDDDD",
-                  // width: "30%",
-                  // borderRadius: 10,
-                  // marginVertical: 7,
-                }
-              }
-            >
-              <Text style={{ fontWeight: "bold" }}>Account</Text>
-            </TouchableOpacity>
+            />
+            // <TouchableOpacity
+            //   onPress={() => {
+            //     navigation.navigate("Account");
+            //   }}
+            //   style={
+            //     {
+            //       // paddingHorizontal: 5,
+            //       // alignItems: "center",
+            //       // paddingVertical: 10,
+            //       // backgroundColor: "#DDDDDD",
+            //       // width: "30%",
+            //       // borderRadius: 10,
+            //       // marginVertical: 7,
+            //     }
+            //   }
+            // >
+            //   // {/* <Text style={{ fontWeight: "bold" }}>Account</Text> */}
+            // {/* </TouchableOpacity> */}
           ),
           headerStyle: {
             backgroundColor: "#f2f2f2",
@@ -137,15 +144,6 @@ function NoteStackScreen() {
   );
 }
 
-function AuthScreen() {
-  return (
-    <AuthStack.Navigator>
-      <AuthStack.Screen name="Login" component={LoginScreen} />
-      <AuthStack.Screen name="Register" component={RegisterScreen} />
-    </AuthStack.Navigator>
-  );
-}
-
 function MainAppContent() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState([]);
@@ -164,30 +162,16 @@ function MainAppContent() {
       .then((data) => {
         setUserData(data);
         setIsAuthenticated(true);
-        console.log(data);
+        // console.log(data);
       })
       .catch((error) => console.log("error", error));
   };
 
   useEffect(() => {
-    console.log("Going to get user!");
+    // console.log("Going to get user!");
     GetUser();
-    console.log("Got user!");
+    // console.log("Got user!");
   }, []);
-
-  // {
-  //   user_email.length > 0
-  //     ? (
-  //       return (
-  //       <NavigationContainer>
-  //         <AuthStack.Navigator>
-  //           <AuthStack.Screen name="Auth" component={AuthScreen} />
-  //         </AuthStack.Navigator>
-  //       </NavigationContainer>
-  //     )
-  //     )
-  //     : null;
-  // }
 
   return (
     <NativeBaseProvider theme={theme}>

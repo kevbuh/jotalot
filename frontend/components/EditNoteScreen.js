@@ -14,7 +14,7 @@ import { userToken } from "../redux/userSlice";
 
 export default function EditNoteScreen(props) {
   const sentData = props.route.params.item;
-  console.log("sentData ---->", sentData);
+  // console.log("sentData ---->", sentData);
 
   const navigation = useNavigation();
   const user_token = useSelector(userToken);

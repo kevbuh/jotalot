@@ -20,8 +20,6 @@ import {
 } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// import rootReducer from "./reducers";
-
 const rootReducer = combineReducers({
   user: userReducer,
 });

@@ -41,8 +41,8 @@ export default function ChangePasswordScreen() {
       //   }
       // })
       .then((json) => {
-        console.log("Changing Password....");
-        console.log("Navigating to account....");
+        // console.log("Changing Password....");
+        // console.log("Navigating to account....");
         navigation.navigate("Account");
       })
       .catch((error) => console.log("error", error));

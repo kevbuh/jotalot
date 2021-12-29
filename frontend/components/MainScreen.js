@@ -38,7 +38,7 @@ function MainScreen() {
         }
       })
       .then((json) => {
-        console.log("MAIN SCREEN TRYING TO getNotes(): ******* ", json);
+        // console.log("MAIN SCREEN TRYING TO getNotes(): ******* ", json);
         setData(json);
         setAreThereNotes(true);
         setLoading(false);
@@ -62,7 +62,7 @@ function MainScreen() {
       .then(getNotes())
       .then(() => {
         setRefreshing(false);
-        console.log("MAIN SCREEN STOPPED LOADING");
+        // console.log("MAIN SCREEN STOPPED LOADING");
       })
       .catch((error) => console.log("error", error));
   }, []);
@@ -111,11 +111,12 @@ function MainScreen() {
             <ActivityIndicator />
           </View>
         ) : (
-          <View>
+          <View style={{ height: 700 }}>
             <Text
               style={{
                 paddingTop: 25,
-                paddingHorizontal: 10,
+                // paddingHorizontal: 10,
+                marginLeft: 20,
                 paddingBottom: 20,
                 fontSize: 30,
                 fontWeight: "bold",
@@ -123,13 +124,29 @@ function MainScreen() {
             >
               Notes:
             </Text>
-            <FlatList
-              data={data}
-              keyExtractor={({ id }, index) => id}
-              renderItem={({ item }) => {
-                return renderNotes(item);
-              }}
-            />
+            {data.length > 0 ? (
+              <FlatList
+                data={data}
+                keyExtractor={({ id }) => id}
+                renderItem={({ item }) => {
+                  return renderNotes(item);
+                }}
+              />
+            ) : (
+              <View style={{ justifyContent: "center", marginLeft: 20 }}>
+                <Text
+                  style={{ fontSize: 20, fontWeight: "bold", marginTop: 20 }}
+                >
+                  You currently have 0 notes.
+                </Text>
+                <View style={{ marginTop: 10 }}>
+                  <Text style={{ marginTop: 20, fontSize: 20 }}>
+                    Click the bottom right corner
+                  </Text>
+                  <Text style={{ fontSize: 20 }}>to make a note!</Text>
+                </View>
+              </View>
+            )}
           </View>
         )}
       </ScrollView>
