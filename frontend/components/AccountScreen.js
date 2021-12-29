@@ -54,7 +54,7 @@ export default function AccountScreen() {
         // console.log("Logging User Out....");
         dispatch(LogUserOut());
         // console.log("Success, navigating to login....");
-        navigation.navigate("Login");
+        // navigation.navigate("Login");
       })
       .catch((error) => console.log("error", error));
   };
@@ -122,7 +122,7 @@ export default function AccountScreen() {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("ChangePassword");
+            navigation.navigate("Change Password");
           }}
           style={{
             paddingHorizontal: 5,

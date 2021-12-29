@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
-import { Button, TouchableOpacity, Text } from "react-native";
+import { Button } from "react-native";
 import AccountScreen from "./components/AccountScreen";
 import CreateNoteScreen from "./components/CreateNoteScreen";
 import LogoTitle from "./components/LogoTitle";
@@ -86,7 +86,7 @@ function HomeStackScreen() {
       />
       <HomeStack.Screen name="Account" component={AccountScreen} />
       <HomeStack.Screen
-        name="ChangePassword"
+        name="Change Password"
         component={ChangePasswordScreen}
       />
 

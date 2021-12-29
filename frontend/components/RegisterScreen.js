@@ -43,7 +43,7 @@ export default function RegisterScreen() {
         // console.log(json);
         dispatch(LogUserIn({ email: json.email, authToken: json.auth_token }));
         // console.log("REGISTERED USER");
-        navigation.navigate("Untitled Notes");
+        // navigation.navigate("Untitled Notes");
       })
       .catch((error) => console.log("error", error));
   };
