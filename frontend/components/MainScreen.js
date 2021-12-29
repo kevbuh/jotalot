@@ -8,10 +8,12 @@ import {
   SafeAreaView,
   RefreshControl,
   Pressable,
+  TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { userToken } from "../redux/userSlice";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 function MainScreen() {
   const [refreshing, setRefreshing] = useState(false);
@@ -112,18 +114,64 @@ function MainScreen() {
           </View>
         ) : (
           <View style={{ height: 700 }}>
-            <Text
+            <View
               style={{
-                paddingTop: 25,
-                // paddingHorizontal: 10,
-                marginLeft: 20,
-                paddingBottom: 20,
-                fontSize: 30,
-                fontWeight: "bold",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
-              Notes:
-            </Text>
+              <Text
+                style={{
+                  paddingTop: 25,
+                  marginLeft: 20,
+                  paddingBottom: 20,
+                  fontSize: 30,
+                  fontWeight: "bold",
+                }}
+              >
+                Notes:
+              </Text>
+              {/* <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("Untitled Note");
+                }}
+                style={{
+                  paddingHorizontal: 5,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  paddingHorizontal: 30,
+                  backgroundColor: "#DDDDDD",
+                  // width: "30%",
+                  height: 40,
+                  borderRadius: 10,
+                  marginVertical: 7,
+                  marginRight: 10,
+                  // borderWidth: 2,
+                  borderColor: "black",
+                  backgroundColor: "#e4007c",
+                }}
+              >
+                <Text
+                  style={{ fontWeight: "bold", fontSize: 20, color: "white" }}
+                >
+                  +
+                </Text>
+              </TouchableOpacity> */}
+              <Ionicons
+                name={"create-outline"}
+                size={30}
+                color={"black"}
+                onPress={() => {
+                  navigation.navigate("New Note");
+                }}
+                style={{
+                  color: "white",
+                  marginRight: 25,
+                  color: "#e4007c",
+                }}
+              />
+            </View>
             {data.length > 0 ? (
               <FlatList
                 data={data}
@@ -141,7 +189,7 @@ function MainScreen() {
                 </Text>
                 <View style={{ marginTop: 10 }}>
                   <Text style={{ marginTop: 20, fontSize: 20 }}>
-                    Click the bottom right corner
+                    Click the pink 'Create Note' button at the top right
                   </Text>
                   <Text style={{ fontSize: 20 }}>to make a note!</Text>
                 </View>

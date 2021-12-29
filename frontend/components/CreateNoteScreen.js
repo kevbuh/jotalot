@@ -89,7 +89,7 @@ export default function CreateNoteScreen() {
             flexDirection: "row",
           }}
         >
-          <Button
+          {/* <Button
             title="+"
             onPress={() => {
               setCurrentNote("");
@@ -97,7 +97,7 @@ export default function CreateNoteScreen() {
               CreateNewNote();
             }}
             color="black"
-          />
+          /> */}
         </View>
         <View style={{ height: "100%", width: "100%" }}>
           <TextInput
@@ -106,7 +106,7 @@ export default function CreateNoteScreen() {
               marginLeft: 20,
               fontSize: 30,
             }}
-            placeholder="Edit Title"
+            placeholder="Title"
             value={currentTitle}
             onChangeText={setCurrentTitle}
           />
@@ -120,7 +120,7 @@ export default function CreateNoteScreen() {
               fontSize: 20,
             }}
             borderColor="#D3D3D3"
-            placeholder="Tap here to edit text"
+            placeholder="Text..."
             value={currentNote}
             onChangeText={setCurrentNote}
           />

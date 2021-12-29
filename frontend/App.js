@@ -1,48 +1,38 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-native";
-import AccountScreen from "./components/AccountScreen";
-import CreateNoteScreen from "./components/CreateNoteScreen";
-import LogoTitle from "./components/LogoTitle";
-import MainScreen from "./components/MainScreen";
-import WelcomeScreen from "./components/WelcomeScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import NoteSettingsScreen from "./components/NoteSettingsScreen";
+
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import TrashScreen from "./components/TrashScreen";
-import FeedbackScreen from "./components/FeedbackScreen";
-import { extendTheme, NativeBaseProvider } from "native-base";
-import EditNoteScreen from "./components/EditNoteScreen";
-import LoginScreen from "./components/LoginScreen";
-import RegisterScreen from "./components/RegisterScreen";
+
 import ChangePasswordScreen from "./components/ChangePasswordScreen";
+import NoteSettingsScreen from "./components/NoteSettingsScreen";
+import CreateNoteScreen from "./components/CreateNoteScreen";
 import NewAccountScreen from "./components/NewAccountScreen";
+import FeedbackScreen from "./components/FeedbackScreen";
+import EditNoteScreen from "./components/EditNoteScreen";
+import RegisterScreen from "./components/RegisterScreen";
+import WelcomeScreen from "./components/WelcomeScreen";
+import AccountScreen from "./components/AccountScreen";
+import TrashScreen from "./components/TrashScreen";
+import LoginScreen from "./components/LoginScreen";
+import MainScreen from "./components/MainScreen";
+import LogoTitle from "./components/LogoTitle";
 
-import { useSelector } from "react-redux";
-import { userToken, userEmail } from "./redux/userSlice";
-
-import store, { persistor } from "./redux/store";
-import { Provider as ReduxProvider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import { Provider as ReduxProvider } from "react-redux";
+import { userToken, userEmail } from "./redux/userSlice";
+import store, { persistor } from "./redux/store";
+import { useSelector } from "react-redux";
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
 
-const newColorTheme = {
-  brand: {
-    900: "#8287af",
-    800: "#7c83db",
-    700: "#b3bef6",
-  },
-};
-
-const theme = extendTheme({ colors: newColorTheme });
-
-function HomeStackScreen() {
+function HomeStackScreen(item) {
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen
@@ -59,24 +49,6 @@ function HomeStackScreen() {
                 navigation.navigate("Account");
               }}
             />
-            // <TouchableOpacity
-            //   onPress={() => {
-            //     navigation.navigate("Account");
-            //   }}
-            //   style={
-            //     {
-            //       // paddingHorizontal: 5,
-            //       // alignItems: "center",
-            //       // paddingVertical: 10,
-            //       // backgroundColor: "#DDDDDD",
-            //       // width: "30%",
-            //       // borderRadius: 10,
-            //       // marginVertical: 7,
-            //     }
-            //   }
-            // >
-            //   // {/* <Text style={{ fontWeight: "bold" }}>Account</Text> */}
-            // {/* </TouchableOpacity> */}
           ),
           headerStyle: {
             backgroundColor: "#f2f2f2",
@@ -89,15 +61,37 @@ function HomeStackScreen() {
         name="Change Password"
         component={ChangePasswordScreen}
       />
-
+      <HomeStack.Screen
+        name="New Note"
+        component={CreateNoteScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#f2f2f2",
+          },
+          headerTintColor: "black",
+        }}
+      />
       <HomeStack.Screen
         name="Edit Note"
         component={EditNoteScreen}
         options={({ navigation }) => ({
           headerRight: () => (
-            <Button
-              title="Settings"
-              onPress={() => navigation.navigate("Customize Note")}
+            // <Button
+            //   title="Settings"
+            //   onPress={() => navigation.navigate("Customize Note")}
+            // />
+            <Ionicons
+              name={"cog"}
+              size={25}
+              color={"black"}
+              onPress={() => {
+                navigation.navigate("Customize Note", {
+                  item: item,
+                });
+              }}
+              style={{
+                marginRight: 5,
+              }}
             />
           ),
         })}
@@ -109,17 +103,7 @@ function HomeStackScreen() {
 
 function NoteStackScreen() {
   return (
-    <Drawer.Navigator initialRouteName="Untitled Note">
-      <Drawer.Screen
-        name="Untitled Note"
-        component={CreateNoteScreen}
-        options={{
-          headerStyle: {
-            backgroundColor: "#f2f2f2",
-          },
-          headerTintColor: "black",
-        }}
-      />
+    <Drawer.Navigator initialRouteName="Trash">
       <Drawer.Screen
         name="Trash"
         component={TrashScreen}
@@ -174,60 +158,58 @@ function MainAppContent() {
   }, []);
 
   return (
-    <NativeBaseProvider theme={theme}>
-      <NavigationContainer>
-        {user_email.length > 0 ? (
-          <Tab.Navigator
-            initialRouteName="Untitled Note"
-            screenOptions={({ route }) => ({
-              headerShown: false,
-              tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
-                if (route.name === "Home") {
-                  iconName = focused ? "home" : "home-outline";
-                } else if (route.name === "Notes") {
-                  iconName = "create-outline";
-                }
-                return <Ionicons name={iconName} size={size} color={color} />;
-              },
-              tabBarActiveTintColor: "#121212",
-              tabBarInactiveTintColor: "gray",
-              tabBarShowLabel: false,
+    <NavigationContainer>
+      {user_email.length > 0 ? (
+        <Tab.Navigator
+          initialRouteName="New Note"
+          screenOptions={({ route }) => ({
+            headerShown: false,
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+              if (route.name === "Home") {
+                iconName = focused ? "create-outline" : "create-outline";
+              } else if (route.name === "Notes") {
+                iconName = "search";
+              }
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: "#121212",
+            tabBarInactiveTintColor: "gray",
+            tabBarShowLabel: false,
+          })}
+        >
+          <Tab.Screen name="Notes" component={NoteStackScreen} />
+          <Tab.Screen
+            name="Home"
+            component={HomeStackScreen}
+            options={({ navigation }) => ({
+              headerRight: () => (
+                <Button
+                  title="Account"
+                  onPress={() =>
+                    navigation.navigate("Account", {
+                      user: userData,
+                    })
+                  }
+                />
+              ),
+              headerTitle: "Settings",
+              headerLeft: (props) => <LogoTitle {...props} />,
             })}
-          >
-            <Tab.Screen
-              name="Home"
-              component={HomeStackScreen}
-              options={({ navigation }) => ({
-                headerRight: () => (
-                  <Button
-                    title="Account"
-                    onPress={() =>
-                      navigation.navigate("Account", {
-                        user: userData,
-                      })
-                    }
-                  />
-                ),
-                headerTitle: "Settings",
-                headerLeft: (props) => <LogoTitle {...props} />,
-              })}
-            />
-            <Tab.Screen name="Notes" component={NoteStackScreen} />
-          </Tab.Navigator>
-        ) : (
-          <AuthStack.Navigator
-            initialRouteName="Welcome"
-            screenOptions={{ headerShown: false }}
-          >
-            <AuthStack.Screen name="Welcome" component={WelcomeScreen} />
-            <AuthStack.Screen name="Login" component={LoginScreen} />
-            <AuthStack.Screen name="Register" component={RegisterScreen} />
-            <AuthStack.Screen name="NewAccount" component={NewAccountScreen} />
-          </AuthStack.Navigator>
-        )}
-      </NavigationContainer>
-    </NativeBaseProvider>
+          />
+        </Tab.Navigator>
+      ) : (
+        <AuthStack.Navigator
+          initialRouteName="Welcome"
+          screenOptions={{ headerShown: false }}
+        >
+          <AuthStack.Screen name="Welcome" component={WelcomeScreen} />
+          <AuthStack.Screen name="Login" component={LoginScreen} />
+          <AuthStack.Screen name="Register" component={RegisterScreen} />
+          <AuthStack.Screen name="NewAccount" component={NewAccountScreen} />
+        </AuthStack.Navigator>
+      )}
+    </NavigationContainer>
   );
 }
 

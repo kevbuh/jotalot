@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { userToken } from "../redux/userSlice";
 
-export default function EditNoteScreen(props) {
+export default function EditNoteScreen(props, item) {
   const sentData = props.route.params.item;
   // console.log("sentData ---->", sentData);
 
