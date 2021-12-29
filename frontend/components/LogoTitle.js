@@ -1,13 +1,5 @@
 import * as React from "react";
-import { Image, StyleSheet, Text } from "react-native";
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+import { Image } from "react-native";
 
 export default function LogoTitle() {
   return (

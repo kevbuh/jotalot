@@ -16,6 +16,7 @@ import { userToken } from "../redux/userSlice";
 function MainScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setLoading] = useState(true);
+  const [areThereNotes, setAreThereNotes] = useState(false);
   const [data, setData] = useState([]);
 
   const navigation = useNavigation();
@@ -39,6 +40,7 @@ function MainScreen() {
       .then((json) => {
         console.log("MAIN SCREEN TRYING TO getNotes(): ******* ", json);
         setData(json);
+        setAreThereNotes(true);
         setLoading(false);
       })
       .catch((error) => {

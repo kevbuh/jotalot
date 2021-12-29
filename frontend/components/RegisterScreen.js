@@ -113,7 +113,7 @@ export default function RegisterScreen() {
         </View>
         <TouchableOpacity
           onPress={() => {
-            LoginUser();
+            RegisterUser();
           }}
           style={{
             paddingHorizontal: 5,
@@ -139,7 +139,7 @@ export default function RegisterScreen() {
           <Text>Already have an account? </Text>
           <TouchableOpacity
             onPress={() => {
-              navigation.replace("Register");
+              navigation.replace("Login");
             }}
           >
             <Text style={{ fontWeight: "bold", color: "#E4007C" }}>

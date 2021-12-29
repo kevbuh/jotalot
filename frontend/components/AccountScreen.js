@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, View, Switch, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  ScrollView,
+  View,
+  Switch,
+  TouchableOpacity,
+} from "react-native";
 import { useSelector } from "react-redux";
 import { userEmail, userToken } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
@@ -12,7 +19,7 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     // justifyContent: "center",
     paddingLeft: 40,
-    paddingVertical: 40,
+    paddingTop: 40,
   },
 });
 
@@ -53,7 +60,7 @@ export default function AccountScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View>
         <Text style={{ fontSize: 35, fontWeight: "bold" }}>Account</Text>
         <Text style={{ fontSize: 20, marginBottom: 20 }}>{user_email}</Text>
@@ -66,6 +73,17 @@ export default function AccountScreen() {
       <Switch />
       <Text style={{ marginVertical: 10 }}>Email notifications</Text>
       <Switch />
+      <View>
+        <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 20 }}>
+          Manage Your Data
+        </Text>
+        <Text style={{ marginTop: 10 }}>
+          We save and use your data anonymously
+        </Text>
+        <Text>to give the best experience.</Text>
+        <Text style={{ marginTop: 5 }}>You can turn it off anytime: </Text>
+        <Switch style={{ marginTop: 10 }} />
+      </View>
       <View>
         <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 20 }}>
           General
@@ -121,7 +139,6 @@ export default function AccountScreen() {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            console.log("User pressed to logout!");
             UserLogout();
           }}
           style={{
@@ -131,12 +148,13 @@ export default function AccountScreen() {
             backgroundColor: "#DDDDDD",
             width: "30%",
             borderRadius: 10,
-            marginVertical: 7,
+            marginTop: 7,
+            marginBottom: 100,
           }}
         >
           <Text style={{ fontWeight: "bold" }}>Log Out</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 }

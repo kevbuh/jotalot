@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function WelcomeScreen() {
+function UsageScreen() {
   const navigation = useNavigation();
 
   return (
@@ -19,17 +19,8 @@ function WelcomeScreen() {
         source={require("../assets/NextNoteLogo.png")}
         style={{ borderRadius: 10, height: 50, width: 50, marginBottom: 20 }}
       /> */}
-      <View
-        style={{
-          paddingVertical: 30,
-          paddingHorizontal: 20,
-          borderWidth: 2,
-          borderRadius: 20,
-          borderColor: "#D3D3D3",
-        }}
-      >
-        <Text style={{ fontSize: 40 }}>N E X T</Text>
-        <Text style={{ fontSize: 40 }}>N O T E</Text>
+      <View>
+        <Text style={{ fontSize: 30 }}>Manage Your Data</Text>
       </View>
 
       <Text style={{ marginBottom: 50, marginTop: 20, fontSize: 17 }}>
@@ -55,4 +46,4 @@ function WelcomeScreen() {
   );
 }
 
-export default WelcomeScreen;
+export default UsageScreen;

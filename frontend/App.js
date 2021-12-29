@@ -18,6 +18,7 @@ import EditNoteScreen from "./components/EditNoteScreen";
 import LoginScreen from "./components/LoginScreen";
 import RegisterScreen from "./components/RegisterScreen";
 import ChangePasswordScreen from "./components/ChangePasswordScreen";
+import NewAccountScreen from "./components/NewAccountScreen";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import { useSelector } from "react-redux";
@@ -234,6 +235,7 @@ function MainAppContent() {
             <AuthStack.Screen name="Welcome" component={WelcomeScreen} />
             <AuthStack.Screen name="Login" component={LoginScreen} />
             <AuthStack.Screen name="Register" component={RegisterScreen} />
+            <AuthStack.Screen name="NewAccount" component={NewAccountScreen} />
           </AuthStack.Navigator>
         )}
       </NavigationContainer>
