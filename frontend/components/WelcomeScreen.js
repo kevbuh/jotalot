@@ -1,6 +1,7 @@
 import * as React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import BasicExample from "./LottieTest";
 
 const styles = StyleSheet.create({
   container: {
@@ -15,24 +16,33 @@ function WelcomeScreen() {
 
   return (
     <View style={styles.container}>
-      {/* <Image
-        source={require("../assets/NextNoteLogo.png")}
-        style={{ borderRadius: 10, height: 50, width: 50, marginBottom: 20 }}
-      /> */}
+      {/* <View> */}
+      {/* </View> */}
+      <Image
+        source={require("../assets/nnclear.png")}
+        style={{
+          borderRadius: 10,
+          height: 200,
+          width: 200,
+          // marginBottom: 10,
+          // borderWidth: 2,
+        }}
+      />
       <View
         style={{
-          paddingVertical: 30,
-          paddingHorizontal: 20,
-          borderWidth: 2,
-          borderRadius: 20,
+          // paddingVertical: 30,
+          // paddingHorizontal: 20,
+          // borderWidth: 2,
+          // borderRadius: 20,
+          flexDirection: "row",
           borderColor: "#D3D3D3",
         }}
       >
-        <Text style={{ fontSize: 40 }}>N E X T</Text>
-        <Text style={{ fontSize: 40 }}>N O T E</Text>
+        <Text style={{ fontSize: 35, marginRight: 30 }}>N E X T</Text>
+        <Text style={{ fontSize: 35 }}>N O T E</Text>
       </View>
 
-      <Text style={{ marginBottom: 50, marginTop: 20, fontSize: 17 }}>
+      <Text style={{ marginBottom: 50, marginTop: 10, fontSize: 17 }}>
         Intelligent Note Taking
       </Text>
       <TouchableOpacity
@@ -51,6 +61,7 @@ function WelcomeScreen() {
       >
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>Get Started</Text>
       </TouchableOpacity>
+      {/* <BasicExample /> */}
     </View>
   );
 }

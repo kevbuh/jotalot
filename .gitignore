@@ -1,7 +1,7 @@
 node_modules/
 .expo/
 dist/
-notes/
+zideas/
 npm-debug.*
 *.jks
 *.p8

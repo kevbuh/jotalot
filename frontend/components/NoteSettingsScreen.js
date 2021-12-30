@@ -19,20 +19,20 @@ const styles = StyleSheet.create({
 });
 
 export default function NoteSettingScreen(props) {
-  const sentData = props.route.params.item;
+  // const sentData = props.route.params.item;
   const navigation = useNavigation();
 
   const user_token = useSelector(userToken);
 
-  const DeleteNote = (sentData) => {
-    fetch(`http://localhost:8000/notes/${sentData.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Token " + user_token,
-      },
-    }).catch((error) => console.log("error", error));
-  };
+  // const DeleteNote = (sentData) => {
+  //   fetch(`http://localhost:8000/notes/${sentData.id}`, {
+  //     method: "DELETE",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: "Token " + user_token,
+  //     },
+  //   }).catch((error) => console.log("error", error));
+  // };
 
   return (
     <ScrollView style={styles.container}>
@@ -86,7 +86,7 @@ export default function NoteSettingScreen(props) {
         <View style={{ marginTop: 40 }}>
           <TouchableOpacity
             onPress={() => {
-              DeleteNote(sentData);
+              // DeleteNote(sentData);
               navigation.navigate("Main");
             }}
             style={{

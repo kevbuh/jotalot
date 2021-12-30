@@ -1,5 +1,6 @@
 # Todo
 
+- [] Better looking home page
 - [] Folders
 - [] Invalid username/password alert
 - [] Dark and light mode

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-native";
+import { Button, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { NativeBaseProvider } from "native-base";
 
 import ChangePasswordScreen from "./components/ChangePasswordScreen";
 import NoteSettingsScreen from "./components/NoteSettingsScreen";
@@ -17,6 +16,7 @@ import EditNoteScreen from "./components/EditNoteScreen";
 import RegisterScreen from "./components/RegisterScreen";
 import WelcomeScreen from "./components/WelcomeScreen";
 import AccountScreen from "./components/AccountScreen";
+import LottieAvatarIcon from "./components/LottieTest";
 import SearchScreen from "./components/SearchScreen";
 import TrashScreen from "./components/TrashScreen";
 import LoginScreen from "./components/LoginScreen";
@@ -44,14 +44,37 @@ function HomeStackScreen(item) {
         options={({ navigation }) => ({
           headerTitle: (props) => <LogoTitle {...props} />,
           headerRight: () => (
-            <Ionicons
-              name={"person-circle"}
-              size={30}
-              color={"black"}
+            // <Ionicons
+            //   name={"person-circle"}
+            //   size={30}
+            //   color={"black"}
+            //   onPress={() => {
+            //   }}
+            // />
+            <TouchableOpacity
               onPress={() => {
                 navigation.navigate("Account");
               }}
-            />
+              style={{
+                // paddingHorizontal: 5,
+                // alignItems: "center",
+                paddingVertical: 15,
+                backgroundColor: "#DDDDDD",
+                width: 60,
+                borderRadius: 10,
+                // marginVertical: 7,
+              }}
+            >
+              {/* <Text style={{ fontWeight: "bold" }}>Customize</Text> */}
+              <LottieAvatarIcon
+                // style={{ height: 50, width: 50, backgroundColor: "#e4007c" }}
+                onPress={() => {
+                  navigation.navigate("Account");
+                }}
+              />
+            </TouchableOpacity>
+
+            // <BasicExample />
           ),
           headerStyle: {
             backgroundColor: "#f2f2f2",

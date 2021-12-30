@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
-  ScrollView,
   View,
   TextInput,
-  TouchableOpacity,
   FlatList,
   Pressable,
   SafeAreaView,
+  TouchableOpacity,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { userToken } from "../redux/userSlice";
 import { useNavigation } from "@react-navigation/native";
+import LottieScanning from "./LottieScan";
 
 const styles = StyleSheet.create({
   container: {
@@ -98,24 +98,31 @@ export default function SearchScreen() {
       <View
         style={{
           flexDirection: "row",
-          justifyContent: "space-between",
-          paddingTop: 10,
-          // backgroundColor: "#DDDDDD",
+          marginTop: 10,
+          backgroundColor: "#DDDDDD",
+          alignItems: "center",
+          borderRadius: 8,
+          marginLeft: 10,
+          width: "94%",
         }}
       >
+        <TouchableOpacity
+          style={{
+            paddingVertical: 15,
+            marginLeft: 6,
+            width: 25,
+            borderRadius: 10,
+          }}
+        >
+          <LottieScanning />
+        </TouchableOpacity>
         <TextInput
           KeyboardAvoidingView
           style={{
-            fontSize: 20,
-            paddingBottom: 10,
-            paddingTop: 10,
-            paddingLeft: 20,
-            borderWidth: 1,
-            borderColor: "#dddddd",
-            width: "90%",
-            borderRadius: 8,
+            fontSize: 23,
+            paddingBottom: 9,
+            paddingTop: 9,
             marginLeft: 10,
-            backgroundColor: "#DDDDDD",
           }}
           placeholder="Search"
           autoCapitalize="none"
@@ -176,45 +183,6 @@ export default function SearchScreen() {
           No search results!
         </Text>
       )}
-      {/* <TouchableOpacity
-        onPress={() => {
-          searchNotes();
-        }}
-        style={{
-          alignSelf: "center",
-          alignItems: "center",
-          marginRight: 15,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 25,
-            fontWeight: "bold",
-            marginBottom: 5,
-            marginTop: 10,
-            borderBottomWidth: 2,
-            width: "90%",
-            borderColor: "#dddddd",
-          }}
-        >
-          Search
-        </Text>
-      </TouchableOpacity> */}
-      {/* <View>
-        <Text
-          style={{
-            fontSize: 25,
-            fontWeight: "bold",
-            marginBottom: 5,
-            marginTop: 10,
-            borderBottomWidth: 2,
-            width: "90%",
-            borderColor: "#dddddd",
-          }}
-        >
-          Type to find notes
-        </Text>
-      </View> */}
     </SafeAreaView>
   );
 }
