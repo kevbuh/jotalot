@@ -25,11 +25,18 @@ export const slice = createSlice({
       state.currentUser.firstName = "";
       state.currentUser.lastName = "";
     },
+    SetUserFirstName: (state) => {
+      state.currentUser.firstName = action.payload;
+    },
+    SetUserLastName: (state) => {
+      state.currentUser.lastName = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { LogUserIn, LogUserOut } = slice.actions;
+export const { LogUserIn, LogUserOut, SetUserFirstName, SetUserLastName } =
+  slice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

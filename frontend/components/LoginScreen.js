@@ -10,7 +10,11 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-import { LogUserIn } from "../redux/userSlice";
+import {
+  LogUserIn,
+  SetUserFirstName,
+  SetUserLastName,
+} from "../redux/userSlice";
 
 export default function LoginScreen() {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -39,7 +43,17 @@ export default function LoginScreen() {
       })
       .then((json) => {
         // console.log("********---->", json);
-        dispatch(LogUserIn({ email: json.email, authToken: json.auth_token }));
+        dispatch(
+          LogUserIn({
+            email: json.email,
+            authToken: json.auth_token,
+            firstName: json.first_name,
+            lastName: json.last_name,
+          })
+        );
+        // dispatch(SetUserFirstName({ firstName: json.first_name }));
+        // dispatch(SetUserLastName({ lastName: json.last_name }));
+
         // console.log("Navigating to account....");
         // navigation.navigate("Untitled Notes");
       })

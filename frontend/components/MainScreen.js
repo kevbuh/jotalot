@@ -8,7 +8,6 @@ import {
   SafeAreaView,
   RefreshControl,
   Pressable,
-  TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
@@ -118,7 +117,7 @@ function MainScreen() {
             <ActivityIndicator />
           </View>
         ) : (
-          <ScrollView>
+          <SafeAreaView>
             <View
               style={{
                 flexDirection: "row",
@@ -204,7 +203,7 @@ function MainScreen() {
                 </View>
               </View>
             )}
-          </ScrollView>
+          </SafeAreaView>
         )}
       </View>
     </SafeAreaView>

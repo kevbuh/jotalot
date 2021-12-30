@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   FlatList,
   Pressable,
+  SafeAreaView,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { userToken } from "../redux/userSlice";
@@ -93,7 +94,7 @@ export default function SearchScreen() {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View
         style={{
           flexDirection: "row",
@@ -213,6 +214,6 @@ export default function SearchScreen() {
           Type to find notes
         </Text>
       </View> */}
-    </ScrollView>
+    </SafeAreaView>
   );
 }
