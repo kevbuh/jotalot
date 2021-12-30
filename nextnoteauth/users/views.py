@@ -1,17 +1,24 @@
 
 from django.contrib.auth import get_user_model, logout
 from django.core.exceptions import ImproperlyConfigured
+
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from . import serializers
 from .utils import get_and_authenticate_user, create_user_account
-from django.core.exceptions import ObjectDoesNotExist
 
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.views import APIView
+
 
 User = get_user_model()
+
+
+class CurrentUserView(viewsets.ModelViewSet):
+    def list(self, request):
+        queryset = User.objects.filter(user=request.user)
 
 
 class AuthViewSet(viewsets.GenericViewSet):

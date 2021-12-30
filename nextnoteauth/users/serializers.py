@@ -13,6 +13,14 @@ class UserLoginSerializer(serializers.Serializer):
     # last_name = serializers.CharField(max_length=46, required=True)
 
 
+class GetUserSerializer(serializers.Serializer):
+    class Meta:
+        model = User
+        fields = ('id', 'email', 'first_name',
+                  'last_name', 'is_active', 'is_staff', 'auth_token')
+        read_only_fields = ('id', 'is_active', 'is_staff')
+
+
 class AuthUserSerializer(serializers.ModelSerializer):
     auth_token = serializers.SerializerMethodField()
 

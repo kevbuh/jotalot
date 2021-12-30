@@ -11,8 +11,9 @@
 # from rest_framework.authtoken.views import obtain_auth_token
 
 from rest_framework import routers
-
 from .views import AuthViewSet
+# from django.urls import path
+# from . import views
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register('', AuthViewSet, basename='auth')
