@@ -76,6 +76,10 @@ function HomeStackScreen(item) {
         name="Edit Note"
         component={EditNoteScreen}
         options={({ navigation }) => ({
+          headerStyle: {
+            backgroundColor: "#f2f2f2",
+          },
+          headerTitle: (props) => <LogoTitle {...props} />,
           headerRight: () => (
             // <Button
             //   title="Settings"

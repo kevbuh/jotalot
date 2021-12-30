@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,6 +6,8 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  FlatList,
+  Pressable,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { userToken } from "../redux/userSlice";
@@ -22,27 +24,76 @@ const styles = StyleSheet.create({
 });
 
 export default function SearchScreen() {
-  const user_token = useSelector(userToken);
   const navigation = useNavigation();
+  const user_token = useSelector(userToken);
+  const [data, setData] = useState([]);
 
   const [searchField, setSearchField] = useState("");
 
+  const searchNotes = () => {
+    fetch(`http://localhost:8000/notes/search/?search=${searchField}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Token " + user_token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw res.json();
+        }
+      })
+      .then((json) => {
+        setData(json);
+        // console.log("Searching notes...", json);
+        // setAreThereNotes(true);
+        // setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    searchNotes();
+  }, [searchField]);
+
+  const renderNotes = (item) => {
+    return (
+      <Pressable
+        style={{
+          width: "95%",
+          marginHorizontal: 10,
+          paddingVertical: 20,
+          paddingHorizontal: 10,
+          borderTopWidth: 1,
+          borderRadius: 5,
+          borderColor: "#D3D3D3",
+        }}
+        onPress={() => {
+          navigation.navigate("Edit Note", {
+            item: item,
+          });
+        }}
+      >
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={{ fontSize: 18, fontWeight: "bold" }}
+        >
+          {item.title}
+        </Text>
+        <Text numberOfLines={1} ellipsizeMode="tail">
+          {item.text}
+        </Text>
+      </Pressable>
+    );
+  };
+
   return (
     <ScrollView style={styles.container}>
-      {/* <View>
-        <Text
-          style={{
-            fontSize: 35,
-            fontWeight: "bold",
-            marginBottom: 5,
-            borderBottomWidth: 2,
-            width: "90%",
-            borderColor: "#dddddd",
-          }}
-        >
-          Search
-        </Text>
-      </View> */}
       <View
         style={{
           flexDirection: "row",
@@ -71,7 +122,8 @@ export default function SearchScreen() {
         />
         <TouchableOpacity
           onPress={() => {
-            alert("Cancel!");
+            setSearchField("");
+            navigation.navigate("Main");
           }}
           style={{
             alignSelf: "center",
@@ -82,6 +134,85 @@ export default function SearchScreen() {
           <Text style={{ fontWeight: "bold" }}>Cancel</Text>
         </TouchableOpacity>
       </View>
+      {data.length > 0 ? (
+        <View>
+          <Text
+            style={{
+              fontSize: 25,
+              fontWeight: "bold",
+              marginBottom: 5,
+              marginTop: 20,
+              borderBottomWidth: 2,
+              marginLeft: 20,
+              width: "90%",
+              borderColor: "#dddddd",
+            }}
+          >
+            Search Results
+          </Text>
+          <FlatList
+            data={data}
+            keyExtractor={({ id }) => id}
+            renderItem={({ item }) => {
+              return renderNotes(item);
+            }}
+          />
+        </View>
+      ) : (
+        <Text
+          style={{
+            fontSize: 25,
+            fontWeight: "bold",
+            marginBottom: 5,
+            marginTop: 20,
+            marginLeft: 20,
+            borderBottomWidth: 2,
+            width: "90%",
+            borderColor: "#dddddd",
+          }}
+        >
+          No search results!
+        </Text>
+      )}
+      {/* <TouchableOpacity
+        onPress={() => {
+          searchNotes();
+        }}
+        style={{
+          alignSelf: "center",
+          alignItems: "center",
+          marginRight: 15,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 25,
+            fontWeight: "bold",
+            marginBottom: 5,
+            marginTop: 10,
+            borderBottomWidth: 2,
+            width: "90%",
+            borderColor: "#dddddd",
+          }}
+        >
+          Search
+        </Text>
+      </TouchableOpacity> */}
+      {/* <View>
+        <Text
+          style={{
+            fontSize: 25,
+            fontWeight: "bold",
+            marginBottom: 5,
+            marginTop: 10,
+            borderBottomWidth: 2,
+            width: "90%",
+            borderColor: "#dddddd",
+          }}
+        >
+          Type to find notes
+        </Text>
+      </View> */}
     </ScrollView>
   );
 }

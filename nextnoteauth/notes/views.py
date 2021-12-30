@@ -1,10 +1,39 @@
+from rest_framework import status, filters, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import NoteSerializer
-from django.http import JsonResponse
-from rest_framework import status
-from .models import Note
 from rest_framework.permissions import IsAuthenticated
+
+from django.http import JsonResponse
+from django.views import *
+
+from .models import Note
+from .serializers import NoteSerializer
+
+
+class SearchResultsList(generics.ListCreateAPIView):
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ['text', 'title']
+    # filterset_fields = ['creator']
+    serializer_class = NoteSerializer
+    # queryset = Note.objects.all()
+
+    def get_queryset(self):
+        """
+        Optionally restricts the returned purchases to a given user,
+        by filtering against a `username` query parameter in the URL.
+        """
+        queryset = Note.objects.filter()
+        user = self.request.user
+        return Note.objects.filter(creator=user)
+        # username = self.request.query_params.get('username')
+        # if username is not None:
+        #     queryset = queryset.filter(purchaser__username=username)
+        # return queryset
+
+    # def get_queryset(self, request):
+    #     queryset = Note.objects.filter(creator=request.user)
+    #     serializer = NoteSerializer(queryset, many=True)
+    #     return Response(serializer.data)
 
 
 class ListAllNotes(APIView):
