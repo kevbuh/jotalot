@@ -107,17 +107,18 @@ function MainScreen() {
 
   return (
     <SafeAreaView>
-      <ScrollView
+      <View
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
+        // style={{ paddingBottom: 100 }}
       >
         {isLoading ? (
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <View style={{ justifyContent: "center", alignSelf: "center" }}>
             <ActivityIndicator />
           </View>
         ) : (
-          <View style={{ height: 700 }}>
+          <ScrollView>
             <View
               style={{
                 flexDirection: "row",
@@ -177,13 +178,15 @@ function MainScreen() {
               />
             </View>
             {data.length > 0 ? (
-              <FlatList
-                data={data}
-                keyExtractor={({ id }) => id}
-                renderItem={({ item }) => {
-                  return renderNotes(item);
-                }}
-              />
+              <View>
+                <FlatList
+                  data={data}
+                  keyExtractor={({ id }) => id}
+                  renderItem={({ item }) => {
+                    return renderNotes(item);
+                  }}
+                />
+              </View>
             ) : (
               <View style={{ justifyContent: "center", marginLeft: 20 }}>
                 <Text
@@ -201,9 +204,9 @@ function MainScreen() {
                 </View>
               </View>
             )}
-          </View>
+          </ScrollView>
         )}
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
