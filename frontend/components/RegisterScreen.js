@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Button,
   TouchableOpacity,
   TextInput,
   TouchableWithoutFeedback,
@@ -22,7 +21,7 @@ export default function RegisterScreen() {
   const dispatch = useDispatch();
 
   const RegisterUser = () => {
-    fetch("http://localhost:8000/auth/register", {
+    fetch(`http://localhost:8000/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

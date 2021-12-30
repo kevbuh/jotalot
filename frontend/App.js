@@ -16,6 +16,7 @@ import EditNoteScreen from "./components/EditNoteScreen";
 import RegisterScreen from "./components/RegisterScreen";
 import WelcomeScreen from "./components/WelcomeScreen";
 import AccountScreen from "./components/AccountScreen";
+import SearchScreen from "./components/SearchScreen";
 import TrashScreen from "./components/TrashScreen";
 import LoginScreen from "./components/LoginScreen";
 import MainScreen from "./components/MainScreen";
@@ -168,7 +169,7 @@ function MainAppContent() {
               let iconName;
               if (route.name === "Home") {
                 iconName = focused ? "create-outline" : "create-outline";
-              } else if (route.name === "Notes") {
+              } else if (route.name === "Search") {
                 iconName = "search";
               }
               return <Ionicons name={iconName} size={size} color={color} />;
@@ -179,6 +180,7 @@ function MainAppContent() {
           })}
         >
           {/* <Tab.Screen name="Notes" component={NoteStackScreen} /> */}
+          <Tab.Screen name="Search" component={SearchScreen} />
           <Tab.Screen
             name="Home"
             component={HomeStackScreen}
