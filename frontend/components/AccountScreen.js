@@ -62,7 +62,6 @@ export default function AccountScreen() {
         // console.log("Logging User Out....");
         dispatch(LogUserOut());
         // console.log("Success, navigating to login....");
-        // navigation.navigate("Login");
       })
       .catch((error) => console.log("error", error));
   };
@@ -93,12 +92,62 @@ export default function AccountScreen() {
         <Text style={{ fontSize: 20, marginBottom: 10 }}>{user_email}</Text>
       </View>
       {/* <Text>{user_token}</Text> */}
+      <View>
+        <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 10 }}>
+          Statistics
+        </Text>
+        <Text>View your statistics:</Text>
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Stats");
+          }}
+          style={{
+            paddingHorizontal: 5,
+            alignItems: "center",
+            paddingVertical: 10,
+            backgroundColor: "#DDDDDD",
+            width: "30%",
+            borderRadius: 10,
+            marginVertical: 7,
+          }}
+        >
+          <Text style={{ fontWeight: "bold" }}>Statistics</Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 10 }}>
+        Appearance
+      </Text>
+      <Text style={{ marginVertical: 10 }}>Switch to dark mode?</Text>
+      <Switch />
+      <Text style={{ marginVertical: 10 }}>Customize theme & font:</Text>
+      <TouchableOpacity
+        onPress={() => {
+          alert("Customize");
+        }}
+        style={{
+          paddingHorizontal: 5,
+          alignItems: "center",
+          paddingVertical: 10,
+          backgroundColor: "#DDDDDD",
+          width: "30%",
+          borderRadius: 10,
+          marginVertical: 7,
+        }}
+      >
+        <Text style={{ fontWeight: "bold" }}>Customize</Text>
+      </TouchableOpacity>
       <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 10 }}>
         Notifications
       </Text>
       <Text style={{ marginVertical: 10 }}>Mobile push notifications</Text>
       <Switch />
       <Text style={{ marginVertical: 10 }}>Email notifications</Text>
+      <Switch />
+      <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 10 }}>
+        Cloud Sync
+      </Text>
+      <Text style={{ marginVertical: 10 }}>Save your ideas in the cloud</Text>
       <Switch />
       <View>
         <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 20 }}>
@@ -124,7 +173,7 @@ export default function AccountScreen() {
             alignItems: "center",
             paddingVertical: 10,
             backgroundColor: "#DDDDDD",
-            width: "30%",
+            width: "60%",
             borderRadius: 10,
             marginVertical: 7,
           }}
@@ -133,19 +182,19 @@ export default function AccountScreen() {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            alert("You changed the Appearance!");
+            alert("You clicked on the tutorial!");
           }}
           style={{
             paddingHorizontal: 5,
             alignItems: "center",
             paddingVertical: 10,
             backgroundColor: "#DDDDDD",
-            width: "30%",
+            width: "60%",
             borderRadius: 10,
             marginVertical: 7,
           }}
         >
-          <Text style={{ fontWeight: "bold" }}>Appearance</Text>
+          <Text style={{ fontWeight: "bold" }}>Tutorial</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -157,12 +206,47 @@ export default function AccountScreen() {
             paddingVertical: 10,
             backgroundColor: "#DDDDDD",
 
-            width: "30%",
+            width: "60%",
             borderRadius: 10,
             marginVertical: 7,
           }}
         >
           <Text style={{ fontWeight: "bold" }}>Change Password</Text>
+        </TouchableOpacity>
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              alert("Contact us!");
+            }}
+            style={{
+              paddingHorizontal: 5,
+              alignItems: "center",
+              paddingVertical: 10,
+              backgroundColor: "#DDDDDD",
+              width: "60%",
+              borderRadius: 10,
+              marginVertical: 7,
+            }}
+          >
+            <Text style={{ fontWeight: "bold" }}>Contact Us</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          onPress={() => {
+            UserLogout();
+          }}
+          style={{
+            paddingHorizontal: 5,
+            alignItems: "center",
+            paddingVertical: 10,
+            backgroundColor: "#DDDDDD",
+            width: "60%",
+            borderRadius: 10,
+            marginTop: 7,
+            // marginBottom: 100,
+          }}
+        >
+          <Text style={{ fontWeight: "bold" }}>Review in App Store</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -173,14 +257,25 @@ export default function AccountScreen() {
             alignItems: "center",
             paddingVertical: 10,
             backgroundColor: "#DDDDDD",
-            width: "30%",
+            width: "60%",
             borderRadius: 10,
             marginTop: 7,
-            marginBottom: 100,
+            // marginBottom: 100,
           }}
         >
           <Text style={{ fontWeight: "bold" }}>Log Out</Text>
         </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          justifyContent: "center",
+          alignSelf: "center",
+          paddingBottom: 100,
+          marginTop: 30,
+          marginRight: 40,
+        }}
+      >
+        <Text>v.0.0.1</Text>
       </View>
     </ScrollView>
   );

@@ -107,21 +107,22 @@ export default function SearchScreen() {
           KeyboardAvoidingView
           style={{
             fontSize: 20,
-            paddingBottom: 4,
-            paddingTop: 4,
+            paddingBottom: 10,
+            paddingTop: 10,
             paddingLeft: 20,
             borderWidth: 1,
             borderColor: "#dddddd",
-            width: "80%",
+            width: "90%",
             borderRadius: 8,
+            marginLeft: 10,
             backgroundColor: "#DDDDDD",
           }}
-          placeholder="Search..."
+          placeholder="Search"
           autoCapitalize="none"
           value={searchField}
           onChangeText={setSearchField}
         />
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => {
             setSearchField("");
             navigation.navigate("Main");
@@ -133,7 +134,7 @@ export default function SearchScreen() {
           }}
         >
           <Text style={{ fontWeight: "bold" }}>Cancel</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       {data.length > 0 ? (
         <View>
@@ -144,7 +145,7 @@ export default function SearchScreen() {
               marginBottom: 5,
               marginTop: 20,
               borderBottomWidth: 2,
-              marginLeft: 20,
+              marginLeft: 10,
               width: "90%",
               borderColor: "#dddddd",
             }}

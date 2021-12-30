@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NativeBaseProvider } from "native-base";
 
 import ChangePasswordScreen from "./components/ChangePasswordScreen";
 import NoteSettingsScreen from "./components/NoteSettingsScreen";
@@ -19,6 +20,7 @@ import AccountScreen from "./components/AccountScreen";
 import SearchScreen from "./components/SearchScreen";
 import TrashScreen from "./components/TrashScreen";
 import LoginScreen from "./components/LoginScreen";
+import StatsScreen from "./components/StatsScreen";
 import MainScreen from "./components/MainScreen";
 import LogoTitle from "./components/LogoTitle";
 
@@ -58,6 +60,7 @@ function HomeStackScreen(item) {
         })}
       />
       <HomeStack.Screen name="Account" component={AccountScreen} />
+      <HomeStack.Screen name="Stats" component={StatsScreen} />
       <HomeStack.Screen
         name="Change Password"
         component={ChangePasswordScreen}
@@ -70,6 +73,7 @@ function HomeStackScreen(item) {
             backgroundColor: "#f2f2f2",
           },
           headerTintColor: "black",
+          headerTitle: (props) => <LogoTitle {...props} />,
         }}
       />
       <HomeStack.Screen
@@ -223,7 +227,9 @@ function App() {
   return (
     <ReduxProvider store={store}>
       <PersistGate loading={null} persistor={persistor}>
+        {/* <NativeBaseProvider> */}
         <MainAppContent />
+        {/* </NativeBaseProvider> */}
       </PersistGate>
     </ReduxProvider>
   );
