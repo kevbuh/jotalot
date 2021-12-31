@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 import { userToken } from "../redux/userSlice";
 import { useNavigation } from "@react-navigation/native";
 import LottieScanning from "./LottieScan";
+import LottieGuyIcon from "./LottieGuy";
+import { useIsFocused } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
   container: {
@@ -25,6 +27,7 @@ const styles = StyleSheet.create({
 });
 
 export default function SearchScreen() {
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
   const user_token = useSelector(userToken);
   const [data, setData] = useState([]);
@@ -59,7 +62,7 @@ export default function SearchScreen() {
 
   useEffect(() => {
     searchNotes();
-  }, [searchField]);
+  }, [searchField, isFocused]);
 
   const renderNotes = (item) => {
     return (
@@ -165,6 +168,7 @@ export default function SearchScreen() {
             renderItem={({ item }) => {
               return renderNotes(item);
             }}
+            style={{ height: 450 }}
           />
         </View>
       ) : (
@@ -183,6 +187,18 @@ export default function SearchScreen() {
           No search results!
         </Text>
       )}
+      <View>
+        <TouchableOpacity
+          style={{
+            paddingVertical: 90,
+            marginRight: 6,
+            // width: 200,
+            borderRadius: 10,
+          }}
+        >
+          <LottieGuyIcon />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }

@@ -4,6 +4,7 @@ import {
   Text,
   View,
   ActivityIndicator,
+  TouchableOpacity,
   ScrollView,
   SafeAreaView,
   RefreshControl,
@@ -11,9 +12,10 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
-import { userToken, userFirstName } from "../redux/userSlice";
+import { userToken } from "../redux/userSlice";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useIsFocused } from "@react-navigation/native";
+// import LottieGuyIcon from "./LottieGuy";
 
 function MainScreen() {
   const [refreshing, setRefreshing] = useState(false);
@@ -23,7 +25,6 @@ function MainScreen() {
 
   const navigation = useNavigation();
   const user_token = useSelector(userToken);
-  const user_first_name = useSelector(userFirstName);
 
   const isFocused = useIsFocused();
 
@@ -104,8 +105,80 @@ function MainScreen() {
     );
   };
 
+  const renderRecent = (item) => {
+    return (
+      <Pressable
+        style={{
+          // width: "95%",
+          marginHorizontal: 2,
+          width: 100,
+          paddingVertical: 20,
+          paddingHorizontal: 10,
+          borderTopWidth: 1,
+          borderRadius: 5,
+          backgroundColor: "#DDDDDD",
+          borderColor: "#D3D3D3",
+        }}
+        onPress={() => {
+          navigation.navigate("Edit Note", {
+            item: item,
+          });
+        }}
+      >
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={{ fontSize: 18, fontWeight: "bold" }}
+        >
+          {item.title}
+        </Text>
+        <Text numberOfLines={1} ellipsizeMode="tail">
+          {item.text}
+        </Text>
+      </Pressable>
+    );
+  };
+
+  const renderFolders = (item) => {
+    return (
+      <View>
+        <Pressable
+          style={{
+            width: "90%",
+            marginHorizontal: 10,
+            paddingVertical: 10,
+            paddingHorizontal: 10,
+            marginBottom: 5,
+            borderTopWidth: 1,
+            borderRadius: 5,
+            borderColor: "#D3D3D3",
+            backgroundColor: "#DDD",
+          }}
+          onPress={() => {
+            navigation.navigate("Edit Note", {
+              item: item,
+            });
+          }}
+        >
+          <View style={{ flexDirection: "row" }}>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={{ fontSize: 18, fontWeight: "bold" }}
+            >
+              {item.title}
+            </Text>
+            {/* <Text numberOfLines={1} ellipsizeMode="tail">
+              {item.text}
+            </Text> */}
+          </View>
+        </Pressable>
+      </View>
+    );
+  };
+
   return (
-    <SafeAreaView>
+    <ScrollView>
       <View
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -134,34 +207,9 @@ function MainScreen() {
                   fontWeight: "bold",
                 }}
               >
-                {user_first_name}'s Notes:
+                {/* {user_first_name}'s Notes: */}
+                Recent Notes
               </Text>
-              {/* <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("Untitled Note");
-                }}
-                style={{
-                  paddingHorizontal: 5,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  paddingHorizontal: 30,
-                  backgroundColor: "#DDDDDD",
-                  // width: "30%",
-                  height: 40,
-                  borderRadius: 10,
-                  marginVertical: 7,
-                  marginRight: 10,
-                  // borderWidth: 2,
-                  borderColor: "black",
-                  backgroundColor: "#e4007c",
-                }}
-              >
-                <Text
-                  style={{ fontWeight: "bold", fontSize: 20, color: "white" }}
-                >
-                  +
-                </Text>
-              </TouchableOpacity> */}
               <Ionicons
                 name={"create-outline"}
                 size={30}
@@ -176,15 +224,63 @@ function MainScreen() {
                 }}
               />
             </View>
+            <FlatList
+              horizontal={true}
+              style={{ marginLeft: 10 }}
+              initialNumToRender={2}
+              windowSize={1}
+              data={data}
+              keyExtractor={({ id }) => id}
+              renderItem={({ item }) => {
+                return renderRecent(item);
+              }}
+            />
             {data.length > 0 ? (
               <View>
+                <Text
+                  style={{
+                    paddingTop: 25,
+                    marginLeft: 20,
+                    paddingBottom: 20,
+                    fontSize: 30,
+                    fontWeight: "bold",
+                  }}
+                >
+                  {/* {user_first_name}'s Notes: */}
+                  All Notes
+                </Text>
                 <FlatList
                   data={data}
                   keyExtractor={({ id }) => id}
                   renderItem={({ item }) => {
                     return renderNotes(item);
                   }}
+                  // style={{ height: 300 }}
                 />
+                <View style={{ marginTop: 20 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        // paddingTop: 25,
+                        marginLeft: 20,
+                        paddingBottom: 20,
+                        fontSize: 30,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {/* {user_first_name}'s Notes: */}
+                      Folders
+                    </Text>
+                    <FlatList
+                      data={data}
+                      keyExtractor={({ id }) => id}
+                      renderItem={({ item }) => {
+                        return renderFolders(item);
+                      }}
+                      // style={{ height: 300 }}
+                    />
+                  </View>
+                </View>
               </View>
             ) : (
               <View style={{ justifyContent: "center", marginLeft: 20 }}>
@@ -206,7 +302,19 @@ function MainScreen() {
           </SafeAreaView>
         )}
       </View>
-    </SafeAreaView>
+      {/* <View>
+        <TouchableOpacity
+          style={{
+            paddingVertical: 90,
+            marginRight: 6,
+            // width: 200,
+            borderRadius: 10,
+          }}
+        >
+          <LottieGuyIcon />
+        </TouchableOpacity>
+      </View> */}
+    </ScrollView>
   );
 }
 

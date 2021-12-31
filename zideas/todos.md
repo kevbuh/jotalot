@@ -19,5 +19,6 @@
   - [] iCloud
   - [] Dropbox
 - [] Have two notes open at the same time
+- [] Ability to drag notes
 
 - Put things down in a nice and organized way

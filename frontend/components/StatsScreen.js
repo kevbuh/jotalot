@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
     // flex: 1,
     // alignItems: "center",
     // justifyContent: "center",
-    paddingLeft: 40,
-    paddingTop: 40,
+    paddingLeft: 20,
+    paddingTop: 20,
   },
 });
 
@@ -96,7 +96,7 @@ export default function StatsScreen() {
           style={{
             fontWeight: "bold",
             fontSize: 20,
-            // , color: "#50e3c2"
+            // color: "#e4007c",
           }}
         >
           235

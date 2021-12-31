@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Button, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { Button, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
 
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
 
 import ChangePasswordScreen from "./components/ChangePasswordScreen";
 import NoteSettingsScreen from "./components/NoteSettingsScreen";
 import CreateNoteScreen from "./components/CreateNoteScreen";
 import NewAccountScreen from "./components/NewAccountScreen";
+import CustomizeScreen from "./components/CustomizeScreen";
 import FeedbackScreen from "./components/FeedbackScreen";
 import EditNoteScreen from "./components/EditNoteScreen";
 import RegisterScreen from "./components/RegisterScreen";
@@ -44,25 +45,15 @@ function HomeStackScreen(item) {
         options={({ navigation }) => ({
           headerTitle: (props) => <LogoTitle {...props} />,
           headerRight: () => (
-            // <Ionicons
-            //   name={"person-circle"}
-            //   size={30}
-            //   color={"black"}
-            //   onPress={() => {
-            //   }}
-            // />
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("Account");
               }}
               style={{
-                // paddingHorizontal: 5,
-                // alignItems: "center",
                 paddingVertical: 15,
                 backgroundColor: "#DDDDDD",
                 width: 60,
                 borderRadius: 10,
-                // marginVertical: 7,
               }}
             >
               {/* <Text style={{ fontWeight: "bold" }}>Customize</Text> */}
@@ -129,24 +120,19 @@ function HomeStackScreen(item) {
         })}
       />
       <HomeStack.Screen name="Customize Note" component={NoteSettingsScreen} />
-    </HomeStack.Navigator>
-  );
-}
-
-function NoteStackScreen() {
-  return (
-    <Drawer.Navigator initialRouteName="Trash">
-      <Drawer.Screen
+      <HomeStack.Screen name="Customize Theme" component={CustomizeScreen} />
+      <HomeStack.Screen
         name="Trash"
         component={TrashScreen}
         options={{
+          headerTitle: (props) => <LogoTitle {...props} />,
           headerStyle: {
             backgroundColor: "#f2f2f2",
           },
           headerTintColor: "black",
         }}
       />
-      <Drawer.Screen
+      <HomeStack.Screen
         name="Feedback"
         component={FeedbackScreen}
         options={{
@@ -156,7 +142,7 @@ function NoteStackScreen() {
           headerTintColor: "black",
         }}
       />
-    </Drawer.Navigator>
+    </HomeStack.Navigator>
   );
 }
 
@@ -199,7 +185,7 @@ function MainAppContent() {
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
               if (route.name === "Home") {
-                iconName = focused ? "create-outline" : "create-outline";
+                iconName = focused ? "home-sharp" : "home-outline";
               } else if (route.name === "Search") {
                 iconName = "search";
               }
@@ -250,9 +236,7 @@ function App() {
   return (
     <ReduxProvider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        {/* <NativeBaseProvider> */}
         <MainAppContent />
-        {/* </NativeBaseProvider> */}
       </PersistGate>
     </ReduxProvider>
   );

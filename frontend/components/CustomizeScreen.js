@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function AccountScreen() {
+export default function CustomizeScreen() {
   const user_email = useSelector(userEmail);
   const user_token = useSelector(userToken);
   const user_first_name = useSelector(userFirstName);
@@ -123,7 +123,7 @@ export default function AccountScreen() {
       <Text style={{ marginVertical: 10 }}>Customize theme & font:</Text>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Customize Theme");
+          alert("Customize");
         }}
         style={{
           paddingHorizontal: 5,
@@ -182,22 +182,6 @@ export default function AccountScreen() {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Trash");
-          }}
-          style={{
-            paddingHorizontal: 5,
-            alignItems: "center",
-            paddingVertical: 10,
-            backgroundColor: "#DDDDDD",
-            width: "60%",
-            borderRadius: 10,
-            marginVertical: 7,
-          }}
-        >
-          <Text style={{ fontWeight: "bold" }}>Trash</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
             alert("You clicked on the tutorial!");
           }}
           style={{
@@ -232,7 +216,7 @@ export default function AccountScreen() {
         <View>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Feedback");
+              alert("Contact us!");
             }}
             style={{
               paddingHorizontal: 5,
