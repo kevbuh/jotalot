@@ -5,7 +5,7 @@ export default class LottieAvatarIcon extends React.Component {
   render() {
     return (
       <LottieView
-        source={require("../assets/79638-avatar-icon.json")}
+        source={require("../assets/lf30_editor_bkwgorai.json")}
         autoPlay
         loop={false}
       />

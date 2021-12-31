@@ -5,7 +5,7 @@ export default class LottieScanning extends React.Component {
   render() {
     return (
       <LottieView
-        source={require("../assets/4117-search-history-icon.json")}
+        source={require("../assets/lf30_editor_iwskubgz.json")}
         autoPlay
         loop={false}
       />

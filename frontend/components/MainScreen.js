@@ -5,6 +5,7 @@ import {
   View,
   ActivityIndicator,
   TouchableOpacity,
+  Modal,
   ScrollView,
   SafeAreaView,
   RefreshControl,
@@ -23,6 +24,7 @@ function MainScreen() {
   const [areThereNotes, setAreThereNotes] = useState(false);
   const [data, setData] = useState([]);
   const [dataFolder, setDataFolder] = useState([]);
+  const [modalVisible, setModalVisible] = useState(true);
 
   const navigation = useNavigation();
   const user_token = useSelector(userToken);
@@ -326,18 +328,119 @@ function MainScreen() {
               </View>
             ) : (
               <View style={{ justifyContent: "center", marginLeft: 20 }}>
-                <Text
+                {/* <Text
                   style={{ fontSize: 20, fontWeight: "bold", marginTop: 20 }}
                 >
                   You currently have 0 notes.
-                </Text>
-                <View style={{ marginTop: 10 }}>
-                  <Text style={{ fontSize: 20 }}>
+                </Text> */}
+
+                {/* <View style={{ marginTop: 10 }}> */}
+                {/* <Text style={{ fontSize: 20 }}>
                     Click the pink 'Create Note' button
-                  </Text>
-                  <Text style={{ fontSize: 20 }}>
+                  </Text> */}
+                {/* <Text style={{ fontSize: 20 }}>
                     at the top right to make a note!
-                  </Text>
+                  </Text> */}
+                {/* </View> */}
+
+                <View
+                  style={{
+                    // flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: 102,
+                    marginRight: 20,
+                  }}
+                >
+                  <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                      Alert.alert("Modal has been closed.");
+                      setModalVisible(!modalVisible);
+                    }}
+                    // presentationStyle="overFullScreen"
+                  >
+                    <View
+                      style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginTop: 22,
+                      }}
+                    >
+                      <View
+                        style={{
+                          margin: 20,
+                          backgroundColor: "white",
+                          borderRadius: 20,
+                          padding: 35,
+                          alignItems: "center",
+                          shadowColor: "#000",
+                          shadowOffset: {
+                            width: 0,
+                            height: 2,
+                          },
+                          shadowOpacity: 0.25,
+                          shadowRadius: 4,
+                          elevation: 5,
+                          alignSelf: "center",
+                          // justifyContent: "center",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontSize: 18,
+                            marginBottom: 20,
+                          }}
+                        >
+                          Click the pink 'Create Note' button at the top right
+                          to make a note!
+                        </Text>
+                        <Pressable
+                          style={{
+                            paddingVertical: 10,
+                            paddingHorizontal: 20,
+                            backgroundColor: "#ddd",
+                            borderRadius: 10,
+                          }}
+                          onPress={() => setModalVisible(!modalVisible)}
+                        >
+                          <Text
+                            style={{
+                              fontSize: 20,
+                              fontWeight: "bold",
+                              // color: "#e4007c",
+                            }}
+                          >
+                            Got it!
+                          </Text>
+                        </Pressable>
+                      </View>
+                    </View>
+                  </Modal>
+                  <Pressable
+                    // style={[styles.button, styles.buttonOpen]}
+                    style={{
+                      paddingVertical: 10,
+                      paddingHorizontal: 20,
+                      backgroundColor: "#ddd",
+                      borderRadius: 10,
+                      marginTop: 80,
+                    }}
+                    onPress={() => setModalVisible(true)}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 25,
+                        fontWeight: "bold",
+                        // color: "#e4007c",
+                      }}
+                    >
+                      ?
+                    </Text>
+                  </Pressable>
                 </View>
               </View>
             )}
