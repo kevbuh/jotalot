@@ -23,7 +23,9 @@ import TrashScreen from "./components/TrashScreen";
 import LoginScreen from "./components/LoginScreen";
 import StatsScreen from "./components/StatsScreen";
 import MainScreen from "./components/MainScreen";
+import EditFolder from "./components/EditFolder";
 import LogoTitle from "./components/LogoTitle";
+import CreateFolder from "./components/NewFolder";
 
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider as ReduxProvider } from "react-redux";
@@ -119,6 +121,64 @@ function HomeStackScreen(item) {
           ),
         })}
       />
+      <HomeStack.Screen
+        name="Untitled Folder"
+        component={CreateFolder}
+        options={({ navigation }) => ({
+          headerStyle: {
+            backgroundColor: "#f2f2f2",
+          },
+          headerTitle: (props) => <LogoTitle {...props} />,
+          // headerRight: () => (
+          //   // <Button
+          //   //   title="Settings"
+          //   //   onPress={() => navigation.navigate("Customize Note")}
+          //   // />
+          //   <Ionicons
+          //     name={"cog"}
+          //     size={25}
+          //     color={"black"}
+          //     onPress={() => {
+          //       navigation.navigate("Customize Note", {
+          //         item: item,
+          //       });
+          //     }}
+          //     style={{
+          //       marginRight: 5,
+          //     }}
+          //   />
+          // ),
+        })}
+      />
+      <HomeStack.Screen
+        name="Edit Folder"
+        component={EditFolder}
+        options={({ navigation }) => ({
+          headerStyle: {
+            backgroundColor: "#f2f2f2",
+          },
+          headerTitle: (props) => <LogoTitle {...props} />,
+          // headerRight: () => (
+          //   // <Button
+          //   //   title="Settings"
+          //   //   onPress={() => navigation.navigate("Customize Note")}
+          //   // />
+          //   <Ionicons
+          //     name={"cog"}
+          //     size={25}
+          //     color={"black"}
+          //     onPress={() => {
+          //       navigation.navigate("Customize Note", {
+          //         item: item,
+          //       });
+          //     }}
+          //     style={{
+          //       marginRight: 5,
+          //     }}
+          //   />
+          // ),
+        })}
+      />
       <HomeStack.Screen name="Customize Note" component={NoteSettingsScreen} />
       <HomeStack.Screen name="Customize Theme" component={CustomizeScreen} />
       <HomeStack.Screen
@@ -197,7 +257,6 @@ function MainAppContent() {
           })}
         >
           {/* <Tab.Screen name="Notes" component={NoteStackScreen} /> */}
-          <Tab.Screen name="Search" component={SearchScreen} />
           <Tab.Screen
             name="Home"
             component={HomeStackScreen}
@@ -216,6 +275,7 @@ function MainAppContent() {
               headerLeft: (props) => <LogoTitle {...props} />,
             })}
           />
+          <Tab.Screen name="Search" component={SearchScreen} />
         </Tab.Navigator>
       ) : (
         <AuthStack.Navigator

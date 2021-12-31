@@ -20,5 +20,12 @@
   - [] Dropbox
 - [] Have two notes open at the same time
 - [] Ability to drag notes
+- [] Swipe left/right to delete or favorite
+
+## Issues
+
+- [] Doesn't search for folder name
+- [] Can't make new folder
+- [] Can't Delete folder
 
 - Put things down in a nice and organized way

@@ -13,8 +13,8 @@ from .serializers import NoteSerializer
 class SearchResultsList(generics.ListCreateAPIView):
     filter_backends = (filters.SearchFilter,)
     search_fields = ['text', 'title']
-    # filterset_fields = ['creator']
     serializer_class = NoteSerializer
+    # filterset_fields = ['creator']
     # queryset = Note.objects.all()
 
     def get_queryset(self):
@@ -25,15 +25,6 @@ class SearchResultsList(generics.ListCreateAPIView):
         queryset = Note.objects.filter()
         user = self.request.user
         return Note.objects.filter(creator=user)
-        # username = self.request.query_params.get('username')
-        # if username is not None:
-        #     queryset = queryset.filter(purchaser__username=username)
-        # return queryset
-
-    # def get_queryset(self, request):
-    #     queryset = Note.objects.filter(creator=request.user)
-    #     serializer = NoteSerializer(queryset, many=True)
-    #     return Response(serializer.data)
 
 
 class ListAllNotes(APIView):

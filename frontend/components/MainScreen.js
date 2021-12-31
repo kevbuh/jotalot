@@ -22,6 +22,7 @@ function MainScreen() {
   const [isLoading, setLoading] = useState(true);
   const [areThereNotes, setAreThereNotes] = useState(false);
   const [data, setData] = useState([]);
+  const [dataFolder, setDataFolder] = useState([]);
 
   const navigation = useNavigation();
   const user_token = useSelector(userToken);
@@ -54,8 +55,35 @@ function MainScreen() {
       });
   };
 
+  const getFolders = () => {
+    fetch("http://localhost:8000/folders/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Token " + user_token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw res.json();
+        }
+      })
+      .then((json) => {
+        console.log("FOLDERs --> ", json);
+        setDataFolder(json);
+        setAreThereNotes(true);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     getNotes();
+    getFolders();
   }, [isFocused]);
 
   const wait = (timeout) => {
@@ -155,7 +183,7 @@ function MainScreen() {
             backgroundColor: "#DDD",
           }}
           onPress={() => {
-            navigation.navigate("Edit Note", {
+            navigation.navigate("Edit Folder", {
               item: item,
             });
           }}
@@ -166,11 +194,8 @@ function MainScreen() {
               ellipsizeMode="tail"
               style={{ fontSize: 18, fontWeight: "bold" }}
             >
-              {item.title}
+              {item.folder_name}
             </Text>
-            {/* <Text numberOfLines={1} ellipsizeMode="tail">
-              {item.text}
-            </Text> */}
           </View>
         </Pressable>
       </View>
@@ -207,7 +232,6 @@ function MainScreen() {
                   fontWeight: "bold",
                 }}
               >
-                {/* {user_first_name}'s Notes: */}
                 Recent Notes
               </Text>
               <Ionicons
@@ -258,7 +282,13 @@ function MainScreen() {
                   // style={{ height: 300 }}
                 />
                 <View style={{ marginTop: 20 }}>
-                  <View style={{ flexDirection: "row" }}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      // alignItems: "center",
+                    }}
+                  >
                     <Text
                       style={{
                         // paddingTop: 25,
@@ -268,18 +298,30 @@ function MainScreen() {
                         fontWeight: "bold",
                       }}
                     >
-                      {/* {user_first_name}'s Notes: */}
                       Folders
                     </Text>
-                    <FlatList
-                      data={data}
-                      keyExtractor={({ id }) => id}
-                      renderItem={({ item }) => {
-                        return renderFolders(item);
+                    <Ionicons
+                      name={"add"}
+                      size={30}
+                      color={"black"}
+                      onPress={() => {
+                        navigation.navigate("Untitled Folder");
                       }}
-                      // style={{ height: 300 }}
+                      style={{
+                        color: "white",
+                        marginRight: 25,
+                        color: "#e4007c",
+                      }}
                     />
                   </View>
+                  <FlatList
+                    data={dataFolder}
+                    keyExtractor={({ id }) => id}
+                    renderItem={({ item }) => {
+                      return renderFolders(item);
+                    }}
+                    // style={{ height: 300 }}
+                  />
                 </View>
               </View>
             ) : (
