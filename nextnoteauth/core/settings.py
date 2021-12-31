@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'users.apps.UsersConfig',
-    'notes.apps.NotesConfig'
+    'notes.apps.NotesConfig',
+    'folders.apps.FoldersConfig'
 ]
 
 MIDDLEWARE = [
