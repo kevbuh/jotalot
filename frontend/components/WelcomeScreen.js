@@ -47,7 +47,7 @@ function WelcomeScreen() {
       </Text>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Login");
+          navigation.navigate("Register");
         }}
         style={{
           paddingHorizontal: 5,

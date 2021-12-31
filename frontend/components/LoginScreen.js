@@ -24,40 +24,47 @@ export default function LoginScreen() {
   const dispatch = useDispatch();
 
   const LoginUser = () => {
-    fetch("http://localhost:8000/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: currentEmail,
-        password: currentPassword,
-      }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          throw res.json();
-        }
+    if (currentEmail.trim().length < 6 || currentPassword.trim().length < 6) {
+      alert("Invalid Username/Password.");
+    } else {
+      fetch("http://localhost:8000/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: currentEmail.trim(),
+          password: currentPassword.trim(),
+        }),
       })
-      .then((json) => {
-        // console.log("********---->", json);
-        dispatch(
-          LogUserIn({
-            email: json.email,
-            authToken: json.auth_token,
-            firstName: json.first_name,
-            lastName: json.last_name,
-          })
-        );
-        // dispatch(SetUserFirstName({ firstName: json.first_name }));
-        // dispatch(SetUserLastName({ lastName: json.last_name }));
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            throw res.json();
+          }
+        })
+        .then((json) => {
+          // console.log("********---->", json);
+          dispatch(
+            LogUserIn({
+              email: json.email,
+              authToken: json.auth_token,
+              firstName: json.first_name,
+              lastName: json.last_name,
+            })
+          );
+          // dispatch(SetUserFirstName({ firstName: json.first_name }));
+          // dispatch(SetUserLastName({ lastName: json.last_name }));
 
-        // console.log("Navigating to account....");
-        // navigation.navigate("Untitled Notes");
-      })
-      .catch((error) => console.log("error", error));
+          // console.log("Navigating to account....");
+          // navigation.navigate("Untitled Notes");
+        })
+        .catch((error) => {
+          console.log("error", error);
+          alert("Invalid Username/Password.");
+        });
+    }
   };
 
   return (

@@ -21,41 +21,52 @@ export default function RegisterScreen() {
   const dispatch = useDispatch();
 
   const RegisterUser = () => {
-    fetch(`http://localhost:8000/auth/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: currentEmail,
-        password: currentPassword,
-        first_name: currentFirstName,
-        last_name: currentLastName,
-      }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          // console.log("res.json() was ok -> returned json");
-          return res.json();
-        } else {
-          // console.log("res.json() wasn't ok");
-          throw res.json();
-        }
+    if (currentEmail.trim().length < 6 || currentPassword.trim().length < 6) {
+      alert("Invalid Username/Password");
+    } else if (currentFirstName.trim().length < 1) {
+      alert("Must have a first name");
+    } else if (currentLastName.trim().length < 1) {
+      alert("Must have a last name");
+    } else {
+      fetch(`http://localhost:8000/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: currentEmail.trim(),
+          password: currentPassword.trim(),
+          first_name: currentFirstName.trim(),
+          last_name: currentLastName.trim(),
+        }),
       })
-      .then((json) => {
-        console.log(json);
-        dispatch(
-          LogUserIn({
-            email: json.email,
-            authToken: json.auth_token,
-            firstName: json.first_name,
-            lastName: json.last_name,
-          })
-        );
-        console.log("REGISTERED USER");
-        // navigation.navigate("Untitled Notes");
-      })
-      .catch((error) => console.log("error", error));
+        .then((res) => {
+          if (res.ok) {
+            // console.log("res.json() was ok -> returned json");
+            return res.json();
+          } else {
+            // console.log("res.json() wasn't ok");
+            throw res.json();
+          }
+        })
+        .then((json) => {
+          console.log(json);
+          dispatch(
+            LogUserIn({
+              email: json.email,
+              authToken: json.auth_token,
+              firstName: json.first_name,
+              lastName: json.last_name,
+            })
+          );
+          console.log("REGISTERED USER");
+          // navigation.navigate("Untitled Notes");
+        })
+        .catch((error) => {
+          console.log("error", error);
+          alert("Email already registered.");
+        });
+    }
   };
 
   return (
@@ -137,7 +148,8 @@ export default function RegisterScreen() {
           <TextInput
             KeyboardAvoidingView
             style={{
-              margin: 20,
+              marginHorizontal: 20,
+              marginVertical: 10,
               fontSize: 20,
               paddingBottom: 10,
               borderBottomWidth: 1,
@@ -149,6 +161,12 @@ export default function RegisterScreen() {
             value={currentPassword}
             onChangeText={setCurrentPassword}
           />
+          {/* <Text style={{ marginHorizontal: 20, font }}>
+            Must input first and last name{" "}
+          </Text>
+          <Text style={{ marginHorizontal: 20, fontSize: 11 }}>
+            Username and password must be at least 6 characters long.{" "}
+          </Text> */}
         </View>
         <TouchableOpacity
           onPress={() => {

@@ -1,7 +1,5 @@
 # Todo
 
-- [] Better looking home page
-- [] Folders
 - [] Invalid username/password alert
 - [] Dark and light mode
 - [] Account data
@@ -21,11 +19,11 @@
 - [] Have two notes open at the same time
 - [] Ability to drag notes
 - [] Swipe left/right to delete or favorite
+- [] Make lottie randomly move every now and then
+- [] add notes to folders
 
 ## Issues
 
 - [] Doesn't search for folder name
-- [] Can't make new folder
-- [] Can't Delete folder
 
 - Put things down in a nice and organized way

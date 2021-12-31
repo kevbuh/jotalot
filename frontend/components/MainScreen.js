@@ -71,7 +71,7 @@ function MainScreen() {
         }
       })
       .then((json) => {
-        console.log("FOLDERs --> ", json);
+        // console.log("FOLDERs --> ", json);
         setDataFolder(json);
         setAreThereNotes(true);
         setLoading(false);
