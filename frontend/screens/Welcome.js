@@ -8,7 +8,7 @@ function WelcomeScreen() {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../assets/nnclear.png")}
+        source={require("../assets/images/nnclear.png")}
         style={{
           borderRadius: 10,
           height: 200,

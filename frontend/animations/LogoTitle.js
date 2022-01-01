@@ -8,7 +8,7 @@ export default function LogoTitle() {
         width: 40,
         height: 40,
       }}
-      source={require("../assets/nnclear.png")}
+      source={require("../assets/images/nnclear.png")}
     />
   );
 }

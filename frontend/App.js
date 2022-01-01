@@ -4,7 +4,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Provider as ReduxProvider } from "react-redux";
 import store, { persistor } from "./redux/store";
 
-import MainAppContent from "./components/MainAppContent";
+import MainAppContent from "./screens/Skeleton";
 
 function App() {
   return (

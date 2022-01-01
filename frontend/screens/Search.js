@@ -1,9 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import { useIsFocused } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
-import LottieGuyAtDesk from "./LottieGuyAtDesk";
+import LottieGuyAtDesk from "../animations/LottieGuyAtDesk";
 import { userToken } from "../redux/userSlice";
-import LottieSearch from "./LottieSearch";
+import LottieSearch from "../animations/LottieSearch";
 import { useSelector } from "react-redux";
 import {
   StyleSheet,
