@@ -1,4 +1,10 @@
+import { useNavigation } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
+import LottieGuyAtDesk from "./LottieGuyAtDesk";
+import { userToken } from "../redux/userSlice";
+import LottieSearch from "./LottieSearch";
+import { useSelector } from "react-redux";
 import {
   StyleSheet,
   Text,
@@ -9,30 +15,14 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import { useSelector } from "react-redux";
-import { userToken } from "../redux/userSlice";
-import { useNavigation } from "@react-navigation/native";
-import LottieScanning from "./LottieScan";
-import LottieGuyIcon from "./LottieGuy";
-import { useIsFocused } from "@react-navigation/native";
-
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // alignItems: "center",
-    // justifyContent: "center",
-    marginLeft: 10,
-    marginTop: 40,
-  },
-});
 
 export default function SearchScreen() {
-  const isFocused = useIsFocused();
-  const navigation = useNavigation();
-  const user_token = useSelector(userToken);
-  const [data, setData] = useState([]);
-
   const [searchField, setSearchField] = useState("");
+  const [data, setData] = useState([]);
+  const navigation = useNavigation();
+  const isFocused = useIsFocused();
+
+  const user_token = useSelector(userToken);
 
   const searchNotes = () => {
     fetch(`http://localhost:8000/notes/search/?search=${searchField}`, {
@@ -51,9 +41,6 @@ export default function SearchScreen() {
       })
       .then((json) => {
         setData(json);
-        // console.log("Searching notes...", json);
-        // setAreThereNotes(true);
-        // setLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -67,15 +54,7 @@ export default function SearchScreen() {
   const renderNotes = (item) => {
     return (
       <Pressable
-        style={{
-          width: "95%",
-          marginHorizontal: 10,
-          paddingVertical: 20,
-          paddingHorizontal: 10,
-          borderTopWidth: 1,
-          borderRadius: 5,
-          borderColor: "#D3D3D3",
-        }}
+        style={styles.notes}
         onPress={() => {
           navigation.navigate("Edit Note", {
             item: item,
@@ -98,70 +77,22 @@ export default function SearchScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View
-        style={{
-          flexDirection: "row",
-          marginTop: 10,
-          backgroundColor: "#DDDDDD",
-          alignItems: "center",
-          borderRadius: 8,
-          marginLeft: 10,
-          width: "94%",
-        }}
-      >
-        <TouchableOpacity
-          style={{
-            paddingVertical: 15,
-            marginLeft: 6,
-            width: 25,
-            borderRadius: 10,
-          }}
-        >
-          <LottieScanning />
+      <View style={styles.searchBarView}>
+        <TouchableOpacity style={styles.searchIcon}>
+          <LottieSearch />
         </TouchableOpacity>
         <TextInput
           KeyboardAvoidingView
-          style={{
-            fontSize: 23,
-            paddingBottom: 9,
-            paddingTop: 9,
-            marginLeft: 10,
-          }}
+          style={styles.text}
           placeholder="Search"
           autoCapitalize="none"
           value={searchField}
           onChangeText={setSearchField}
         />
-        {/* <TouchableOpacity
-          onPress={() => {
-            setSearchField("");
-            navigation.navigate("Main");
-          }}
-          style={{
-            alignSelf: "center",
-            alignItems: "center",
-            marginRight: 15,
-          }}
-        >
-          <Text style={{ fontWeight: "bold" }}>Cancel</Text>
-        </TouchableOpacity> */}
       </View>
       {data.length > 0 ? (
         <View>
-          <Text
-            style={{
-              fontSize: 25,
-              fontWeight: "bold",
-              marginBottom: 5,
-              marginTop: 20,
-              borderBottomWidth: 2,
-              marginLeft: 10,
-              width: "90%",
-              borderColor: "#dddddd",
-            }}
-          >
-            Search Results
-          </Text>
+          <Text style={styles.title}>Search Results</Text>
           <FlatList
             data={data}
             keyExtractor={({ id }) => id}
@@ -172,33 +103,75 @@ export default function SearchScreen() {
           />
         </View>
       ) : (
-        <Text
-          style={{
-            fontSize: 25,
-            fontWeight: "bold",
-            marginBottom: 5,
-            marginTop: 20,
-            marginLeft: 20,
-            borderBottomWidth: 2,
-            width: "90%",
-            borderColor: "#dddddd",
-          }}
-        >
-          No search results!
-        </Text>
+        <Text style={styles.noResults}>No search results!</Text>
       )}
       <View>
-        <TouchableOpacity
-          style={{
-            paddingVertical: 90,
-            marginRight: 6,
-            // width: 200,
-            borderRadius: 10,
-          }}
-        >
-          <LottieGuyIcon />
+        <TouchableOpacity style={styles.lottie}>
+          <LottieGuyAtDesk />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginLeft: 10,
+    marginTop: 40,
+  },
+  notes: {
+    width: "95%",
+    marginHorizontal: 10,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    borderTopWidth: 1,
+    borderRadius: 5,
+    borderColor: "#D3D3D3",
+  },
+  searchBarView: {
+    flexDirection: "row",
+    marginTop: 10,
+    backgroundColor: "#DDDDDD",
+    alignItems: "center",
+    borderRadius: 8,
+    marginLeft: 10,
+    width: "94%",
+  },
+  noResults: {
+    fontSize: 25,
+    fontWeight: "bold",
+    marginBottom: 5,
+    marginTop: 20,
+    marginLeft: 20,
+    borderBottomWidth: 2,
+    width: "90%",
+    borderColor: "#dddddd",
+  },
+  title: {
+    fontSize: 25,
+    fontWeight: "bold",
+    marginBottom: 5,
+    marginTop: 20,
+    borderBottomWidth: 2,
+    marginLeft: 10,
+    width: "90%",
+    borderColor: "#dddddd",
+  },
+  lottie: {
+    paddingVertical: 90,
+    marginRight: 6,
+    borderRadius: 10,
+  },
+  text: {
+    fontSize: 23,
+    paddingBottom: 9,
+    paddingTop: 9,
+    marginLeft: 10,
+  },
+  searchIcon: {
+    paddingVertical: 15,
+    marginLeft: 6,
+    width: 25,
+    borderRadius: 10,
+  },
+});

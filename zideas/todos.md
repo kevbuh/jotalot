@@ -1,6 +1,5 @@
 # Todo
 
-- [] Invalid username/password alert
 - [] Dark and light mode
 - [] Account data
   - [] How many notes made in the past
@@ -19,8 +18,7 @@
 - [] Have two notes open at the same time
 - [] Ability to drag notes
 - [] Swipe left/right to delete or favorite
-- [] Make lottie randomly move every now and then
-- [] add notes to folders
+- [] add Notes to folders
 
 ## Issues
 

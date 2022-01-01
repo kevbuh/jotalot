@@ -1,4 +1,7 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
+import { userToken } from "../redux/userSlice";
+import { useSelector } from "react-redux";
 import {
   Button,
   ScrollView,
@@ -8,16 +11,11 @@ import {
   View,
   SafeAreaView,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
-import { userToken } from "../redux/userSlice";
 
-export default function EditFolder(props, item) {
-  const sentData = props.route.params.item;
-  // console.log("sentData ---->", sentData);
-
-  const navigation = useNavigation();
+export default function EditFolder(props) {
   const user_token = useSelector(userToken);
+  const sentData = props.route.params.item;
+  const navigation = useNavigation();
 
   const [currentFolderName, setCurrentFolderName] = useState(
     sentData.folder_name
@@ -87,19 +85,6 @@ export default function EditFolder(props, item) {
               value={currentFolderName}
               onChangeText={setCurrentFolderName}
             />
-            {/* <TextInput
-              multiline
-              KeyboardAvoidingView
-              style={{
-                height: "100%",
-                margin: 20,
-                fontSize: 20,
-                paddingBottom: 100,
-              }}
-              borderColor="#D3D3D3"
-              value={currentNoteUpdate}
-              onChangeText={setCurrentNoteUpdate}
-            /> */}
           </View>
         </ScrollView>
       </SafeAreaView>

@@ -1,4 +1,7 @@
-import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { LogUserIn } from "../redux/userSlice";
+import { useDispatch } from "react-redux";
+import React, { useState } from "react";
 import {
   TouchableOpacity,
   TextInput,
@@ -6,16 +9,14 @@ import {
   Keyboard,
   View,
   Text,
+  StyleSheet,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
-import { LogUserIn } from "../redux/userSlice";
 
 export default function RegisterScreen() {
-  const [currentEmail, setCurrentEmail] = React.useState("");
-  const [currentPassword, setCurrentPassword] = React.useState("");
-  const [currentFirstName, setCurrentFirstName] = React.useState("");
-  const [currentLastName, setCurrentLastName] = React.useState("");
+  const [currentFirstName, setCurrentFirstName] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [currentLastName, setCurrentLastName] = useState("");
+  const [currentEmail, setCurrentEmail] = useState("");
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -42,10 +43,8 @@ export default function RegisterScreen() {
       })
         .then((res) => {
           if (res.ok) {
-            // console.log("res.json() was ok -> returned json");
             return res.json();
           } else {
-            // console.log("res.json() wasn't ok");
             throw res.json();
           }
         })
@@ -60,7 +59,6 @@ export default function RegisterScreen() {
             })
           );
           console.log("REGISTERED USER");
-          // navigation.navigate("Untitled Notes");
         })
         .catch((error) => {
           console.log("error", error);
@@ -75,38 +73,17 @@ export default function RegisterScreen() {
         Keyboard.dismiss();
       }}
     >
-      {/* <ScrollView> */}
       <View
         style={{
           height: "85%",
-          // width: "100%",
-          // alignItems: "center",
-          // flex: 1,
           justifyContent: "center",
-          // paddingVertical: 100,
         }}
       >
         <View style={{ marginLeft: 20 }}>
-          <Text
-            style={{
-              margin: 20,
-              fontSize: 40,
-              fontWeight: "bold",
-              borderBottomWidth: 2,
-            }}
-          >
-            Sign Up{" "}
-          </Text>
+          <Text style={styles.title}>Sign Up </Text>
           <TextInput
             KeyboardAvoidingView
-            style={{
-              margin: 20,
-              fontSize: 20,
-              paddingBottom: 10,
-              borderBottomWidth: 1,
-              borderBottomColor: "#dddddd",
-              width: "80%",
-            }}
+            style={styles.input}
             placeholder="First Name"
             autoCapitalize="none"
             value={currentFirstName}
@@ -114,14 +91,7 @@ export default function RegisterScreen() {
           />
           <TextInput
             KeyboardAvoidingView
-            style={{
-              margin: 20,
-              fontSize: 20,
-              paddingBottom: 10,
-              borderBottomWidth: 1,
-              borderBottomColor: "#dddddd",
-              width: "80%",
-            }}
+            style={styles.input}
             placeholder="Last Name"
             autoCapitalize="none"
             value={currentLastName}
@@ -129,14 +99,7 @@ export default function RegisterScreen() {
           />
           <TextInput
             KeyboardAvoidingView
-            style={{
-              margin: 20,
-              fontSize: 20,
-              paddingBottom: 10,
-              borderBottomWidth: 1,
-              borderBottomColor: "#dddddd",
-              width: "80%",
-            }}
+            style={styles.input}
             autoCapitalize="none"
             textContentType="emailAddress"
             keyboardType="email-address"
@@ -147,41 +110,18 @@ export default function RegisterScreen() {
           />
           <TextInput
             KeyboardAvoidingView
-            style={{
-              marginHorizontal: 20,
-              marginVertical: 10,
-              fontSize: 20,
-              paddingBottom: 10,
-              borderBottomWidth: 1,
-              borderBottomColor: "#dddddd",
-              width: "80%",
-            }}
+            style={styles.input}
             placeholder="Password"
             autoCapitalize="none"
             value={currentPassword}
             onChangeText={setCurrentPassword}
           />
-          {/* <Text style={{ marginHorizontal: 20, font }}>
-            Must input first and last name{" "}
-          </Text>
-          <Text style={{ marginHorizontal: 20, fontSize: 11 }}>
-            Username and password must be at least 6 characters long.{" "}
-          </Text> */}
         </View>
         <TouchableOpacity
           onPress={() => {
             RegisterUser();
           }}
-          style={{
-            paddingHorizontal: 5,
-            alignSelf: "center",
-            alignItems: "center",
-            paddingVertical: 15,
-            backgroundColor: "#DDDDDD",
-            width: "80%",
-            borderRadius: 10,
-            marginVertical: 10,
-          }}
+          style={styles.button}
         >
           <Text style={{ fontWeight: "bold" }}>Sign Up</Text>
         </TouchableOpacity>
@@ -190,7 +130,6 @@ export default function RegisterScreen() {
             flexDirection: "row",
             alignSelf: "center",
             marginTop: 20,
-            // marginRight: 40,
           }}
         >
           <Text>Already have an account? </Text>
@@ -205,80 +144,33 @@ export default function RegisterScreen() {
           </TouchableOpacity>
         </View>
       </View>
-      {/* </ScrollView> */}
     </TouchableWithoutFeedback>
-    // <TouchableWithoutFeedback
-    //   onPress={() => {
-    //     Keyboard.dismiss();
-    //   }}
-    // >
-    //   <ScrollView>
-    //     <View
-    //       style={{
-    //         height: "100%",
-    //         width: "100%",
-    //         alignItems: "center",
-    //         flex: 1,
-    //         justifyContent: "center",
-    //         paddingVertical: 100,
-    //       }}
-    //     >
-    //       <Text
-    //         style={{
-    //           margin: 20,
-    //           fontSize: 20,
-    //           fontWeight: "bold",
-    //           borderBottomWidth: 2,
-    //         }}
-    //       >
-    //         Register{" "}
-    //       </Text>
-    //       <Button
-    //         title="I have an account/ Sign In"
-    //         onPress={() => {
-    //           navigation.replace("Login");
-    //         }}
-    //       />
-    //       <TextInput
-    //         KeyboardAvoidingView
-    //         style={{
-    //           margin: 20,
-    //           fontSize: 20,
-    //           borderBottomWidth: 2,
-    //         }}
-    //         borderColor="#D3D3D3"
-    //         autoCapitalize="none"
-    //         textContentType="emailAddress"
-    //         keyboardType="email-address"
-    //         autoCompleteType="email"
-    //         placeholder="Email"
-    //         blurOnSubmit={false}
-    //         value={currentEmail}
-    //         onChangeText={setCurrentEmail}
-    //       />
-    //       <TextInput
-    //         KeyboardAvoidingView
-    //         style={{
-    //           margin: 20,
-    //           fontSize: 20,
-    //           borderBottomWidth: 2,
-    //         }}
-    //         borderColor="#D3D3D3"
-    //         placeholder="Password"
-    //         secureTextEntry={true}
-    //         autoCapitalize="none"
-    //         value={currentPassword}
-    //         onChangeText={setCurrentPassword}
-    //       />
-
-    //       <Button
-    //         title="Register"
-    //         onPress={() => {
-    //           RegisterUser();
-    //         }}
-    //       />
-    //     </View>
-    //   </ScrollView>
-    // </TouchableWithoutFeedback>
   );
 }
+
+const styles = StyleSheet.create({
+  input: {
+    margin: 20,
+    fontSize: 20,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#dddddd",
+    width: "80%",
+  },
+  button: {
+    paddingHorizontal: 5,
+    alignSelf: "center",
+    alignItems: "center",
+    paddingVertical: 15,
+    backgroundColor: "#DDDDDD",
+    width: "80%",
+    borderRadius: 10,
+    marginVertical: 10,
+  },
+  title: {
+    margin: 20,
+    fontSize: 40,
+    fontWeight: "bold",
+    borderBottomWidth: 2,
+  },
+});

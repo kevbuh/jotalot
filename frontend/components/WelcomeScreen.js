@@ -1,39 +1,22 @@
-import * as React from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import BasicExample from "./LottieTest";
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+import * as React from "react";
 
 function WelcomeScreen() {
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      {/* <View> */}
-      {/* </View> */}
       <Image
         source={require("../assets/nnclear.png")}
         style={{
           borderRadius: 10,
           height: 200,
           width: 200,
-          // marginBottom: 10,
-          // borderWidth: 2,
         }}
       />
       <View
         style={{
-          // paddingVertical: 30,
-          // paddingHorizontal: 20,
-          // borderWidth: 2,
-          // borderRadius: 20,
           flexDirection: "row",
           borderColor: "#D3D3D3",
         }}
@@ -49,21 +32,29 @@ function WelcomeScreen() {
         onPress={() => {
           navigation.navigate("Register");
         }}
-        style={{
-          paddingHorizontal: 5,
-          alignItems: "center",
-          paddingVertical: 15,
-          backgroundColor: "#DDDDDD",
-          width: "80%",
-          borderRadius: 10,
-          marginVertical: 7,
-        }}
+        style={styles.buttons}
       >
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>Get Started</Text>
       </TouchableOpacity>
-      {/* <BasicExample /> */}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttons: {
+    paddingHorizontal: 5,
+    alignItems: "center",
+    paddingVertical: 15,
+    backgroundColor: "#DDDDDD",
+    width: "80%",
+    borderRadius: 10,
+    marginVertical: 7,
+  },
+});
 
 export default WelcomeScreen;

@@ -7,36 +7,32 @@ import {
   Switch,
   TouchableOpacity,
 } from "react-native";
-import { useSelector } from "react-redux";
+
+import { useNavigation } from "@react-navigation/native";
+import { LogUserOut } from "../redux/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 import {
   userEmail,
   userToken,
   userFirstName,
   userLastName,
 } from "../redux/userSlice";
-import { useDispatch } from "react-redux";
-import { LogUserOut } from "../redux/userSlice";
-import { useNavigation } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // alignItems: "center",
-    // justifyContent: "center",
     paddingLeft: 20,
     paddingTop: 20,
   },
 });
 
 export default function AccountScreen() {
-  const user_email = useSelector(userEmail);
-  const user_token = useSelector(userToken);
   const user_first_name = useSelector(userFirstName);
   const user_last_name = useSelector(userLastName);
-
-  const dispatch = useDispatch();
+  const user_email = useSelector(userEmail);
+  const user_token = useSelector(userToken);
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const UserLogout = () => {
     fetch("http://localhost:8000/auth/logout", {
@@ -45,10 +41,6 @@ export default function AccountScreen() {
         "Content-Type": "application/json",
         Authorization: "Token " + user_token,
       },
-      // body: JSON.stringify({
-      //   title: currentTitle,
-      //   text: currentNote,
-      // }),
     })
       .then((res) => {
         if (res.ok) {
@@ -57,11 +49,8 @@ export default function AccountScreen() {
           throw res.json();
         }
       })
-      .then((json) => {
-        // console.log("********---->", json);
-        // console.log("Logging User Out....");
+      .then(() => {
         dispatch(LogUserOut());
-        // console.log("Success, navigating to login....");
       })
       .catch((error) => console.log("error", error));
   };
@@ -91,13 +80,11 @@ export default function AccountScreen() {
         </View>
         <Text style={{ fontSize: 20, marginBottom: 10 }}>{user_email}</Text>
       </View>
-      {/* <Text>{user_token}</Text> */}
       <View>
         <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 10 }}>
           Statistics
         </Text>
         <Text>View your statistics:</Text>
-
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Stats");
@@ -276,7 +263,6 @@ export default function AccountScreen() {
             width: "60%",
             borderRadius: 10,
             marginTop: 7,
-            // marginBottom: 100,
           }}
         >
           <Text style={{ fontWeight: "bold" }}>Log Out</Text>

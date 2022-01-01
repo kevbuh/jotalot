@@ -1,18 +1,17 @@
+import { userToken } from "../redux/userSlice";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
-  Button,
   ScrollView,
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
   View,
 } from "react-native";
-import { useSelector } from "react-redux";
-import { userToken } from "../redux/userSlice";
 
 export default function CreateFolder() {
-  const [didAlreadyCreate, setDidAlreadyCreate] = useState(false);
   const [postCurrentFolder, setPostCurrentFolder] = useState(false);
+  const [didAlreadyCreate, setDidAlreadyCreate] = useState(false);
   const [currentFolderName, setCurrentFolderName] = useState("");
   const [data, setData] = useState([]);
 
@@ -77,19 +76,10 @@ export default function CreateFolder() {
       }}
     >
       <ScrollView>
-        <View
-          style={{
-            alignSelf: "flex-end",
-            flex: 1,
-            marginHorizontal: 8,
-            marginTop: 10,
-            flexDirection: "row",
-          }}
-        ></View>
         <View style={{ height: "100%", width: "100%" }}>
           <TextInput
             style={{
-              marginTop: 10,
+              marginTop: 20,
               marginLeft: 20,
               fontSize: 30,
             }}

@@ -12,15 +12,13 @@ import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { userToken } from "../redux/userSlice";
 
-export default function EditNoteScreen(props, item) {
+export default function EditNoteScreen(props) {
   const sentData = props.route.params.item;
-  // console.log("sentData ---->", sentData);
-
-  const navigation = useNavigation();
-  const user_token = useSelector(userToken);
-
   const [currentTitleUpdate, setCurrentTitleUpdate] = useState(sentData.title);
   const [currentNoteUpdate, setCurrentNoteUpdate] = useState(sentData.text);
+
+  const user_token = useSelector(userToken);
+  const navigation = useNavigation();
 
   const UpdateNote = () => {
     fetch(`http://localhost:8000/notes/${sentData.id}`, {

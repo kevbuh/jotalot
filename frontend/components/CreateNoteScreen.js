@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { userToken } from "../redux/userSlice";
+import { useSelector } from "react-redux";
 import {
-  Button,
   ScrollView,
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
   View,
 } from "react-native";
-import { useSelector } from "react-redux";
-import { userToken } from "../redux/userSlice";
 
 export default function CreateNoteScreen() {
   const [didAlreadyCreate, setDidAlreadyCreate] = useState(false);
@@ -88,17 +87,7 @@ export default function CreateNoteScreen() {
             marginTop: 10,
             flexDirection: "row",
           }}
-        >
-          {/* <Button
-            title="+"
-            onPress={() => {
-              setCurrentNote("");
-              setCurrentTitle("");
-              CreateNewNote();
-            }}
-            color="black"
-          /> */}
-        </View>
+        ></View>
         <View style={{ height: "100%", width: "100%" }}>
           <TextInput
             style={{

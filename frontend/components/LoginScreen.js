@@ -1,20 +1,16 @@
+import { useNavigation } from "@react-navigation/native";
+import { LogUserIn } from "../redux/userSlice";
+import { useDispatch } from "react-redux";
 import React, { useState } from "react";
 import {
-  Button,
   TouchableOpacity,
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
   View,
   Text,
+  StyleSheet,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
-import {
-  LogUserIn,
-  SetUserFirstName,
-  SetUserLastName,
-} from "../redux/userSlice";
 
 export default function LoginScreen() {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -45,7 +41,6 @@ export default function LoginScreen() {
           }
         })
         .then((json) => {
-          // console.log("********---->", json);
           dispatch(
             LogUserIn({
               email: json.email,
@@ -54,11 +49,6 @@ export default function LoginScreen() {
               lastName: json.last_name,
             })
           );
-          // dispatch(SetUserFirstName({ firstName: json.first_name }));
-          // dispatch(SetUserLastName({ lastName: json.last_name }));
-
-          // console.log("Navigating to account....");
-          // navigation.navigate("Untitled Notes");
         })
         .catch((error) => {
           console.log("error", error);
@@ -73,15 +63,10 @@ export default function LoginScreen() {
         Keyboard.dismiss();
       }}
     >
-      {/* <ScrollView> */}
       <View
         style={{
           height: "85%",
-          // width: "100%",
-          // alignItems: "center",
-          // flex: 1,
           justifyContent: "center",
-          // paddingVertical: 100,
         }}
       >
         <View style={{ marginLeft: 20 }}>
@@ -98,14 +83,7 @@ export default function LoginScreen() {
 
           <TextInput
             KeyboardAvoidingView
-            style={{
-              margin: 20,
-              fontSize: 20,
-              paddingBottom: 10,
-              borderBottomWidth: 1,
-              borderBottomColor: "#dddddd",
-              width: "80%",
-            }}
+            style={styles.input}
             autoCapitalize="none"
             textContentType="emailAddress"
             keyboardType="email-address"
@@ -116,14 +94,7 @@ export default function LoginScreen() {
           />
           <TextInput
             KeyboardAvoidingView
-            style={{
-              margin: 20,
-              fontSize: 20,
-              paddingBottom: 10,
-              borderBottomWidth: 1,
-              borderBottomColor: "#dddddd",
-              width: "80%",
-            }}
+            style={styles.input}
             placeholder="Password"
             autoCapitalize="none"
             value={currentPassword}
@@ -134,16 +105,7 @@ export default function LoginScreen() {
           onPress={() => {
             LoginUser();
           }}
-          style={{
-            paddingHorizontal: 5,
-            alignSelf: "center",
-            alignItems: "center",
-            paddingVertical: 15,
-            backgroundColor: "#DDDDDD",
-            width: "80%",
-            borderRadius: 10,
-            marginVertical: 10,
-          }}
+          style={styles.button}
         >
           <Text style={{ fontWeight: "bold" }}>Sign In</Text>
         </TouchableOpacity>
@@ -152,7 +114,6 @@ export default function LoginScreen() {
             flexDirection: "row",
             alignSelf: "center",
             marginTop: 20,
-            // marginRight: 40,
           }}
         >
           <Text>Don't have an account? </Text>
@@ -167,7 +128,27 @@ export default function LoginScreen() {
           </TouchableOpacity>
         </View>
       </View>
-      {/* </ScrollView> */}
     </TouchableWithoutFeedback>
   );
 }
+
+const styles = StyleSheet.create({
+  input: {
+    margin: 20,
+    fontSize: 20,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#dddddd",
+    width: "80%",
+  },
+  button: {
+    paddingHorizontal: 5,
+    alignSelf: "center",
+    alignItems: "center",
+    paddingVertical: 15,
+    backgroundColor: "#DDDDDD",
+    width: "80%",
+    borderRadius: 10,
+    marginVertical: 10,
+  },
+});
