@@ -10,6 +10,40 @@ from .models import Folder
 from .serializers import FolderSerializer
 
 
+# class NotesInFolder(APIView):
+#     permission_classes = [IsAuthenticated]
+
+#     def get(self, request, pk):
+#         try:
+#             folder = Folder.objects.filter(
+#                 folder_creator=request.user).get(pk=pk)
+#             serializer = FolderSerializer(folder)
+#             return Response(serializer.data)
+#         except Folder.DoesNotExist:
+#             return Response(status=status.HTTP_404_NOT_FOUND)
+
+#     def put(self, request, pk):
+#         try:
+#             folder = Folder.objects.filter(
+#                 folder_creator=request.user).get(pk=pk)
+#             serializer = FolderSerializer(folder, data=request.data)
+#             if serializer.is_valid():
+#                 serializer.save()
+#                 return Response(serializer.data)
+#             return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+#         except Folder.DoesNotExist:
+#             return Response(status=status.HTTP_404_NOT_FOUND)
+
+#     def delete(self, request, pk):
+#         try:
+#             folder = Folder.objects.filter(
+#                 folder_creator=request.user).get(pk=pk)
+#             folder.delete()
+#             return Response(status=status.HTTP_204_NO_CONTENT)
+#         except Folder.DoesNotExist:
+#             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
 class ListAllFolders(APIView):
     permission_classes = [IsAuthenticated]
 

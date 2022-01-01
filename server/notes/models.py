@@ -7,7 +7,7 @@ class Note(models.Model):
     creator = models.ForeignKey(
         AUTH_USER_MODEL, on_delete=models.CASCADE)
     folder = models.ForeignKey(
-        Folder, on_delete=models.CASCADE, blank=True, null=True)
+        Folder, related_name='notes', on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=200)
     text = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)

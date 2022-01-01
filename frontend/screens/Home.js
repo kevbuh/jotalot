@@ -157,7 +157,15 @@ function HomeScreen() {
             });
           }}
         >
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Ionicons
+              name={"folder-outline"}
+              size={30}
+              style={{
+                marginRight: 15,
+                color: "#e4007c",
+              }}
+            />
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
