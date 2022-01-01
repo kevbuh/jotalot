@@ -1,6 +1,6 @@
 # NextNote App
 
-![Next Note](./frontend/assets/nnpink.png "NextNote")
+![Next Note](./frontend/assets/images/nnpink.png "NextNote")
 
 ## Tech Stack
 
