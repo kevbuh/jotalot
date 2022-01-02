@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   NavigationContainer,
   DefaultTheme,
-  DarkTheme,
+  useTheme,
 } from "@react-navigation/native";
 import { ENV_DOMAIN } from "@env";
 
@@ -39,6 +39,8 @@ const HomeStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
 
 function HomeStackScreen(item) {
+  const { colors } = useTheme();
+
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen
@@ -53,7 +55,7 @@ function HomeStackScreen(item) {
               }}
               style={{
                 paddingVertical: 15,
-                backgroundColor: "#DDDDDD",
+                backgroundColor: colors.primary,
                 width: 60,
                 borderRadius: 10,
               }}
@@ -66,9 +68,9 @@ function HomeStackScreen(item) {
             </TouchableOpacity>
           ),
           headerStyle: {
-            backgroundColor: "#f2f2f2",
+            backgroundColor: colors.background,
           },
-          headerTintColor: "black",
+          headerTintColor: colors.text,
         })}
       />
       <HomeStack.Screen name="Account" component={AccountScreen} />
@@ -82,9 +84,9 @@ function HomeStackScreen(item) {
         component={CreateNoteScreen}
         options={{
           headerStyle: {
-            backgroundColor: "#f2f2f2",
+            backgroundColor: colors.background,
           },
-          headerTintColor: "black",
+          headerTintColor: colors.text,
           headerTitle: (props) => <LogoTitle {...props} />,
         }}
       />
@@ -93,14 +95,14 @@ function HomeStackScreen(item) {
         component={EditNoteScreen}
         options={({ navigation }) => ({
           headerStyle: {
-            backgroundColor: "#f2f2f2",
+            backgroundColor: colors.background,
           },
           headerTitle: (props) => <LogoTitle {...props} />,
           headerRight: () => (
             <Ionicons
               name={"cog"}
               size={25}
-              color={"black"}
+              color={colors.primary}
               onPress={() => {
                 navigation.navigate("Customize Note", {
                   item: item,
@@ -118,7 +120,7 @@ function HomeStackScreen(item) {
         component={CreateFolder}
         options={() => ({
           headerStyle: {
-            backgroundColor: "#f2f2f2",
+            backgroundColor: colors.background,
           },
           headerTitle: (props) => <LogoTitle {...props} />,
         })}
@@ -128,7 +130,7 @@ function HomeStackScreen(item) {
         component={EditFolder}
         options={() => ({
           headerStyle: {
-            backgroundColor: "#f2f2f2",
+            backgroundColor: colors.background,
           },
           headerTitle: (props) => <LogoTitle {...props} />,
         })}
@@ -141,9 +143,9 @@ function HomeStackScreen(item) {
         options={{
           headerTitle: (props) => <LogoTitle {...props} />,
           headerStyle: {
-            backgroundColor: "#f2f2f2",
+            backgroundColor: colors.background,
           },
-          headerTintColor: "black",
+          headerTintColor: colors.text,
         }}
       />
       <HomeStack.Screen
@@ -151,9 +153,9 @@ function HomeStackScreen(item) {
         component={FeedbackScreen}
         options={{
           headerStyle: {
-            backgroundColor: "#f2f2f2",
+            backgroundColor: colors.background,
           },
-          headerTintColor: "black",
+          headerTintColor: colors.text,
         }}
       />
     </HomeStack.Navigator>
@@ -167,6 +169,8 @@ function MainAppContent() {
   const user_email = useSelector(userEmail);
 
   const scheme = useColorScheme();
+
+  const { colors } = useTheme();
 
   const MyDarkTheme = {
     dark: true,
@@ -187,6 +191,7 @@ function MainAppContent() {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme,
+      background: "#f2f2f2",
       button: "#dddddd",
       border: "#D3D3D3",
       cardBackground: "#ddd",
@@ -228,7 +233,7 @@ function MainAppContent() {
               } else if (route.name === "Search") {
                 iconName = "search";
               }
-              return <Ionicons name={iconName} size={size} color={color} />;
+              return <Ionicons name={iconName} size={size} color={"#e4007c"} />;
             },
             tabBarActiveTintColor: "#121212",
             tabBarInactiveTintColor: "gray",

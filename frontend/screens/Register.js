@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { LogUserIn } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
 import React, { useState } from "react";
@@ -22,6 +22,7 @@ export default function RegisterScreen() {
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const { colors } = useTheme();
 
   const RegisterUser = () => {
     if (currentEmail.trim().length < 6 || currentPassword.trim().length < 6) {
@@ -84,10 +85,25 @@ export default function RegisterScreen() {
         }}
       >
         <View style={{ marginLeft: 20 }}>
-          <Text style={styles.title}>Sign Up </Text>
+          <Text
+            style={[
+              styles.title,
+              {
+                color: colors.text,
+              },
+            ]}
+          >
+            Sign Up{" "}
+          </Text>
           <TextInput
             KeyboardAvoidingView
-            style={styles.input}
+            style={[
+              styles.input,
+              {
+                borderBottomColor: colors.border,
+                color: colors.text,
+              },
+            ]}
             placeholder="First Name"
             autoCapitalize="none"
             value={currentFirstName}
@@ -95,7 +111,13 @@ export default function RegisterScreen() {
           />
           <TextInput
             KeyboardAvoidingView
-            style={styles.input}
+            style={[
+              styles.input,
+              {
+                borderBottomColor: colors.border,
+                color: colors.text,
+              },
+            ]}
             placeholder="Last Name"
             autoCapitalize="none"
             value={currentLastName}
@@ -103,7 +125,13 @@ export default function RegisterScreen() {
           />
           <TextInput
             KeyboardAvoidingView
-            style={styles.input}
+            style={[
+              styles.input,
+              {
+                borderBottomColor: colors.border,
+                color: colors.text,
+              },
+            ]}
             autoCapitalize="none"
             textContentType="emailAddress"
             keyboardType="email-address"
@@ -114,7 +142,13 @@ export default function RegisterScreen() {
           />
           <TextInput
             KeyboardAvoidingView
-            style={styles.input}
+            style={[
+              styles.input,
+              {
+                borderBottomColor: colors.border,
+                color: colors.text,
+              },
+            ]}
             placeholder="Password"
             autoCapitalize="none"
             value={currentPassword}
@@ -122,7 +156,13 @@ export default function RegisterScreen() {
           />
           <TextInput
             KeyboardAvoidingView
-            style={styles.input}
+            style={[
+              styles.input,
+              {
+                borderBottomColor: colors.border,
+                color: colors.text,
+              },
+            ]}
             placeholder="Confirm Password"
             autoCapitalize="none"
             value={currentConfirmPassword}
@@ -133,7 +173,12 @@ export default function RegisterScreen() {
           onPress={() => {
             RegisterUser();
           }}
-          style={styles.button}
+          style={[
+            styles.button,
+            {
+              backgroundColor: colors.cardBackground,
+            },
+          ]}
         >
           <Text style={{ fontWeight: "bold" }}>Sign Up</Text>
         </TouchableOpacity>
@@ -144,13 +189,13 @@ export default function RegisterScreen() {
             marginTop: 20,
           }}
         >
-          <Text>Already have an account? </Text>
+          <Text style={{ color: colors.text }}>Already have an account? </Text>
           <TouchableOpacity
             onPress={() => {
               navigation.replace("Login");
             }}
           >
-            <Text style={{ fontWeight: "bold", color: "#E4007C" }}>
+            <Text style={{ fontWeight: "bold", color: colors.primary }}>
               Sign In
             </Text>
           </TouchableOpacity>
@@ -166,7 +211,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingBottom: 10,
     borderBottomWidth: 1,
-    borderBottomColor: "#dddddd",
     width: "80%",
   },
   button: {
@@ -174,7 +218,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     paddingVertical: 15,
-    backgroundColor: "#DDDDDD",
     width: "80%",
     borderRadius: 10,
     marginVertical: 10,

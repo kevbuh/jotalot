@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import React from "react";
 import {
   StyleSheet,
@@ -10,20 +10,44 @@ import {
 
 export default function StatsScreen() {
   const navigation = useNavigation();
+  const { colors } = useTheme();
 
   return (
     <ScrollView style={styles.container}>
       <View>
         <View style={{ flexDirection: "row" }}>
-          <Text style={styles.title}>Statistics</Text>
+          <Text
+            style={[
+              styles.title,
+              {
+                color: colors.text,
+              },
+            ]}
+          >
+            Statistics
+          </Text>
         </View>
       </View>
-      <Text style={styles.smallTitle}>Notes Created:</Text>
+      <Text
+        style={[
+          styles.smallTitle,
+          {
+            color: colors.text,
+          },
+        ]}
+      >
+        Notes Created:
+      </Text>
       <TouchableOpacity
         onPress={() => {
           alert("Flow!");
         }}
-        style={styles.buttons}
+        style={[
+          styles.buttons,
+          {
+            backgroundColor: colors.cardBackground,
+          },
+        ]}
       >
         <Text
           style={{
@@ -36,21 +60,49 @@ export default function StatsScreen() {
         <Text style={styles.smallText}>More than</Text>
         <Text style={styles.smallText}>60% of users!</Text>
       </TouchableOpacity>
-      <Text style={styles.smallTitle}>Days Spent Creating:</Text>
+      <Text
+        style={[
+          styles.smallTitle,
+          {
+            color: colors.text,
+          },
+        ]}
+      >
+        Days Spent Creating:
+      </Text>
       <TouchableOpacity
         onPress={() => {
           alert("You changed the Appearance!");
         }}
-        style={styles.buttons}
+        style={[
+          styles.buttons,
+          {
+            backgroundColor: colors.cardBackground,
+          },
+        ]}
       >
         <Text style={{ fontWeight: "bold", fontSize: 20 }}>10 days</Text>
       </TouchableOpacity>
-      <Text style={styles.smallTitle}>AI suggestions accepted:</Text>
+      <Text
+        style={[
+          styles.smallTitle,
+          {
+            color: colors.text,
+          },
+        ]}
+      >
+        AI suggestions accepted:
+      </Text>
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("Change Password");
         }}
-        style={styles.buttons}
+        style={[
+          styles.buttons,
+          {
+            backgroundColor: colors.cardBackground,
+          },
+        ]}
       >
         <Text style={{ fontWeight: "bold", fontSize: 20 }}>94</Text>
         <Text style={styles.smallText}>Looks like</Text>
@@ -69,7 +121,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     alignItems: "center",
     paddingVertical: 30,
-    backgroundColor: "#DDDDDD",
     width: "50%",
     borderRadius: 10,
     marginVertical: 7,

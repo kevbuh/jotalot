@@ -228,7 +228,7 @@ function HomeScreen() {
               <Ionicons
                 name={"create-outline"}
                 size={30}
-                color={"black"}
+                color={colors.text}
                 onPress={() => {
                   navigation.navigate("New Note");
                 }}

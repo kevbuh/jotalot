@@ -1,5 +1,8 @@
-import { useNavigation } from "@react-navigation/native";
-import { useIsFocused } from "@react-navigation/native";
+import {
+  useNavigation,
+  useTheme,
+  useIsFocused,
+} from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import LottieGuyAtDesk from "../animations/LottieGuyAtDesk";
 import { userToken } from "../redux/userSlice";
@@ -24,6 +27,7 @@ export default function SearchScreen() {
   const isFocused = useIsFocused();
 
   const user_token = useSelector(userToken);
+  const { colors } = useTheme();
 
   const searchNotes = () => {
     fetch(`http://${ENV_DOMAIN}/notes/search/?search=${searchField}`, {
@@ -55,7 +59,12 @@ export default function SearchScreen() {
   const renderNotes = (item) => {
     return (
       <Pressable
-        style={styles.notes}
+        style={[
+          styles.notes,
+          {
+            borderColor: colors.border,
+          },
+        ]}
         onPress={() => {
           navigation.navigate("Edit Note", {
             item: item,
@@ -65,11 +74,15 @@ export default function SearchScreen() {
         <Text
           numberOfLines={1}
           ellipsizeMode="tail"
-          style={{ fontSize: 18, fontWeight: "bold" }}
+          style={{ fontSize: 18, fontWeight: "bold", color: colors.text }}
         >
           {item.title}
         </Text>
-        <Text numberOfLines={1} ellipsizeMode="tail">
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={{ color: colors.text }}
+        >
           {item.text}
         </Text>
       </Pressable>
@@ -78,13 +91,20 @@ export default function SearchScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.searchBarView}>
+      <View
+        style={[
+          styles.searchBarView,
+          {
+            backgroundColor: colors.cardBackground,
+          },
+        ]}
+      >
         <TouchableOpacity style={styles.searchIcon}>
           <LottieSearch />
         </TouchableOpacity>
         <TextInput
           KeyboardAvoidingView
-          style={styles.text}
+          style={[styles.text, { color: colors.text }]}
           placeholder="Search"
           autoCapitalize="none"
           value={searchField}
@@ -93,7 +113,17 @@ export default function SearchScreen() {
       </View>
       {data.length > 0 ? (
         <View>
-          <Text style={styles.title}>Search Results</Text>
+          <Text
+            style={[
+              styles.title,
+              {
+                borderColor: colors.border,
+                color: colors.text,
+              },
+            ]}
+          >
+            Search Results
+          </Text>
           <FlatList
             data={data}
             keyExtractor={({ id }) => id}
@@ -104,7 +134,16 @@ export default function SearchScreen() {
           />
         </View>
       ) : (
-        <Text style={styles.noResults}>No search results!</Text>
+        <Text
+          style={[
+            styles.noResults,
+            {
+              borderColor: colors.border,
+            },
+          ]}
+        >
+          No search results!
+        </Text>
       )}
       <View>
         <TouchableOpacity style={styles.lottie}>
@@ -127,12 +166,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderTopWidth: 1,
     borderRadius: 5,
-    borderColor: "#D3D3D3",
   },
   searchBarView: {
     flexDirection: "row",
     marginTop: 10,
-    backgroundColor: "#DDDDDD",
     alignItems: "center",
     borderRadius: 8,
     marginLeft: 10,
@@ -146,7 +183,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     borderBottomWidth: 2,
     width: "90%",
-    borderColor: "#dddddd",
   },
   title: {
     fontSize: 25,
@@ -156,7 +192,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     marginLeft: 10,
     width: "90%",
-    borderColor: "#dddddd",
   },
   lottie: {
     paddingVertical: 90,

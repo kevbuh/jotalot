@@ -1,9 +1,10 @@
 import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import * as React from "react";
 
 function WelcomeScreen() {
   const navigation = useNavigation();
+  const { colors } = useTheme();
 
   return (
     <View style={styles.container}>
@@ -18,7 +19,7 @@ function WelcomeScreen() {
       <View
         style={{
           flexDirection: "row",
-          borderColor: "#D3D3D3",
+          borderColor: colors.border,
         }}
       >
         <Text style={{ fontSize: 35, marginRight: 30 }}>N E X T</Text>
@@ -32,7 +33,12 @@ function WelcomeScreen() {
         onPress={() => {
           navigation.navigate("Register");
         }}
-        style={styles.buttons}
+        style={[
+          styles.buttons,
+          {
+            backgroundColor: colors.cardBackground,
+          },
+        ]}
       >
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>Get Started</Text>
       </TouchableOpacity>
@@ -50,7 +56,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     alignItems: "center",
     paddingVertical: 15,
-    backgroundColor: "#DDDDDD",
     width: "80%",
     borderRadius: 10,
     marginVertical: 7,
