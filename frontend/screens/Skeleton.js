@@ -11,6 +11,7 @@ import {
 } from "@react-navigation/native";
 import { ENV_DOMAIN } from "@env";
 
+import LottiePinkAvatarIcon from "../animations/LottiePinkAvatar";
 import LottieAvatarIcon from "../animations/LottieAvatar";
 import ChangePasswordScreen from "./ChangePassword";
 import NoteSettingsScreen from "./NoteSettings";
@@ -40,6 +41,7 @@ const AuthStack = createNativeStackNavigator();
 
 function HomeStackScreen(item) {
   const { colors } = useTheme();
+  const scheme = useColorScheme();
 
   return (
     <HomeStack.Navigator>
@@ -60,11 +62,19 @@ function HomeStackScreen(item) {
                 borderRadius: 10,
               }}
             >
-              <LottieAvatarIcon
-                onPress={() => {
-                  navigation.navigate("Account");
-                }}
-              />
+              {scheme !== "dark" ? (
+                <LottieAvatarIcon
+                  onPress={() => {
+                    navigation.navigate("Account");
+                  }}
+                />
+              ) : (
+                <LottiePinkAvatarIcon
+                  onPress={() => {
+                    navigation.navigate("Account");
+                  }}
+                />
+              )}
             </TouchableOpacity>
           ),
           headerStyle: {
@@ -176,14 +186,15 @@ function MainAppContent() {
     dark: true,
     colors: {
       primary: "#e4007c",
-      background: "#000023",
-      card: "#000028",
+      // background: "#000023",
+      background: "#000",
+      card: "#121212",
       text: "#ffffff",
       border: "#000028",
       notification: "#9933FF",
-      button: "#e4007c",
-      border: "#e4007c",
-      cardBackground: "#e4007c",
+      button: "#272727",
+      border: "#121212",
+      cardBackground: "#272727",
     },
   };
 
@@ -233,7 +244,13 @@ function MainAppContent() {
               } else if (route.name === "Search") {
                 iconName = "search";
               }
-              return <Ionicons name={iconName} size={size} color={"#e4007c"} />;
+              return (
+                <Ionicons
+                  name={iconName}
+                  size={size}
+                  color={scheme === "dark" ? "#fff" : "#000"}
+                />
+              );
             },
             tabBarActiveTintColor: "#121212",
             tabBarInactiveTintColor: "gray",

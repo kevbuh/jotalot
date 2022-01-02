@@ -104,7 +104,10 @@ function HomeScreen() {
   const renderNotes = (item) => {
     return (
       <Pressable
-        style={[styles.notes, { borderColor: colors.border }]}
+        style={[
+          styles.notes,
+          { borderColor: colors.border, backgroundColor: colors.button },
+        ]}
         onPress={() => {
           navigation.navigate("Edit Note", {
             item: item,
@@ -186,7 +189,7 @@ function HomeScreen() {
               size={30}
               style={{
                 marginRight: 15,
-                color: colors.primary,
+                color: colors.text,
               }}
             />
             <Text
@@ -397,7 +400,8 @@ const styles = StyleSheet.create({
   notes: {
     width: "95%",
     marginHorizontal: 10,
-    paddingVertical: 20,
+    marginVertical: 2,
+    paddingVertical: 10,
     paddingHorizontal: 10,
     borderTopWidth: 1,
     borderRadius: 5,
