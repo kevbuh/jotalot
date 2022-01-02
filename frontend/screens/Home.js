@@ -16,6 +16,7 @@ import {
   Pressable,
   StyleSheet,
 } from "react-native";
+import { ENV_DOMAIN } from "@env";
 
 function HomeScreen() {
   const [areThereNotes, setAreThereNotes] = useState(false);
@@ -30,7 +31,7 @@ function HomeScreen() {
   const isFocused = useIsFocused();
 
   const getNotes = () => {
-    fetch("http://localhost:8000/notes/", {
+    fetch(`http://${ENV_DOMAIN}/notes/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +56,7 @@ function HomeScreen() {
   };
 
   const getFolders = () => {
-    fetch("http://localhost:8000/folders/", {
+    fetch(`http://${ENV_DOMAIN}/folders/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -5,6 +5,7 @@ import LottieGuyAtDesk from "../animations/LottieGuyAtDesk";
 import { userToken } from "../redux/userSlice";
 import LottieSearch from "../animations/LottieSearch";
 import { useSelector } from "react-redux";
+import { ENV_DOMAIN } from "@env";
 import {
   StyleSheet,
   Text,
@@ -25,7 +26,7 @@ export default function SearchScreen() {
   const user_token = useSelector(userToken);
 
   const searchNotes = () => {
-    fetch(`http://localhost:8000/notes/search/?search=${searchField}`, {
+    fetch(`http://${ENV_DOMAIN}/notes/search/?search=${searchField}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -166,6 +167,7 @@ const styles = StyleSheet.create({
     fontSize: 23,
     paddingBottom: 9,
     paddingTop: 9,
+    paddingRight: "60%",
     marginLeft: 10,
   },
   searchIcon: {

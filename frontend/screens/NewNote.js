@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { userToken } from "../redux/userSlice";
 import { useSelector } from "react-redux";
+import { ENV_DOMAIN } from "@env";
 import {
   ScrollView,
   TextInput,
@@ -19,7 +20,7 @@ export default function CreateNoteScreen() {
   const user_token = useSelector(userToken);
 
   const CreateNewNote = () => {
-    fetch("http://localhost:8000/notes/", {
+    fetch(`http://${ENV_DOMAIN}/notes/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +52,7 @@ export default function CreateNoteScreen() {
   }, [postCurrentNote]);
 
   const UpdateNote = () => {
-    fetch(`http://localhost:8000/notes/${data.id}`, {
+    fetch(`http://${ENV_DOMAIN}/notes/${data.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

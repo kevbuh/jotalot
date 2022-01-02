@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { LogUserIn } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
 import React, { useState } from "react";
+import { ENV_DOMAIN } from "@env";
 import {
   TouchableOpacity,
   TextInput,
@@ -23,7 +24,7 @@ export default function LoginScreen() {
     if (currentEmail.trim().length < 6 || currentPassword.trim().length < 6) {
       alert("Invalid Username/Password.");
     } else {
-      fetch("http://localhost:8000/auth/login", {
+      fetch(`http://${ENV_DOMAIN}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

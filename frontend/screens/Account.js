@@ -1,3 +1,7 @@
+import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { LogUserOut } from "../redux/userSlice";
+import { ENV_DOMAIN } from "@env";
 import React from "react";
 import {
   StyleSheet,
@@ -7,10 +11,6 @@ import {
   Switch,
   TouchableOpacity,
 } from "react-native";
-
-import { useNavigation } from "@react-navigation/native";
-import { LogUserOut } from "../redux/userSlice";
-import { useDispatch, useSelector } from "react-redux";
 import {
   userEmail,
   userToken,
@@ -35,7 +35,7 @@ export default function AccountScreen() {
   const dispatch = useDispatch();
 
   const UserLogout = () => {
-    fetch("http://localhost:8000/auth/logout", {
+    fetch(`http://${ENV_DOMAIN}/auth/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

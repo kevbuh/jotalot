@@ -3,6 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import { userToken } from "../redux/userSlice";
 import { useSelector } from "react-redux";
+import { ENV_DOMAIN } from "@env";
 import {
   Pressable,
   ScrollView,
@@ -18,6 +19,7 @@ import {
 
 export default function EditNoteScreen(props) {
   const sentData = props.route.params.item;
+
   const [currentTitleUpdate, setCurrentTitleUpdate] = useState(sentData.title);
   const [currentNoteUpdate, setCurrentNoteUpdate] = useState(sentData.text);
   const [currentFolder, setCurrentFolder] = useState(sentData.folder);
@@ -28,7 +30,7 @@ export default function EditNoteScreen(props) {
   const navigation = useNavigation();
 
   const UpdateNote = () => {
-    fetch(`http://localhost:8000/notes/${sentData.id}`, {
+    fetch(`http://${ENV_DOMAIN}/notes/${sentData.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +47,7 @@ export default function EditNoteScreen(props) {
   };
 
   const getFolders = () => {
-    fetch("http://localhost:8000/folders/", {
+    fetch(`http://${ENV_DOMAIN}/folders/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -65,6 +67,16 @@ export default function EditNoteScreen(props) {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const DeleteNote = (sentData) => {
+    fetch(`http://${ENV_DOMAIN}/notes/${sentData.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Token " + user_token,
+      },
+    }).catch((error) => console.log("error", error));
   };
 
   const renderFolders = (item) => {
@@ -99,16 +111,6 @@ export default function EditNoteScreen(props) {
   useEffect(() => {
     getFolders();
   }, []);
-
-  const DeleteNote = (sentData) => {
-    fetch(`http://localhost:8000/notes/${sentData.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Token " + user_token,
-      },
-    }).catch((error) => console.log("error", error));
-  };
 
   return (
     <TouchableWithoutFeedback

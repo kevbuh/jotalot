@@ -15,6 +15,7 @@ import {
   FlatList,
   StyleSheet,
 } from "react-native";
+import { ENV_DOMAIN } from "@env";
 
 export default function EditFolder(props) {
   const user_token = useSelector(userToken);
@@ -28,7 +29,7 @@ export default function EditFolder(props) {
   );
 
   const getFolders = () => {
-    fetch(`http://localhost:8000/folders/${sentData.id}`, {
+    fetch(`http://${ENV_DOMAIN}/folders/${sentData.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +78,7 @@ export default function EditFolder(props) {
   };
 
   const UpdateFolder = () => {
-    fetch(`http://localhost:8000/folders/${sentData.id}`, {
+    fetch(`http://${ENV_DOMAIN}/folders/${sentData.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -100,7 +101,7 @@ export default function EditFolder(props) {
   }, [isFocused]);
 
   const DeleteFolder = (sentData) => {
-    fetch(`http://localhost:8000/folders/${sentData.id}`, {
+    fetch(`http://${ENV_DOMAIN}/folders/${sentData.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

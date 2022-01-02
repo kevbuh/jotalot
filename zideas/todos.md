@@ -18,7 +18,6 @@
 - [] Have two notes open at the same time
 - [] Ability to drag notes
 - [] Swipe left/right to delete or favorite
-- [] add Notes to folders
 
 ## Issues
 

@@ -1,6 +1,7 @@
 import { userToken } from "../redux/userSlice";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { ENV_DOMAIN } from "@env";
 import {
   ScrollView,
   TextInput,
@@ -18,7 +19,7 @@ export default function CreateFolder() {
   const user_token = useSelector(userToken);
 
   const CreateNewFolder = () => {
-    fetch("http://localhost:8000/folders/", {
+    fetch(`http://${ENV_DOMAIN}/folders/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +50,7 @@ export default function CreateFolder() {
   }, [postCurrentFolder]);
 
   const UpdateFolderName = () => {
-    fetch(`http://localhost:8000/folders/${data.id}`, {
+    fetch(`http://${ENV_DOMAIN}/folders/${data.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

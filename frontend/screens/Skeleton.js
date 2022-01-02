@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
+import { ENV_DOMAIN } from "@env";
 
 import LottieAvatarIcon from "../animations/LottieAvatar";
 import ChangePasswordScreen from "./ChangePassword";
@@ -162,7 +163,7 @@ function MainAppContent() {
   const user_email = useSelector(userEmail);
 
   const GetUser = () => {
-    fetch("http://localhost:8000/auth/login", {
+    fetch(`http://${ENV_DOMAIN}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

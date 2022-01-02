@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { LogUserIn } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
 import React, { useState } from "react";
+import { ENV_DOMAIN } from "@env";
 import {
   TouchableOpacity,
   TextInput,
@@ -13,6 +14,7 @@ import {
 } from "react-native";
 
 export default function RegisterScreen() {
+  const [currentConfirmPassword, setCurrentConfirmPassword] = useState("");
   const [currentFirstName, setCurrentFirstName] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [currentLastName, setCurrentLastName] = useState("");
@@ -23,13 +25,15 @@ export default function RegisterScreen() {
 
   const RegisterUser = () => {
     if (currentEmail.trim().length < 6 || currentPassword.trim().length < 6) {
-      alert("Invalid Username/Password");
+      alert("Username/Password must be at least 6 characters");
     } else if (currentFirstName.trim().length < 1) {
       alert("Must have a first name");
     } else if (currentLastName.trim().length < 1) {
       alert("Must have a last name");
+    } else if (currentPassword != currentConfirmPassword) {
+      alert("Passwords do not match.");
     } else {
-      fetch(`http://localhost:8000/auth/register`, {
+      fetch(`http://${ENV_DOMAIN}/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,7 +66,7 @@ export default function RegisterScreen() {
         })
         .catch((error) => {
           console.log("error", error);
-          alert("Email already registered.");
+          alert("Invalid Username/Password.");
         });
     }
   };
@@ -115,6 +119,14 @@ export default function RegisterScreen() {
             autoCapitalize="none"
             value={currentPassword}
             onChangeText={setCurrentPassword}
+          />
+          <TextInput
+            KeyboardAvoidingView
+            style={styles.input}
+            placeholder="Confirm Password"
+            autoCapitalize="none"
+            value={currentConfirmPassword}
+            onChangeText={setCurrentConfirmPassword}
           />
         </View>
         <TouchableOpacity

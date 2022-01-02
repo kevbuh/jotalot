@@ -10,6 +10,7 @@ import {
   View,
   Text,
 } from "react-native";
+import { ENV_DOMAIN } from "@env";
 
 export default function ChangePasswordScreen() {
   const [currentNewPassword, setCurrentNewPassword] = useState("");
@@ -19,7 +20,7 @@ export default function ChangePasswordScreen() {
   const navigation = useNavigation();
 
   const ChangeUserPassword = () => {
-    fetch("http://localhost:8000/auth/password_change", {
+    fetch(`http://${ENV_DOMAIN}/auth/password_change`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
