@@ -22,11 +22,20 @@ function WelcomeScreen() {
           borderColor: colors.border,
         }}
       >
-        <Text style={{ fontSize: 35, marginRight: 30 }}>N E X T</Text>
-        <Text style={{ fontSize: 35 }}>N O T E</Text>
+        <Text style={{ fontSize: 35, marginRight: 30, color: colors.text }}>
+          N E X T
+        </Text>
+        <Text style={{ fontSize: 35, color: colors.text }}>N O T E</Text>
       </View>
 
-      <Text style={{ marginBottom: 50, marginTop: 10, fontSize: 17 }}>
+      <Text
+        style={{
+          marginBottom: 50,
+          marginTop: 10,
+          fontSize: 17,
+          color: colors.text,
+        }}
+      >
         Intelligent Note Taking
       </Text>
       <TouchableOpacity
@@ -40,7 +49,9 @@ function WelcomeScreen() {
           },
         ]}
       >
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Get Started</Text>
+        <Text style={{ fontSize: 20, fontWeight: "bold", color: colors.text }}>
+          Get Started
+        </Text>
       </TouchableOpacity>
     </View>
   );

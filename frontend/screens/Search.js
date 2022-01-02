@@ -7,6 +7,7 @@ import React, { useState, useEffect } from "react";
 import LottieGuyAtDesk from "../animations/LottieGuyAtDesk";
 import { userToken } from "../redux/userSlice";
 import LottieSearch from "../animations/LottieSearch";
+import LottieLightSearch from "../animations/LogoLightSearch";
 import { useSelector } from "react-redux";
 import { ENV_DOMAIN } from "@env";
 import {
@@ -17,6 +18,7 @@ import {
   FlatList,
   Pressable,
   SafeAreaView,
+  useColorScheme,
   TouchableOpacity,
 } from "react-native";
 
@@ -89,6 +91,8 @@ export default function SearchScreen() {
     );
   };
 
+  const scheme = useColorScheme();
+
   return (
     <SafeAreaView style={styles.container}>
       <View
@@ -100,7 +104,7 @@ export default function SearchScreen() {
         ]}
       >
         <TouchableOpacity style={styles.searchIcon}>
-          <LottieSearch />
+          {scheme === "dark" ? <LottieLightSearch /> : <LottieSearch />}
         </TouchableOpacity>
         <TextInput
           KeyboardAvoidingView

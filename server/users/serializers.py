@@ -31,6 +31,7 @@ class AuthUserSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'is_active', 'is_staff')
 
     def get_auth_token(self, obj):
+        # if User.objects.filter(email=)
         if obj is not None:
             Token.objects.filter(user=obj).delete()
             token = Token.objects.create(user=obj)

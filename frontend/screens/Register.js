@@ -180,7 +180,9 @@ export default function RegisterScreen() {
             },
           ]}
         >
-          <Text style={{ fontWeight: "bold" }}>Sign Up</Text>
+          <Text style={{ fontWeight: "bold", color: colors.text }}>
+            Sign Up
+          </Text>
         </TouchableOpacity>
         <View
           style={{

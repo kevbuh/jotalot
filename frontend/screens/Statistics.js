@@ -53,12 +53,24 @@ export default function StatsScreen() {
           style={{
             fontWeight: "bold",
             fontSize: 20,
+            color: colors.text,
           }}
         >
           235
         </Text>
-        <Text style={styles.smallText}>More than</Text>
-        <Text style={styles.smallText}>60% of users!</Text>
+        <Text style={[styles.smallText, { color: colors.text }]}>
+          More than
+        </Text>
+        <Text
+          style={[
+            styles.smallText,
+            {
+              color: colors.text,
+            },
+          ]}
+        >
+          60% of users!
+        </Text>
       </TouchableOpacity>
       <Text
         style={[
@@ -81,7 +93,9 @@ export default function StatsScreen() {
           },
         ]}
       >
-        <Text style={{ fontWeight: "bold", fontSize: 20 }}>10 days</Text>
+        <Text style={{ fontWeight: "bold", fontSize: 20, color: colors.text }}>
+          10 days
+        </Text>
       </TouchableOpacity>
       <Text
         style={[
@@ -104,9 +118,22 @@ export default function StatsScreen() {
           },
         ]}
       >
-        <Text style={{ fontWeight: "bold", fontSize: 20 }}>94</Text>
-        <Text style={styles.smallText}>Looks like</Text>
-        <Text style={styles.smallText}>its helping you!</Text>
+        <Text style={{ fontWeight: "bold", fontSize: 20, color: colors.text }}>
+          94
+        </Text>
+        <Text
+          style={[
+            styles.smallText,
+            {
+              color: colors.text,
+            },
+          ]}
+        >
+          Looks like
+        </Text>
+        <Text style={[styles.smallText, { color: colors.text }]}>
+          its helping you!
+        </Text>
       </TouchableOpacity>
     </ScrollView>
   );
