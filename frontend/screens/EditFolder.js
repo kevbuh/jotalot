@@ -1,5 +1,9 @@
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useNavigation, useIsFocused } from "@react-navigation/native";
+import {
+  useNavigation,
+  useIsFocused,
+  useTheme,
+} from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import { userToken } from "../redux/userSlice";
 import { useSelector } from "react-redux";
@@ -23,6 +27,7 @@ export default function EditFolder(props) {
   const [currentFolder, setCurrentFolder] = useState([]);
   const navigation = useNavigation();
   const isFocused = useIsFocused();
+  const { colors } = useTheme();
 
   const [currentFolderName, setCurrentFolderName] = useState(
     sentData.folder_name
@@ -56,7 +61,12 @@ export default function EditFolder(props) {
   const renderFolders = (item) => {
     return (
       <Pressable
-        style={styles.notes}
+        style={[
+          styles.notes,
+          {
+            borderColor: colors.border,
+          },
+        ]}
         onPress={() => {
           navigation.navigate("Edit Note", {
             item: item,
@@ -66,11 +76,15 @@ export default function EditFolder(props) {
         <Text
           numberOfLines={1}
           ellipsizeMode="tail"
-          style={{ fontSize: 18, fontWeight: "bold" }}
+          style={{ fontSize: 18, fontWeight: "bold", color: colors.text }}
         >
           {item.title}
         </Text>
-        <Text numberOfLines={1} ellipsizeMode="tail">
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={{ color: colors.text }}
+        >
           {item.text}
         </Text>
       </Pressable>
@@ -138,7 +152,7 @@ export default function EditFolder(props) {
                   size={30}
                   style={{
                     marginRight: 15,
-                    color: "#e4007c",
+                    color: colors.primary,
                   }}
                 />
               </View>
@@ -151,13 +165,13 @@ export default function EditFolder(props) {
                 marginLeft: 20,
                 fontSize: 30,
                 fontWeight: "bold",
+                color: colors.text,
               }}
               value={currentFolderName}
               onChangeText={setCurrentFolderName}
             />
           </View>
           <View>
-            {/* <Text>Here</Text> */}
             <FlatList
               data={currentFolder}
               keyExtractor={({ id }) => id}
@@ -180,7 +194,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderTopWidth: 1,
     borderRadius: 5,
-    borderColor: "#D3D3D3",
   },
   title: {
     paddingTop: 25,

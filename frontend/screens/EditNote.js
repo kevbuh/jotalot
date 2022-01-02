@@ -1,5 +1,5 @@
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import { userToken } from "../redux/userSlice";
 import { useSelector } from "react-redux";
@@ -28,6 +28,7 @@ export default function EditNoteScreen(props) {
 
   const user_token = useSelector(userToken);
   const navigation = useNavigation();
+  const { colors } = useTheme();
 
   const UpdateNote = () => {
     fetch(`http://${ENV_DOMAIN}/notes/${sentData.id}`, {
@@ -82,7 +83,13 @@ export default function EditNoteScreen(props) {
   const renderFolders = (item) => {
     return (
       <Pressable
-        style={styles.notes}
+        style={[
+          styles.notes,
+          {
+            borderColor: colors.border,
+            backgroundColor: colors.cardBackground,
+          },
+        ]}
         onPress={() => {
           setCurrentFolder(item.id);
           setOpen(!open);
@@ -91,7 +98,7 @@ export default function EditNoteScreen(props) {
         <Text
           numberOfLines={1}
           ellipsizeMode="tail"
-          style={{ fontSize: 18, fontWeight: "bold" }}
+          style={{ fontSize: 18, fontWeight: "bold", color: colors.text }}
         >
           {item.folder_name}
         </Text>
@@ -134,7 +141,7 @@ export default function EditNoteScreen(props) {
                 size={30}
                 style={{
                   marginLeft: 10,
-                  color: "#e4007c",
+                  color: colors.primary,
                 }}
                 onPress={() => setOpen(!open)}
               />
@@ -145,6 +152,7 @@ export default function EditNoteScreen(props) {
                       marginLeft: 10,
                       marginVertical: 10,
                       fontWeight: "bold",
+                      color: colors.text,
                     }}
                   >
                     Choose a folder:
@@ -172,7 +180,7 @@ export default function EditNoteScreen(props) {
                   size={30}
                   style={{
                     marginRight: 15,
-                    color: "#e4007c",
+                    color: colors.primary,
                   }}
                 />
               </View>
@@ -184,6 +192,7 @@ export default function EditNoteScreen(props) {
                 marginTop: 10,
                 marginLeft: 20,
                 fontSize: 30,
+                color: colors.text,
               }}
               value={currentTitleUpdate}
               onChangeText={setCurrentTitleUpdate}
@@ -196,8 +205,9 @@ export default function EditNoteScreen(props) {
                 margin: 20,
                 fontSize: 20,
                 paddingBottom: 100,
+                color: colors.text,
               }}
-              borderColor="#D3D3D3"
+              borderColor={colors.border}
               value={currentNoteUpdate}
               onChangeText={setCurrentNoteUpdate}
             />
@@ -213,8 +223,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     paddingHorizontal: 10,
     paddingVertical: 10,
-    borderColor: "#D3D3D3",
-    backgroundColor: "#ddd",
     borderRadius: 10,
     marginBottom: 5,
   },

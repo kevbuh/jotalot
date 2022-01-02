@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { userToken } from "../redux/userSlice";
 import { useSelector } from "react-redux";
 import React, { useState } from "react";
@@ -18,6 +18,7 @@ export default function ChangePasswordScreen() {
 
   const user_token = useSelector(userToken);
   const navigation = useNavigation();
+  const { colors } = useTheme();
 
   const ChangeUserPassword = () => {
     fetch(`http://${ENV_DOMAIN}/auth/password_change`, {
@@ -56,6 +57,7 @@ export default function ChangePasswordScreen() {
               fontSize: 40,
               fontWeight: "bold",
               borderBottomWidth: 2,
+              color: colors.text,
             }}
           >
             Change Your Password{" "}
@@ -67,10 +69,10 @@ export default function ChangePasswordScreen() {
               fontSize: 20,
               paddingBottom: 10,
               borderBottomWidth: 1,
-              borderBottomColor: "#dddddd",
+              borderBottomColor: colors.button,
               width: "80%",
             }}
-            borderColor="#D3D3D3"
+            borderColor={colors.button}
             placeholder="Current Password..."
             autoCapitalize="none"
             value={currentPassword}
@@ -83,10 +85,10 @@ export default function ChangePasswordScreen() {
               fontSize: 20,
               paddingBottom: 10,
               borderBottomWidth: 1,
-              borderBottomColor: "#dddddd",
+              borderBottomColor: colors.button,
               width: "80%",
             }}
-            borderColor="#D3D3D3"
+            borderColor={colors.button}
             placeholder="New Password..."
             autoCapitalize="none"
             value={currentNewPassword}
@@ -102,13 +104,15 @@ export default function ChangePasswordScreen() {
             alignSelf: "center",
             alignItems: "center",
             paddingVertical: 15,
-            backgroundColor: "#DDDDDD",
+            backgroundColor: colors.cardBackground,
             width: "80%",
             borderRadius: 10,
             marginVertical: 10,
           }}
         >
-          <Text style={{ fontWeight: "bold" }}>Change Password</Text>
+          <Text style={{ fontWeight: "bold", color: colors.text }}>
+            Change Password
+          </Text>
         </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>

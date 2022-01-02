@@ -1,5 +1,5 @@
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { userToken } from "../redux/userSlice";
@@ -25,6 +25,8 @@ function HomeScreen() {
   const [dataFolder, setDataFolder] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+
+  const { colors } = useTheme();
 
   const user_token = useSelector(userToken);
   const navigation = useNavigation();
@@ -102,7 +104,7 @@ function HomeScreen() {
   const renderNotes = (item) => {
     return (
       <Pressable
-        style={styles.notes}
+        style={[styles.notes, { borderColor: colors.border }]}
         onPress={() => {
           navigation.navigate("Edit Note", {
             item: item,
@@ -112,11 +114,15 @@ function HomeScreen() {
         <Text
           numberOfLines={1}
           ellipsizeMode="tail"
-          style={{ fontSize: 18, fontWeight: "bold" }}
+          style={{ fontSize: 18, fontWeight: "bold", color: colors.text }}
         >
           {item.title}
         </Text>
-        <Text numberOfLines={1} ellipsizeMode="tail">
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={{ color: colors.text }}
+        >
           {item.text}
         </Text>
       </Pressable>
@@ -126,7 +132,13 @@ function HomeScreen() {
   const renderRecent = (item) => {
     return (
       <Pressable
-        style={styles.recent}
+        style={[
+          styles.recent,
+          {
+            backgroundColor: colors.cardBackground,
+            borderColor: colors.border,
+          },
+        ]}
         onPress={() => {
           navigation.navigate("Edit Note", {
             item: item,
@@ -136,11 +148,15 @@ function HomeScreen() {
         <Text
           numberOfLines={1}
           ellipsizeMode="tail"
-          style={{ fontSize: 18, fontWeight: "bold" }}
+          style={{ fontSize: 18, fontWeight: "bold", color: colors.text }}
         >
           {item.title}
         </Text>
-        <Text numberOfLines={1} ellipsizeMode="tail">
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={{ color: colors.text }}
+        >
           {item.text}
         </Text>
       </Pressable>
@@ -151,7 +167,13 @@ function HomeScreen() {
     return (
       <View>
         <Pressable
-          style={styles.folders}
+          style={[
+            styles.folders,
+            {
+              borderColor: colors.border,
+              backgroundColor: colors.cardBackground,
+            },
+          ]}
           onPress={() => {
             navigation.navigate("Edit Folder", {
               item: item,
@@ -164,13 +186,13 @@ function HomeScreen() {
               size={30}
               style={{
                 marginRight: 15,
-                color: "#e4007c",
+                color: colors.primary,
               }}
             />
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
-              style={{ fontSize: 18, fontWeight: "bold" }}
+              style={{ fontSize: 18, fontWeight: "bold", color: colors.text }}
             >
               {item.folder_name}
             </Text>
@@ -200,7 +222,9 @@ function HomeScreen() {
                 alignItems: "center",
               }}
             >
-              <Text style={styles.title}>Recent Notes</Text>
+              <Text style={[styles.title, { color: colors.text }]}>
+                Recent Notes
+              </Text>
               <Ionicons
                 name={"create-outline"}
                 size={30}
@@ -211,7 +235,7 @@ function HomeScreen() {
                 style={{
                   color: "white",
                   marginRight: 25,
-                  color: "#e4007c",
+                  color: colors.primary,
                 }}
               />
             </View>
@@ -228,7 +252,9 @@ function HomeScreen() {
             />
             {data.length > 0 ? (
               <View>
-                <Text style={styles.title}>All Notes</Text>
+                <Text style={[styles.title, { color: colors.text }]}>
+                  All Notes
+                </Text>
                 <FlatList
                   data={data}
                   keyExtractor={({ id }) => id}
@@ -249,6 +275,7 @@ function HomeScreen() {
                         paddingBottom: 20,
                         fontSize: 30,
                         fontWeight: "bold",
+                        color: colors.text,
                       }}
                     >
                       Folders
@@ -263,7 +290,7 @@ function HomeScreen() {
                       style={{
                         color: "white",
                         marginRight: 25,
-                        color: "#e4007c",
+                        color: colors.primary,
                       }}
                     />
                   </View>
@@ -308,6 +335,7 @@ function HomeScreen() {
                           style={{
                             fontSize: 18,
                             marginBottom: 20,
+                            color: colors.text,
                           }}
                         >
                           Click the pink 'Create Note' button at the top right
@@ -317,7 +345,7 @@ function HomeScreen() {
                           style={{
                             paddingVertical: 10,
                             paddingHorizontal: 20,
-                            backgroundColor: "#ddd",
+                            backgroundColor: colors.cardBackground,
                             borderRadius: 10,
                           }}
                           onPress={() => setModalVisible(!modalVisible)}
@@ -326,6 +354,7 @@ function HomeScreen() {
                             style={{
                               fontSize: 20,
                               fontWeight: "bold",
+                              color: colors.text,
                             }}
                           >
                             Got it!
@@ -338,7 +367,7 @@ function HomeScreen() {
                     style={{
                       paddingVertical: 10,
                       paddingHorizontal: 20,
-                      backgroundColor: "#ddd",
+                      backgroundColor: colors.cardBackground,
                       borderRadius: 10,
                       marginTop: 80,
                     }}
@@ -348,6 +377,7 @@ function HomeScreen() {
                       style={{
                         fontSize: 25,
                         fontWeight: "bold",
+                        color: colors.text,
                       }}
                     >
                       ?
@@ -371,7 +401,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderTopWidth: 1,
     borderRadius: 5,
-    borderColor: "#D3D3D3",
   },
   recent: {
     marginHorizontal: 2,
@@ -380,8 +409,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderTopWidth: 1,
     borderRadius: 5,
-    backgroundColor: "#DDDDDD",
-    borderColor: "#D3D3D3",
   },
   folders: {
     width: "90%",
@@ -391,8 +418,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     borderTopWidth: 1,
     borderRadius: 5,
-    borderColor: "#D3D3D3",
-    backgroundColor: "#DDD",
   },
   title: {
     paddingTop: 25,

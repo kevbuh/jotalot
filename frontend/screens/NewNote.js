@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { userToken } from "../redux/userSlice";
 import { useSelector } from "react-redux";
+import { useTheme } from "@react-navigation/native";
 import { ENV_DOMAIN } from "@env";
 import {
   ScrollView,
@@ -18,6 +19,7 @@ export default function CreateNoteScreen() {
   const [data, setData] = useState([]);
 
   const user_token = useSelector(userToken);
+  const { colors } = useTheme();
 
   const CreateNewNote = () => {
     fetch(`http://${ENV_DOMAIN}/notes/`, {
@@ -109,7 +111,7 @@ export default function CreateNoteScreen() {
               margin: 20,
               fontSize: 20,
             }}
-            borderColor="#D3D3D3"
+            borderColor={colors.border}
             placeholder="Text..."
             value={currentNote}
             onChangeText={setCurrentNote}

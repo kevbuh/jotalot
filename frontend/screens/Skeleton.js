@@ -1,10 +1,14 @@
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { Button, TouchableOpacity } from "react-native";
+import { Button, TouchableOpacity, useColorScheme } from "react-native";
 import React, { useEffect, useState } from "react";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from "@react-navigation/native";
 import { ENV_DOMAIN } from "@env";
 
 import LottieAvatarIcon from "../animations/LottieAvatar";
@@ -162,6 +166,33 @@ function MainAppContent() {
   const user_token = useSelector(userToken);
   const user_email = useSelector(userEmail);
 
+  const scheme = useColorScheme();
+
+  const MyDarkTheme = {
+    dark: true,
+    colors: {
+      primary: "#e4007c",
+      background: "#000023",
+      card: "#000028",
+      text: "#ffffff",
+      border: "#000028",
+      notification: "#9933FF",
+      button: "#e4007c",
+      border: "#e4007c",
+      cardBackground: "#e4007c",
+    },
+  };
+
+  const MyLightTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme,
+      button: "#dddddd",
+      border: "#D3D3D3",
+      cardBackground: "#ddd",
+    },
+  };
+
   const GetUser = () => {
     fetch(`http://${ENV_DOMAIN}/auth/login`, {
       method: "POST",
@@ -184,7 +215,7 @@ function MainAppContent() {
   }, []);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={scheme === "dark" ? MyDarkTheme : MyLightTheme}>
       {user_email.length > 0 ? (
         <Tab.Navigator
           initialRouteName="New Note"

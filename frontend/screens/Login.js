@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { LogUserIn } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
 import React, { useState } from "react";
@@ -19,6 +19,7 @@ export default function LoginScreen() {
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const { colors } = useTheme();
 
   const LoginUser = () => {
     if (currentEmail.trim().length < 6 || currentPassword.trim().length < 6) {
@@ -77,6 +78,7 @@ export default function LoginScreen() {
               fontSize: 40,
               fontWeight: "bold",
               borderBottomWidth: 2,
+              color: colors.text,
             }}
           >
             Sign In{" "}
@@ -84,7 +86,13 @@ export default function LoginScreen() {
 
           <TextInput
             KeyboardAvoidingView
-            style={styles.input}
+            style={[
+              styles.input,
+              {
+                borderBottomColor: colors.border,
+                color: colors.text,
+              },
+            ]}
             autoCapitalize="none"
             textContentType="emailAddress"
             keyboardType="email-address"
@@ -95,7 +103,13 @@ export default function LoginScreen() {
           />
           <TextInput
             KeyboardAvoidingView
-            style={styles.input}
+            style={[
+              styles.input,
+              {
+                borderBottomColor: colors.border,
+                color: colors.text,
+              },
+            ]}
             placeholder="Password"
             autoCapitalize="none"
             value={currentPassword}
@@ -106,9 +120,16 @@ export default function LoginScreen() {
           onPress={() => {
             LoginUser();
           }}
-          style={styles.button}
+          style={[
+            styles.button,
+            {
+              backgroundColor: colors.cardBackground,
+            },
+          ]}
         >
-          <Text style={{ fontWeight: "bold" }}>Sign In</Text>
+          <Text style={{ fontWeight: "bold", color: colors.text }}>
+            Sign In
+          </Text>
         </TouchableOpacity>
         <View
           style={{
@@ -117,13 +138,13 @@ export default function LoginScreen() {
             marginTop: 20,
           }}
         >
-          <Text>Don't have an account? </Text>
+          <Text style={{ color: colors.text }}>Don't have an account? </Text>
           <TouchableOpacity
             onPress={() => {
               navigation.replace("Register");
             }}
           >
-            <Text style={{ fontWeight: "bold", color: "#E4007C" }}>
+            <Text style={{ fontWeight: "bold", color: colors.primary }}>
               Sign Up
             </Text>
           </TouchableOpacity>
@@ -139,7 +160,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingBottom: 10,
     borderBottomWidth: 1,
-    borderBottomColor: "#dddddd",
     width: "80%",
   },
   button: {
@@ -147,7 +167,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     paddingVertical: 15,
-    backgroundColor: "#DDDDDD",
     width: "80%",
     borderRadius: 10,
     marginVertical: 10,

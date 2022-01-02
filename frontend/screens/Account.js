@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
+import { useTheme } from "@react-navigation/native";
 import { LogUserOut } from "../redux/userSlice";
 import { ENV_DOMAIN } from "@env";
 import React from "react";
@@ -18,13 +19,6 @@ import {
   userLastName,
 } from "../redux/userSlice";
 
-const styles = StyleSheet.create({
-  container: {
-    paddingLeft: 20,
-    paddingTop: 20,
-  },
-});
-
 export default function AccountScreen() {
   const user_first_name = useSelector(userFirstName);
   const user_last_name = useSelector(userLastName);
@@ -33,6 +27,7 @@ export default function AccountScreen() {
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const { colors } = useTheme();
 
   const UserLogout = () => {
     fetch(`http://${ENV_DOMAIN}/auth/logout`, {
@@ -58,33 +53,52 @@ export default function AccountScreen() {
   return (
     <ScrollView style={styles.container}>
       <View>
-        {/* <Text
+        <Text
           style={{
             fontSize: 35,
             fontWeight: "bold",
             marginBottom: 5,
             borderBottomWidth: 2,
             width: "90%",
-            borderColor: "#dddddd",
+            borderColor: colors.button,
+            color: colors.text,
           }}
         >
           Account
-        </Text> */}
+        </Text>
         <View style={{ flexDirection: "row" }}>
-          <Text style={{ fontSize: 35, marginRight: 6, fontWeight: "bold" }}>
+          <Text
+            style={{
+              fontSize: 35,
+              marginRight: 6,
+              fontWeight: "bold",
+              color: colors.text,
+            }}
+          >
             {user_first_name}
           </Text>
-          <Text style={{ fontSize: 35, fontWeight: "bold" }}>
+          <Text
+            style={{ fontSize: 35, fontWeight: "bold", color: colors.text }}
+          >
             {user_last_name}
           </Text>
         </View>
-        <Text style={{ fontSize: 20, marginBottom: 10 }}>{user_email}</Text>
+        <Text style={{ fontSize: 20, marginBottom: 10, color: colors.text }}>
+          {user_email}
+        </Text>
       </View>
       <View>
-        <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 10 }}>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "bold",
+            marginTop: 10,
+            color: colors.text,
+          }}
+        >
           Statistics
         </Text>
-        <Text>View your statistics:</Text>
+        <Text style={{ color: colors.text }}>View your statistics:</Text>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Stats");
@@ -93,21 +107,34 @@ export default function AccountScreen() {
             paddingHorizontal: 5,
             alignItems: "center",
             paddingVertical: 10,
-            backgroundColor: "#DDDDDD",
+            backgroundColor: colors.button,
             width: "30%",
             borderRadius: 10,
             marginVertical: 7,
           }}
         >
-          <Text style={{ fontWeight: "bold" }}>Statistics</Text>
+          <Text style={{ fontWeight: "bold", color: colors.text }}>
+            Statistics
+          </Text>
         </TouchableOpacity>
       </View>
-      <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 10 }}>
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: "bold",
+          marginTop: 10,
+          color: colors.text,
+        }}
+      >
         Appearance
       </Text>
-      <Text style={{ marginVertical: 10 }}>Switch to dark mode?</Text>
+      <Text style={{ marginVertical: 10, color: colors.text }}>
+        Switch to dark mode?
+      </Text>
       <Switch />
-      <Text style={{ marginVertical: 10 }}>Customize theme & font:</Text>
+      <Text style={{ marginVertical: 10, color: colors.text }}>
+        Customize theme & font:
+      </Text>
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("Customize Theme");
@@ -116,39 +143,77 @@ export default function AccountScreen() {
           paddingHorizontal: 5,
           alignItems: "center",
           paddingVertical: 10,
-          backgroundColor: "#DDDDDD",
+          backgroundColor: colors.button,
           width: "30%",
           borderRadius: 10,
           marginVertical: 7,
         }}
       >
-        <Text style={{ fontWeight: "bold" }}>Customize</Text>
+        <Text style={{ fontWeight: "bold", color: colors.text }}>
+          Customize
+        </Text>
       </TouchableOpacity>
-      <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 10 }}>
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: "bold",
+          marginTop: 10,
+          color: colors.text,
+        }}
+      >
         Notifications
       </Text>
-      <Text style={{ marginVertical: 10 }}>Mobile push notifications</Text>
+      <Text style={{ marginVertical: 10, color: colors.text }}>
+        Mobile push notifications
+      </Text>
       <Switch />
-      <Text style={{ marginVertical: 10 }}>Email notifications</Text>
+      <Text style={{ marginVertical: 10, color: colors.text }}>
+        Email notifications
+      </Text>
       <Switch />
-      <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 10 }}>
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: "bold",
+          marginTop: 10,
+          color: colors.text,
+        }}
+      >
         Cloud Sync
       </Text>
-      <Text style={{ marginVertical: 10 }}>Save your ideas in the cloud</Text>
+      <Text style={{ marginVertical: 10, color: colors.text }}>
+        Save your ideas in the cloud
+      </Text>
       <Switch />
       <View>
-        <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 20 }}>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "bold",
+            marginTop: 20,
+            color: colors.text,
+          }}
+        >
           Manage Your Data
         </Text>
-        <Text style={{ marginTop: 10 }}>
+        <Text style={{ marginTop: 10, color: colors.text }}>
           We save and use your data anonymously
         </Text>
         <Text>to give the best experience.</Text>
-        <Text style={{ marginTop: 5 }}>You can turn it off anytime: </Text>
-        <Switch style={{ marginTop: 10 }} />
+        <Text style={{ marginTop: 5, color: colors.text }}>
+          You can turn it off anytime:{" "}
+        </Text>
+        <Switch style={{ marginTop: 10, color: colors.text }} />
       </View>
       <View>
-        <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 20 }}>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "bold",
+            marginTop: 20,
+            color: colors.text,
+          }}
+        >
           General
         </Text>
         <TouchableOpacity
@@ -159,13 +224,13 @@ export default function AccountScreen() {
             paddingHorizontal: 5,
             alignItems: "center",
             paddingVertical: 10,
-            backgroundColor: "#DDDDDD",
+            backgroundColor: colors.button,
             width: "60%",
             borderRadius: 10,
             marginVertical: 7,
           }}
         >
-          <Text style={{ fontWeight: "bold" }}>Flow</Text>
+          <Text style={{ fontWeight: "bold", color: colors.text }}>Flow</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -175,13 +240,13 @@ export default function AccountScreen() {
             paddingHorizontal: 5,
             alignItems: "center",
             paddingVertical: 10,
-            backgroundColor: "#DDDDDD",
+            backgroundColor: colors.button,
             width: "60%",
             borderRadius: 10,
             marginVertical: 7,
           }}
         >
-          <Text style={{ fontWeight: "bold" }}>Trash</Text>
+          <Text style={{ fontWeight: "bold", color: colors.text }}>Trash</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -191,13 +256,15 @@ export default function AccountScreen() {
             paddingHorizontal: 5,
             alignItems: "center",
             paddingVertical: 10,
-            backgroundColor: "#DDDDDD",
+            backgroundColor: colors.button,
             width: "60%",
             borderRadius: 10,
             marginVertical: 7,
           }}
         >
-          <Text style={{ fontWeight: "bold" }}>Tutorial</Text>
+          <Text style={{ fontWeight: "bold", color: colors.text }}>
+            Tutorial
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -207,14 +274,15 @@ export default function AccountScreen() {
             paddingHorizontal: 5,
             alignItems: "center",
             paddingVertical: 10,
-            backgroundColor: "#DDDDDD",
-
+            backgroundColor: colors.button,
             width: "60%",
             borderRadius: 10,
             marginVertical: 7,
           }}
         >
-          <Text style={{ fontWeight: "bold" }}>Change Password</Text>
+          <Text style={{ fontWeight: "bold", color: colors.text }}>
+            Change Password
+          </Text>
         </TouchableOpacity>
         <View>
           <TouchableOpacity
@@ -225,13 +293,15 @@ export default function AccountScreen() {
               paddingHorizontal: 5,
               alignItems: "center",
               paddingVertical: 10,
-              backgroundColor: "#DDDDDD",
+              backgroundColor: colors.button,
               width: "60%",
               borderRadius: 10,
               marginVertical: 7,
             }}
           >
-            <Text style={{ fontWeight: "bold" }}>Contact Us</Text>
+            <Text style={{ fontWeight: "bold", color: colors.text }}>
+              Contact Us
+            </Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity
@@ -242,14 +312,16 @@ export default function AccountScreen() {
             paddingHorizontal: 5,
             alignItems: "center",
             paddingVertical: 10,
-            backgroundColor: "#DDDDDD",
+            backgroundColor: colors.button,
             width: "60%",
             borderRadius: 10,
             marginTop: 7,
             // marginBottom: 100,
           }}
         >
-          <Text style={{ fontWeight: "bold" }}>Review in App Store</Text>
+          <Text style={{ fontWeight: "bold", color: colors.text }}>
+            Review in App Store
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -259,13 +331,15 @@ export default function AccountScreen() {
             paddingHorizontal: 5,
             alignItems: "center",
             paddingVertical: 10,
-            backgroundColor: "#DDDDDD",
+            backgroundColor: colors.button,
             width: "60%",
             borderRadius: 10,
             marginTop: 7,
           }}
         >
-          <Text style={{ fontWeight: "bold" }}>Log Out</Text>
+          <Text style={{ fontWeight: "bold", color: colors.text }}>
+            Log Out
+          </Text>
         </TouchableOpacity>
       </View>
       <View
@@ -277,8 +351,23 @@ export default function AccountScreen() {
           marginRight: 40,
         }}
       >
-        <Text>v.0.0.1</Text>
+        <Text style={{ color: colors.text }}>v.0.0.1</Text>
       </View>
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingLeft: 20,
+    paddingTop: 20,
+  },
+  buttons: {
+    paddingHorizontal: 5,
+    alignItems: "center",
+    paddingVertical: 10,
+    width: "60%",
+    borderRadius: 10,
+    marginTop: 7,
+  },
+});

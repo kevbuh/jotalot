@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import React from "react";
 import {
   StyleSheet,
@@ -11,6 +11,7 @@ import {
 
 export default function NoteSettingScreen() {
   const navigation = useNavigation();
+  const { colors } = useTheme();
 
   return (
     <ScrollView style={styles.container}>
@@ -24,7 +25,12 @@ export default function NoteSettingScreen() {
         onPress={() => {
           alert("Redo!");
         }}
-        style={styles.touchable}
+        style={[
+          styles.touchable,
+          {
+            backgroundColor: color.cardBackground,
+          },
+        ]}
       >
         <Text style={{ fontWeight: "bold" }}>Redo</Text>
       </TouchableOpacity>
@@ -32,7 +38,12 @@ export default function NoteSettingScreen() {
         onPress={() => {
           alert("Undo!");
         }}
-        style={styles.touchable}
+        style={[
+          styles.touchable,
+          {
+            backgroundColor: color.cardBackground,
+          },
+        ]}
       >
         <Text style={{ fontWeight: "bold" }}>Undo</Text>
       </TouchableOpacity>
@@ -68,7 +79,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     alignItems: "center",
     paddingVertical: 10,
-    backgroundColor: "#DDDDDD",
     width: "30%",
     borderRadius: 10,
     marginVertical: 7,

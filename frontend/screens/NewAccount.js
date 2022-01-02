@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import * as React from "react";
 
 function NewAccountScreen() {
   const navigation = useNavigation();
+  const { colors } = useTheme();
 
   return (
     <View style={styles.container}>
@@ -19,7 +20,12 @@ function NewAccountScreen() {
         onPress={() => {
           navigation.navigate("Login");
         }}
-        style={styles.touchable}
+        style={[
+          styles.touchable,
+          {
+            backgroundColor: colors.cardBackground,
+          },
+        ]}
       >
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>Start</Text>
       </TouchableOpacity>
@@ -38,7 +44,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     alignItems: "center",
     paddingVertical: 15,
-    backgroundColor: "#DDDDDD",
     width: "80%",
     borderRadius: 10,
     marginVertical: 7,
