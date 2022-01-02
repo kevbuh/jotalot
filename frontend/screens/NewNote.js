@@ -97,6 +97,7 @@ export default function CreateNoteScreen() {
               marginTop: 10,
               marginLeft: 20,
               fontSize: 30,
+              color: colors.text,
             }}
             placeholder="Title"
             value={currentTitle}
@@ -110,6 +111,7 @@ export default function CreateNoteScreen() {
               paddingBottom: 100,
               margin: 20,
               fontSize: 20,
+              color: colors.text,
             }}
             borderColor={colors.border}
             placeholder="Text..."

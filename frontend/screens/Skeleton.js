@@ -55,7 +55,7 @@ function HomeStackScreen(item) {
               }}
               style={{
                 paddingVertical: 15,
-                backgroundColor: colors.primary,
+                backgroundColor: colors.button,
                 width: 60,
                 borderRadius: 10,
               }}

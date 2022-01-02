@@ -83,6 +83,7 @@ export default function CreateFolder() {
               marginTop: 20,
               marginLeft: 20,
               fontSize: 30,
+              color: colors.text,
             }}
             placeholder="Folder Name..."
             value={currentFolderName}

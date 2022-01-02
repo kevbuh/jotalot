@@ -41,7 +41,7 @@ export default function NoteSettingScreen() {
         style={[
           styles.touchable,
           {
-            backgroundColor: color.cardBackground,
+            backgroundColor: colors.cardBackground,
           },
         ]}
       >

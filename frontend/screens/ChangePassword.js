@@ -71,6 +71,7 @@ export default function ChangePasswordScreen() {
               borderBottomWidth: 1,
               borderBottomColor: colors.button,
               width: "80%",
+              color: colors.text,
             }}
             borderColor={colors.button}
             placeholder="Current Password..."
@@ -87,6 +88,7 @@ export default function ChangePasswordScreen() {
               borderBottomWidth: 1,
               borderBottomColor: colors.button,
               width: "80%",
+              color: colors.text,
             }}
             borderColor={colors.button}
             placeholder="New Password..."
