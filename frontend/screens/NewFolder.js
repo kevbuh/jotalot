@@ -2,6 +2,8 @@ import { userToken } from "../redux/userSlice";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { ENV_DOMAIN } from "@env";
+import { useTheme } from "@react-navigation/native";
+
 import {
   ScrollView,
   TextInput,
@@ -17,6 +19,7 @@ export default function CreateFolder() {
   const [data, setData] = useState([]);
 
   const user_token = useSelector(userToken);
+  const { colors } = useTheme();
 
   const CreateNewFolder = () => {
     fetch(`http://${ENV_DOMAIN}/folders/`, {

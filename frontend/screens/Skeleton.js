@@ -31,6 +31,7 @@ import TrashScreen from "./Trash";
 import LoginScreen from "./Login";
 import StatsScreen from "./Statistics";
 import HomeScreen from "./Home";
+import AIScreen from "./Ai";
 
 import { userToken, userEmail } from "../redux/userSlice";
 import { useSelector } from "react-redux";
@@ -38,6 +39,18 @@ import { useSelector } from "react-redux";
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
+const AIStack = createNativeStackNavigator();
+
+function AiStackScreen() {
+  const { colors } = useTheme();
+  const scheme = useColorScheme();
+
+  return (
+    <AIStackScreen.Navigator>
+      <AIStack.Screen name="AI" component={AiScreen} />
+    </AIStackScreen.Navigator>
+  );
+}
 
 function HomeStackScreen(item) {
   const { colors } = useTheme();
@@ -243,6 +256,8 @@ function MainAppContent() {
                 iconName = focused ? "home-sharp" : "home-outline";
               } else if (route.name === "Search") {
                 iconName = "search";
+              } else if (route.name === "AI Main") {
+                iconName = focused ? "infinite-sharp" : "infinite-outline";
               }
               return (
                 <Ionicons
@@ -275,6 +290,7 @@ function MainAppContent() {
               headerLeft: (props) => <LogoTitle {...props} />,
             })}
           />
+          <Tab.Screen name="AI Main" component={AIScreen} />
           <Tab.Screen name="Search" component={SearchScreen} />
         </Tab.Navigator>
       ) : (
