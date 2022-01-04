@@ -105,6 +105,7 @@ export default function RegisterScreen() {
               },
             ]}
             placeholder="First Name"
+            placeholderTextColor={colors.text}
             autoCapitalize="none"
             value={currentFirstName}
             onChangeText={setCurrentFirstName}
@@ -119,6 +120,7 @@ export default function RegisterScreen() {
               },
             ]}
             placeholder="Last Name"
+            placeholderTextColor={colors.text}
             autoCapitalize="none"
             value={currentLastName}
             onChangeText={setCurrentLastName}
@@ -137,6 +139,7 @@ export default function RegisterScreen() {
             keyboardType="email-address"
             autoCompleteType="email"
             placeholder="Email"
+            placeholderTextColor={colors.text}
             value={currentEmail}
             onChangeText={setCurrentEmail}
           />
@@ -151,6 +154,7 @@ export default function RegisterScreen() {
             ]}
             placeholder="Password"
             autoCapitalize="none"
+            placeholderTextColor={colors.text}
             value={currentPassword}
             onChangeText={setCurrentPassword}
           />
@@ -165,6 +169,7 @@ export default function RegisterScreen() {
             ]}
             placeholder="Confirm Password"
             autoCapitalize="none"
+            placeholderTextColor={colors.text}
             value={currentConfirmPassword}
             onChangeText={setCurrentConfirmPassword}
           />

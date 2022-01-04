@@ -1,8 +1,10 @@
-import * as React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 import { useTheme } from "@react-navigation/native";
 
 export default function AIScreen() {
+  const [text, setText] = useState("");
+
   const { colors } = useTheme();
 
   return (
@@ -17,6 +19,16 @@ export default function AIScreen() {
       >
         AI
       </Text>
+      <TextInput
+        style={{
+          marginTop: 20,
+          fontSize: 30,
+          color: colors.text,
+        }}
+        placeholder="Type in an idea..."
+        value={text}
+        onChangeText={setText}
+      />
     </View>
   );
 }
@@ -24,15 +36,7 @@ export default function AIScreen() {
 const styles = StyleSheet.create({
   container: {
     paddingLeft: 20,
-    paddingTop: 40,
-  },
-  buttons: {
-    paddingHorizontal: 5,
-    alignItems: "center",
-    paddingVertical: 30,
-    width: "50%",
-    borderRadius: 10,
-    marginVertical: 7,
+    marginTop: 80,
   },
   title: { fontSize: 35, marginRight: 6, fontWeight: "bold" },
   smallText: { fontSize: 20 },

@@ -96,11 +96,35 @@ function HomeStackScreen(item) {
           headerTintColor: colors.text,
         })}
       />
-      <HomeStack.Screen name="Account" component={AccountScreen} />
-      <HomeStack.Screen name="Stats" component={StatsScreen} />
+      <HomeStack.Screen
+        name="Account"
+        component={AccountScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
+          headerTintColor: colors.text,
+        }}
+      />
+      <HomeStack.Screen
+        name="Stats"
+        component={StatsScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
+          headerTintColor: colors.text,
+        }}
+      />
       <HomeStack.Screen
         name="Change Password"
         component={ChangePasswordScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
+          headerTintColor: colors.text,
+        }}
       />
       <HomeStack.Screen
         name="New Note"
@@ -158,8 +182,26 @@ function HomeStackScreen(item) {
           headerTitle: (props) => <LogoTitle {...props} />,
         })}
       />
-      <HomeStack.Screen name="Customize Note" component={NoteSettingsScreen} />
-      <HomeStack.Screen name="Customize Theme" component={CustomizeScreen} />
+      <HomeStack.Screen
+        name="Customize Note"
+        component={NoteSettingsScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
+          headerTintColor: colors.text,
+        }}
+      />
+      <HomeStack.Screen
+        name="Customize Theme"
+        component={CustomizeScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
+          headerTintColor: colors.text,
+        }}
+      />
       <HomeStack.Screen
         name="Trash"
         component={TrashScreen}
@@ -204,7 +246,7 @@ function MainAppContent() {
       card: "#121212",
       text: "#ffffff",
       border: "#000028",
-      notification: "#9933FF",
+      notification: "#f2f2f2",
       button: "#272727",
       border: "#121212",
       cardBackground: "#272727",

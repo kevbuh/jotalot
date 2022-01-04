@@ -112,7 +112,6 @@ export default function EditNoteScreen(props) {
 
   useEffect(() => {
     UpdateNote();
-    // alert("Changed folders!");
   }, [currentFolder]);
 
   useEffect(() => {
@@ -201,10 +200,8 @@ export default function EditNoteScreen(props) {
               multiline
               KeyboardAvoidingView
               style={{
-                height: "100%",
                 margin: 20,
                 fontSize: 20,
-                paddingBottom: 100,
                 color: colors.text,
               }}
               borderColor={colors.border}
