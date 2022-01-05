@@ -4,14 +4,18 @@
 
 ## About
 
-Next Note is a cross platform mobile application that helps users with an infinite number of ideas through intelligent AI models.
+Next Note is a cross-platform mobile application that helps users brainstorm through the help of intelligent AI models.
+
+View screenshots here:
+https://www.kevinbuhler.com/nextnoteoverview
 
 ## Features
 
 - Intelligent AI to help aid brainstorming
-- minimalistic design with no ads
+- Minimalistic design with no ads
 - Focus on idea without caught up in UI
 - Searches through all of your notes
+- Many more!
 
 ## Bug Report or Feature Requests
 
