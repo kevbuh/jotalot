@@ -23,7 +23,12 @@ Send me a message at https://twitter.com/kevinbuhler_
 
 ## Tech Stack
 
+Frontend:
+
 - React Native
 - Redux
+
+Backend: (Will switch to WatermelonDB or SQLite)
+
 - Django
 - PostgreSQL
