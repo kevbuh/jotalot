@@ -316,7 +316,6 @@ export default function AccountScreen() {
             width: "60%",
             borderRadius: 10,
             marginTop: 7,
-            // marginBottom: 100,
           }}
         >
           <Text style={{ fontWeight: "bold", color: colors.text }}>

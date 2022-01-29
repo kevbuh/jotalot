@@ -22,10 +22,8 @@ function WelcomeScreen() {
           borderColor: colors.border,
         }}
       >
-        <Text style={{ fontSize: 35, marginRight: 30, color: colors.text }}>
-          N E X T
-        </Text>
-        <Text style={{ fontSize: 35, color: colors.text }}>N O T E</Text>
+        <Text style={{ fontSize: 50, color: colors.text }}>JOTALOT</Text>
+        {/* <Text style={{ fontSize: 35, color: colors.text }}>N O T E</Text> */}
       </View>
 
       <Text
