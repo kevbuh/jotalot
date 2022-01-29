@@ -1,13 +1,13 @@
-# NextNote App
+# Jotalot App
 
-![Next Note](./frontend/assets/images/nnpink.png "NextNote")
+![Jotalot](./frontend/assets/images/nnpink.png "Jotalot")
 
 ## About
 
-Next Note is a cross-platform mobile application that helps you focus on taking notes.
+Jotalot is a cross-platform mobile application that helps you focus on taking notes.
 
 Overview:
-https://www.kevinbuhler.com/nextnote
+https://www.kevinbuhler.com/jotalot
 
 ## What I've learned
 
