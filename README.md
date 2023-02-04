@@ -1,8 +1,10 @@
-# Jotalot App
+# Jot-a-lot App
 
 ![Jotalot](./frontend/assets/images/nnpink.png "Jotalot")
 
 ## About
+
+```Jot-a-lot is no longer maintained, but it was fun making this!```
 
 Jotalot is a cross-platform mobile application that helps you focus on taking notes.
 
